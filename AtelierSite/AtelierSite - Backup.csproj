@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Account\" />
+    <Folder Include="wwwroot\assets\NewFolder\" />
   </ItemGroup>
 
 </Project>
