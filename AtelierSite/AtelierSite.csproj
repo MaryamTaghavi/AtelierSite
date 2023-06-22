@@ -19,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Account\" />
+    <Folder Include="wwwroot\assets\fonts\" />
+    <Folder Include="wwwroot\assets\images\" />
   </ItemGroup>
 
 </Project>
