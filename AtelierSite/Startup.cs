@@ -75,8 +75,8 @@ namespace AtelierSite
                 })
                 .AddCookie("Cookies", options =>
                 {
-                    options.LoginPath = "/Account/Login";
-                    options.LogoutPath = "/Account/LogOut";
+                    //options.LoginPath = "/Account/Login";
+                    //options.LogoutPath = "/Account/LogOut";
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
                 });
 
