@@ -13,6 +13,8 @@ using Atelier.IOC;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Newtonsoft.Json;
 
 namespace AtelierSite
 {
@@ -40,7 +42,28 @@ namespace AtelierSite
                 options.ValidationInterval = TimeSpan.FromMinutes(10);
             });
 
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+                options.Filters.Add(new AuthorizeFilter());
+            });
+
+            // Add framework services.
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddMvc().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
+
             RegisterServices(services);
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             services.AddAuthentication(options =>
                 {
@@ -56,6 +79,9 @@ namespace AtelierSite
                     options.LogoutPath = "/Account/LogOut";
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
                 });
+
+            services.AddDistributedMemoryCache();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,14 +98,15 @@ namespace AtelierSite
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
             app.UseMvc();
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
