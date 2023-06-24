@@ -1,50 +1,62 @@
 ﻿
-
 <!DOCTYPE html>
 <html lang="fa">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>آتلین</title>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
 
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-blue">
+        <a class="navbar-brand" href="#">
+            <img src="/assets/images/logo.png"
+                 alt=""
+                 style="width: 84px; height: 54px; margin-left: 25px;" />
+        </a>
+        <button id="togglerBtn" class="navbar-toggler collapsed" type="button" onclick="showNavbar()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <div class="navbar-collapse collapse text-right" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto p-0" style="flex:auto;">
+                <li class="nav-item pr-3">
+                    <a class="nav-link" href="#">خانه</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li class="nav-item pr-3">
+                    <a class="nav-link" href="#">آتلیه ها</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li class="nav-item pr-3">
+                    <a class="nav-link" href="#">درباره ما</a>
                 </li>
-                @*<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>*@
+                <li class="nav-item pr-3">
+                    <a class="nav-link" href="#">تماس با ما</a>
+                </li>
             </ul>
 
+            <ul class="navbar-nav mr-auto p-0">
+                <li class="nav-item pr-3">
+                    <a class="nav-link" href="#">
+                        <img src="/assets/images/icons/heart2.svg" alt="" class="img-icon" />
+                    </a>
+                </li>
+                <li class="nav-item pr-3">
+                    <a class="nav-link" href="#">
+                        <img src="/assets/images/icons/login_black_24dp.svg" alt="" class="img-icon" />
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
+   
+
+    <div>
+        @RenderBody()
+    </div>
 
 	@*<div class="page-wrapper">
 		<div class="left-sidenav" id="MainMenu">
@@ -75,8 +87,15 @@
     </div>*@
 
 
-	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/bootstrap.js"></script>
+    <script>
+        var toggleBtn = document.getElementById("togglerBtn");
+        var navbar = document.getElementById("navbarSupportedContent");
 
+       function showNavbar(){
+            navbar.classList.toggle("show");
+        };
+        </script>
 
 </body>
 </html>

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AtelierSite.Contollers
 {
 	public class AccountController : Controller
 	{
+		[AllowAnonymous]
 		public IActionResult Login(string returnUrl = null)
 		{
 			return View();
