@@ -1,101 +1,127 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fa">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>آتلین</title>
-    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-blue">
-        <a class="navbar-brand" href="#">
-            <img src="/assets/images/logo.png"
-                 alt=""
-                 style="width: 84px; height: 54px; margin-left: 25px;" />
-        </a>
-        <button id="togglerBtn" class="navbar-toggler collapsed" type="button" onclick="showNavbar()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+	<nav class="navbar navbar-expand-lg navbar-light bg-blue">
+		<a class="navbar-brand" href="#">
+			<img src="/assets/images/logo.png"
+				 alt=""
+				 style="width: 84px; height: 54px; margin-left: 25px;" />
+		</a>
+		<button id="togglerBtn" class="navbar-toggler collapsed" type="button" onclick="showNavbar()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-        <div class="navbar-collapse collapse text-right" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto p-0" style="flex:auto;">
-                <li class="nav-item pr-3">
-                    <a class="nav-link" href="#">خانه</a>
-                </li>
-                <li class="nav-item pr-3">
-                    <a class="nav-link" href="#">آتلیه ها</a>
-                </li>
-                <li class="nav-item pr-3">
-                    <a class="nav-link" href="#">درباره ما</a>
-                </li>
-                <li class="nav-item pr-3">
-                    <a class="nav-link" href="#">تماس با ما</a>
-                </li>
-            </ul>
+		<div class="navbar-collapse collapse text-right" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto p-0" style="flex:auto;">
+				<li class="nav-item pr-3">
+					<a class="nav-link" href="#">خانه</a>
+				</li>
+				<li class="nav-item pr-3">
+					<a class="nav-link" href="#">آتلیه ها</a>
+				</li>
+				<li class="nav-item pr-3">
+					<a class="nav-link" href="#">درباره ما</a>
+				</li>
+				<li class="nav-item pr-3">
+					<a class="nav-link" href="#">تماس با ما</a>
+				</li>
+			</ul>
 
-            <ul class="navbar-nav mr-auto p-0">
-                <li class="nav-item pr-3">
-                    <a class="nav-link" href="#">
-                        <img src="/assets/images/icons/heart2.svg" alt="" class="img-icon" />
-                    </a>
-                </li>
-                <li class="nav-item pr-3">
-                    <a class="nav-link" href="#">
-                        <img src="/assets/images/icons/login_black_24dp.svg" alt="" class="img-icon" />
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-   
+			<ul class="navbar-nav mr-auto p-0">
+				<li class="nav-item pr-3">
+					<a class="nav-link" href="#">
+						<img src="/assets/images/icons/heart2.svg" alt="" class="img-icon" />
+					</a>
+				</li>
+				<li class="nav-item pr-3">
+					<a class="nav-link" href="#">
+						<img src="/assets/images/icons/login_black_24dp.svg" alt="" class="img-icon" />
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 
-    <div>
-        @RenderBody()
-    </div>
 
-	@*<div class="page-wrapper">
-		<div class="left-sidenav" id="MainMenu">
-			<div class="main-icon-menu">
-				<nav class="nav">
-					<partial name="_ShowMenu" />
-				</nav>
-			</div>
+	<div>
+		@RenderBody()
+	</div>
+	
 
-			<div class="main-menu-inner">
-				<partial name="_MainMenu" />
+	@*<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+		<p class="col-md-4 mb-0 text-muted align-items-center">© 2022 Atelian,</p>
+
+		<a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+			<svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+		</a>
+
+		<ul class="nav col-md-4 align-items-center">
+			<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">خانه</a></li>
+			<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">آتلیه ها</a></li>
+			<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">درباره ما</a></li>
+			<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">تماس با ما</a></li>
+		</ul>
+	</footer>*@
+
+	@*<footer>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-9 text-center">
+					<div class="footer-site-logo mb-4">
+						<a href="#">Colorlib</a>
+					</div>
+					<ul class="list-unstyled nav-links mb-5">
+						<li><a href="#">About</a></li>
+						<li><a href="#">Services</a></li>
+						<li><a href="#">Press</a></li>
+						<li><a href="#">Careers</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Legal</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+
+					<div class="social mb-4">
+						<h3>Stay in touch</h3>
+						<ul class="list-unstyled">
+							<li class="in"><a href="#"><span class="icon-instagram"></span></a></li>
+							<li class="fb"><a href="#"><span class="icon-facebook"></span></a></li>
+							<li class="tw"><a href="#"><span class="icon-twitter"></span></a></li>
+							<li class="pin"><a href="#"><span class="icon-pinterest"></span></a></li>
+							<li class="dr"><a href="#"><span class="icon-dribbble"></span></a></li>
+						</ul>
+					</div>
+
+					<div class="copyright">
+						<p class="mb-0"><small>&copy; Colorlib. All Rights Reserved.</small></p>
+					</div>
+
+
+				</div>
 			</div>
 		</div>
-
-
-		<div class="page-content mt-4">
-			<div class="container-fluid">
-
-				@RenderBody()
-
-			</div>
-		</div>
-
-		<footer>
-
-		</footer>
-
-    </div>*@
+	</footer>
+*@
 
 
 	<script src="/assets/js/bootstrap.js"></script>
-    <script>
-        var toggleBtn = document.getElementById("togglerBtn");
-        var navbar = document.getElementById("navbarSupportedContent");
+	<script>
+		var toggleBtn = document.getElementById("togglerBtn");
+		var navbar = document.getElementById("navbarSupportedContent");
 
-       function showNavbar(){
-            navbar.classList.toggle("show");
-        };
-        </script>
+		function showNavbar() {
+			navbar.classList.toggle("show");
+		};
+	</script>
 
 </body>
 </html>
