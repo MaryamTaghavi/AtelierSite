@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtelierSite.Contollers
@@ -28,5 +29,22 @@ namespace AtelierSite.Contollers
 
 
 		}
-	}
+
+        #region Register
+
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+
+        [HttpPost]
+        public ActionResult Register(RegisterDto dto)
+        {
+            return View();
+        }
+
+        #endregion
+    }
 }

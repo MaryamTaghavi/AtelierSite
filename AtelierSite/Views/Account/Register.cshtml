@@ -1,0 +1,75 @@
+﻿@model Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs.RegisterDto
+
+@{
+    Layout = null;
+}
+<html lang="fa">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آتلین</title>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/login.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+    <div class="container">
+
+        @*register*@
+        <div style="height: 100vh; display:flex; flex-direction:column; justify-content:center;">
+            <div class="card login-card">
+                <div class="row no-gutters">
+
+                    <div class="col-md-7">
+                        <div class="card-body text-right">
+                            <div>
+                                <div class="brand-wrapper">
+                                    <span class="login-card-description">ثبت نام کاربر</span>
+                                    <img src="/assets/images/logo.png" alt="logo" class="logo">
+                                </div>
+                                <form method="post" asp-controller="Account" asp-action="Register" >
+                                    <div class="form-group">
+                                        <label asp-for="FullName">نام و نام خانوادگی</label>
+                                        <input asp-for="FullName" class="form-control">
+                                        <span class="text-danger" asp-validation-for="FullName"></span>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="UserName">نام کاربری</label>
+                                        <input asp-for="UserName" class="form-control">
+                                        <span class="text-danger" asp-validation-for="UserName"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber" >موبایل</label>
+                                        <input asp-for="PhoneNumber" class="form-control">
+                                        <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label asp-for="Password">رمز عبور</label>
+                                        <input asp-for="Password" type="password" class="form-control">
+                                        <span class="text-danger" asp-validation-for="Password"></span>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label asp-for="RePassword">تکرار رمز عبور</label>
+                                        <input asp-for="RePassword" type="password" class="form-control">
+                                        <span class="text-danger" asp-validation-for="RePassword"></span>
+                                    </div>
+                                        <button type="submit" class="btn btn-primary">ثبت نام</button>
+                                    </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <img src="/assets/images/login.jpg" alt="login" class="login-card-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

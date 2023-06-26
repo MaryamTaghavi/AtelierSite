@@ -1,4 +1,94 @@
-﻿@{
-	//ViewBag.Title = "ورود";
-	//Layout = null;
-}
+﻿<html lang="fa">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آتلین</title>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/login.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+    <div class="container">
+        @*login*@
+        <div style="height: 100vh; display:flex; flex-direction:column; justify-content:center;">
+            <div class="card login-card">
+                <div class="row no-gutters">
+
+                    <div class="col-md-7">
+                        <div class="card-body text-right">
+                            <div>
+                                <div class="brand-wrapper">
+                                    <span class="login-card-description">ورود کاربر</span>
+                                    <img src="/assets/images/logo.png" alt="logo" class="logo">
+                                </div>
+                                <form action="#!">
+                                    <div class="form-group">
+                                        <label for="email">نام کاربری</label>
+                                        <input type="email" name="email" id="email" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="password">رمز عبور</label>
+                                        <input type="password" name="password" id="password" class="form-control">
+                                    </div>
+                                    <input name="login" id="login" class="btn btn-block login-btn mb-4" type="button" value="ورود">
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <img src="/assets/images/login.jpg" alt="login" class="login-card-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*register*@
+        <div style="height: 100vh; display:flex; flex-direction:column; justify-content:center;">
+            <div class="card login-card">
+                <div class="row no-gutters">
+
+                    <div class="col-md-7">
+                        <div class="card-body text-right">
+                            <div>
+                                <div class="brand-wrapper">
+                                    <span class="login-card-description">ثبت نام کاربر</span>
+                                    <img src="/assets/images/logo.png" alt="logo" class="logo">
+                                </div>
+                                <form action="#!">
+                                    <div class="form-group">
+                                        <label for="email">نام و نام خانوادگی</label>
+                                        <input type="email" name="email" id="email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">نام کاربری</label>
+                                        <input type="email" name="email" id="email" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="password">رمز عبور</label>
+                                        <input type="password" name="password" id="password" class="form-control">
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="password">تکرار رمز عبور</label>
+                                        <input type="password" name="password" id="password" class="form-control">
+                                    </div>
+                                    <input name="login" id="login" class="btn btn-block login-btn mb-4" type="button" value="ورود">
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <img src="/assets/images/login.jpg" alt="login" class="login-card-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
