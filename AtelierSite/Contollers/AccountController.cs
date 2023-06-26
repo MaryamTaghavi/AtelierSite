@@ -37,12 +37,19 @@ namespace AtelierSite.Contollers
         {
             return View();
         }
-        [AllowAnonymous]
 
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Register(RegisterDto dto)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View(dto);
+            }
+
+			//TODO: register
+
+            return RedirectToAction("Index" , "Home");
         }
 
         #endregion
