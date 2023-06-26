@@ -1,0 +1,73 @@
+:root {
+    --PrimaryColor: hsl(199, 100%,33%);
+    --SecoundaryColor: hsl(187, 85%, 43%);
+    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%), hsl(199, 100%, 33%));
+    --whiteColor: hsl(0, 0%, 100%);
+    --blackColor: hsl(201, 33%, 16%);
+    --textColor: hsl(240, 4%, 36%);
+    --whiteColorDeam: hsl(0, 0%, 93%);
+    --grayText: rgb(190, 190, 190);
+    --inputColor: rgb(239, 239, 239);
+    --bodyColor: rgb(240, 240, 246);
+    --cardBG: rgb(255, 255, 235);
+}
+
+body{
+    direction:rtl;
+}
+
+.bg-blue {
+    background-color: #B4D6DB;
+}
+
+.home-img-container {
+    background: url(/assets/images/background2.png);
+    background-repeat: no-repeat;
+    background-size: 100% 102%;
+    height: 100vh;
+    position: relative;
+    width: 100%;
+}
+
+.nav-item {
+    margin: 0 12px;
+}
+
+    /*// color: #717070;
+    //color: #be8c13;*/
+
+    .nav-item:hover {
+        border-radius: 15px;
+        background-color: #ff735c;
+        color: black;
+        transition: .3ms ease-in-out;
+    }
+
+.img-icon {
+    width: 28px;
+    height: 28px;
+}
+
+
+.search-box-container {
+    box-shadow: 0 0 25px hsla(0,0%,100%,.4), inset 0 0 5px hsla(0,0%,100%,.25);
+    background-color: rgb(231 236 246 1);
+}
+
+
+@media (max-width: 990px) {
+    .mobileNavbar {
+        position: absolute;
+        margin-top: 70px;
+        background: white;
+        width: 90%;
+    }
+}
+
+
+@media screen and (min-width: 768px) {
+    .navbar-collapse {
+        display: flex;
+        justify-content: space-between;
+    }
+}
