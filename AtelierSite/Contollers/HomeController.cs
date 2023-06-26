@@ -7,6 +7,9 @@ namespace AtelierSite.Contollers
         public IActionResult Index()
         {
             return View();
+
+
+
         }
     }
 }
