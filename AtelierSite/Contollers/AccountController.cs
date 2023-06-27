@@ -1,22 +1,64 @@
-﻿using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
+﻿using Atelier.Application.Interfaces.IBaseInfoServices;
+using Atelier.Application.Security;
+using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
+using Atelier.Domain.Models.BaseInfo;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace AtelierSite.Contollers
 {
-	public class AccountController : Controller
+    [AllowAnonymous]
+
+    public class AccountController : Controller
 	{
-		[AllowAnonymous]
-		public IActionResult Login(string returnUrl = null)
+		private readonly IUserService _userService;
+
+		public AccountController(IUserService userService)
 		{
-			return View();
+			_userService = userService;
+		}
+
+		public IActionResult Login()
+		{
+			return View(new LoginDto());
 		}
 
 		[HttpPost]
-		public IActionResult Login()
+		public IActionResult Login(LoginDto loginDto)
 		{
-			return View();
-		}
+            if (!ModelState.IsValid)
+            {
+                return View(loginDto);
+            }
+            var result = _userService.LoginUser(loginDto);
+
+            if(result != null)
+            {
+                var claims = new List<Claim>()
+                {
+                        new Claim(ClaimTypes.NameIdentifier,result.Id.ToString()),
+                        new Claim(ClaimTypes.Name,result.Title),
+                        new Claim("LastName", result.FullName),
+                    };
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                var properties = new AuthenticationProperties
+                {
+                    IsPersistent = true
+                };
+                HttpContext.SignInAsync(principal, properties);
+
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(loginDto);
+        }
 		public IActionResult Logout()
 		{
 			return View();
@@ -26,19 +68,15 @@ namespace AtelierSite.Contollers
 		public IActionResult Logout(string returnUrl = null)
 		{
 			return View();
-
-
 		}
 
         #region Register
 
-        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult Register(RegisterDto dto)
         {
@@ -47,9 +85,9 @@ namespace AtelierSite.Contollers
                 return View(dto);
             }
 
-			//TODO: register
+			_userService.Add(dto);
 
-            return RedirectToAction("Index" , "Home");
+            return RedirectToAction("Login");
         }
 
         #endregion

@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Atelier.Data\Atelier.Data.csproj" />
     <ProjectReference Include="..\Atelier.IOC\Atelier.IOC.csproj" />
+    <ProjectReference Include="..\AtelierApplication\Atelier.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

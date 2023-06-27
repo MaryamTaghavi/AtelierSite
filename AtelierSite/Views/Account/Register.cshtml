@@ -18,8 +18,8 @@
     <div class="container">
 
         @*register*@
-        <div style="height: 100vh; display:flex; flex-direction:column; justify-content:center;">
-            <div class="card login-card">
+        <div style="display:flex; flex-direction:column; justify-content:center;">
+            <div class="card login-card" style="margin:50px;">
                 <div class="row no-gutters">
 
                     <div class="col-md-7">
@@ -56,7 +56,7 @@
                                         <input asp-for="RePassword" type="password" class="form-control">
                                         <span class="text-danger" asp-validation-for="RePassword"></span>
                                     </div>
-                                        <button type="submit" class="btn btn-primary">ثبت نام</button>
+                                    <button type="submit" class="btn btn-block login-btn mb-4">ثبت نام</button>
                                     </form>
                             </div>
 
