@@ -65,7 +65,7 @@
 								}
 								else
 								{
-									<a class="nav-link" asp-controller="Account" asp-action="Register">
+									<a class="nav-link" asp-controller="Account" asp-action="Login">
 										<img src="/assets/images/icons/login_black_24dp.svg" alt="" class="img-icon" />
 									</a>
 								}
@@ -115,70 +115,6 @@
 
 				</div>
 			</main>
-
-
-			@*category*@
-			<h3 style="text-align: right; margin: 30px 30px 0 0;">
-				دسته بندی
-			</h3>
-			<div class="container mt-3">
-			<div class="row">
-					<div id="owl-carousel1" class="owl-carousel owl-theme" style="direction:ltr;">
-
-						<div class="item mb-4" style="width:250px;">
-							<div class="category">
-								<a href="">
-									<img src="/assets/images/category/wedding.jpg" alt="" class="shadow-category" style="width:150px; height:150px;  margin-left: auto; margin-right: auto;" />
-									<p class="m-4">عروسی</p>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-
-			@*slider-atelier*@
-
-			<div style="background-color: #b4d6db; overflow: hidden;">
-				<h3 style="text-align: right; margin: 30px 30px 15px 0;"> آتلیه ها</h3>
-
-				<div class="row" style="padding: 0 25px 0 25px;">
-					<div id="owl-carousel2" class="owl-carousel owl-theme" style="direction:ltr;">
-
-						<div class="item mb-4" style="margin:15px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius:15px; width:350px;">
-							<div class="card" style="border-radius:15px; cursor: pointer;">
-								<img class="card-img-top" src="/assets/images/login.jpg" alt="" style="height:250px; border-radius:15px 15px 0 0;">
-								<div class="card-body" style="direction:rtl;">
-									<p class="card-title">آتلیه تست</p>
-									<p class="card-text d-flex">
-										<img src="/assets/images/icons/location.png" style="width:36px; height:36px;" />
-										<span>یزد</span>
-									</p>
-								</div>
-								<div class="card-footer d-flex justify-content-around">
-									<div style="cursor: pointer;">
-										<img src="/assets/images/icons/heart.png" style="width:24px; height:24px;" />
-									</div>
-									<span>|</span>
-									<div style="cursor: pointer;">
-										<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;" />
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div style="justify-content:center; margin:0 auto;">
-						<button class="btn showAtelier-btn">
-							مشاهده همه آتلیه ها
-						</button>
-					</div>
-				</div>
-			</div>
-
-
 
 			<div>
 				@RenderBody()
