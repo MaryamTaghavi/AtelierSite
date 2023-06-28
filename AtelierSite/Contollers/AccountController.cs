@@ -59,20 +59,19 @@ namespace AtelierSite.Contollers
 
             return View(loginDto);
         }
-		public IActionResult Logout()
+
+
+		[Authorize]
+		public IActionResult LogOut()
 		{
-			return View();
+			HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			return RedirectToAction("Index" , "Home");
 		}
 
-		[HttpPost]
-		public IActionResult Logout(string returnUrl = null)
-		{
-			return View();
-		}
 
-        #region Register
+		#region Register
 
-        public ActionResult Register()
+		public ActionResult Register()
         {
             return View();
         }

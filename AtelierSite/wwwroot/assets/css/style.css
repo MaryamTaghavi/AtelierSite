@@ -12,8 +12,10 @@
     --cardBG: rgb(255, 255, 235);
 }
 
-body{
-    direction:rtl;
+body {
+    direction: rtl;
+    background-color: rgb(240, 240, 246);
+    font-family: 'IRANSans';
 }
 
 .bg-blue {
