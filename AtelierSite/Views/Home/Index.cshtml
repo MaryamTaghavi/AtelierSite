@@ -1,4 +1,9 @@
-﻿@*category*@
+﻿@using Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices;
+@inject IGroupingService GroupingService ;
+
+@{
+	var groupings = GroupingService.GetAll();
+}
 <h3 style="text-align: right; margin: 30px 30px 0 0;">
 	دسته بندی
 </h3>

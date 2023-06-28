@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices;
+@inject IGroupingService GroupingService ;
+
+@{
+	var selectGrouping = GroupingService.GetAllSelectList();
+}
+<!DOCTYPE html>
 <html lang="fa">
 
 <head>
@@ -8,6 +14,8 @@
 	<link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="/assets/vendors/css/forms/select/select2.min.css">
+	<link href="/assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="/assets/css/font.css" />
 	@*<link href="/assets/css/carousel.css" rel="stylesheet" type="text/css" />*@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -100,6 +108,8 @@
 								<ul class="d-flex col-5" style="width: 45%; align-items: center; margin: auto; list-style: none; text-align: center;">
 									<li class="col-6 cursor-pointer">
 										دسته بندی
+										<select class="select2 form-control select2-hidden-accessible input-validation-error" asp-for="GroupingId" asp-items="@(new SelectList(selectGrouping, "Value", "Text"))">
+										</select>								
 										@*<img src="/static/media/arrow-down.97f6f3a7cc290309abf56d9009600ad8.svg" alt="arrow-down" class="mr-2 mb-1 transition-all duration-300 rotate-0 ">*@
 									</li>
 									<li class="col-6 cursor-pointer show-more-item">
@@ -181,7 +191,8 @@
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 			<script src="/assets/js/bootstrap.js"></script>
-
+			<script src="/assets/vendors/js/forms/select/select2.full.min.js"></script>
+			<script src="/assets/js/scripts/forms/select/form-select2.js"></script>
 			@*slider*@
 			<script>
 				$('#owl-carousel1').owlCarousel({
