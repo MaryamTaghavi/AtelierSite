@@ -31,6 +31,15 @@ body {
     width: 100%;
 }
 
+.footer-img-container {
+    background: url(/assets/images/background6.png);
+    background-repeat: no-repeat;
+    background-size: 100% 102%;
+    height: 75vh;
+    position: relative;
+    width: 100%;
+}
+
 .nav-item {
     margin: 0 12px;
 }
@@ -56,6 +65,9 @@ body {
     background-color: rgb(231 236 246 1);
 }
 
+.searchIcon:hover {
+    background-color: background-color: rgb(240, 240, 246);
+}
 
 .category {
     padding: 5px;

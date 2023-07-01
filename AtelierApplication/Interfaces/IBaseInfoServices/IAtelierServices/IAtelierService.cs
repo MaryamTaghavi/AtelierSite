@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atelier.Domain.DTOs.BaseInfoDTOs
+namespace Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices
 {
-    public class AtelierDto : BaseDto
-    {
-    }
+	public interface IAtelierService
+	{
+	}
 }

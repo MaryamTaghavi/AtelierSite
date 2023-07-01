@@ -1,15 +1,13 @@
-﻿using Atelier.Application.Interfaces.IBaseInfoServices;
-using Atelier.Application.Security;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using Atelier.Application.Interfaces.IBaseInfoServices;
 using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
-using Atelier.Domain.Models.BaseInfo;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Security.Claims;
 
-namespace AtelierSite.Contollers
+namespace AtelierSite.Controllers
 {
     [AllowAnonymous]
 

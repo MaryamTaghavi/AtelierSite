@@ -4,14 +4,16 @@ using Atelier.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Atelier.Data.Migrations
 {
     [DbContext(typeof(AtelierContext))]
-    partial class AtelierContextModelSnapshot : ModelSnapshot
+    [Migration("20230701062029_addAtelierGroup")]
+    partial class addAtelierGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

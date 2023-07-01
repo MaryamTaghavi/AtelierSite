@@ -115,7 +115,13 @@ namespace AtelierSite
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            });
+
+                endpoints.MapControllerRoute(
+	                name: "areas",
+	                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+			});
         }
 
         public static void RegisterServices(IServiceCollection services)
