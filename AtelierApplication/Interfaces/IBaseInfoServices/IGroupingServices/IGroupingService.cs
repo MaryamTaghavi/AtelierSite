@@ -12,5 +12,10 @@ namespace Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices
 	{
 		List<Grouping> GetAll();
 		public List<SelectListItem> GetAllSelectList();
-	}
+
+        Grouping GetById(int id);
+        void Add(Grouping grouping);
+        void Delete(int id);
+        void Update(Grouping grouping);
+    }
 }

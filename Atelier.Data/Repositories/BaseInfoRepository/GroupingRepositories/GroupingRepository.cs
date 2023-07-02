@@ -1,5 +1,6 @@
 ﻿using Atelier.Data.Context;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IGropingRepository;
+using Atelier.Domain.Models.BaseInfo;
 using Atelier.Domain.Models.BaseInfo.Groupings;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -19,18 +20,42 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.GroupingRepositories
             _context = context;
         }
 
-        public List<Grouping> GetAll()
-		{
-			return _context.Groupings.ToList();
-		}
+        public List<SelectListItem> GetAllSelectList()
+        {
+            return _context.Groupings.Select(r => new SelectListItem()
+            {
+                Text = r.Tilte,
+                Value = r.Id.ToString()
+            }).ToList();
+        }
 
-		public List<SelectListItem> GetAllSelectList()
-		{
-			return _context.Groupings.Select(r => new SelectListItem()
-			{
-				Text = r.Tilte,
-				Value = r.Id.ToString()
-			}).ToList();
-		}
-	}
+        public List<Grouping> GetAll()
+        {
+            return _context.Groupings.ToList();
+        }
+
+
+        public Grouping GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void Add(Grouping grouping)
+        {
+            _context.Groupings.Add(grouping);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+     
+        public void Update(Grouping grouping)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

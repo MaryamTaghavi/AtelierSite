@@ -14,5 +14,10 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository.IGropingRepository
 	{
 		List<Grouping> GetAll();
 		List<SelectListItem> GetAllSelectList();
-	}
+
+        Grouping GetById(int id);
+        void Add(Grouping grouping);
+        void Delete(int id);
+        void Update(Grouping grouping);
+    }
 }
