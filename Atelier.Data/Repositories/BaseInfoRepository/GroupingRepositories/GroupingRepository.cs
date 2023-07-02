@@ -1,4 +1,5 @@
 ﻿using Atelier.Data.Context;
+using Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IGropingRepository;
 using Atelier.Domain.Models.BaseInfo;
 using Atelier.Domain.Models.BaseInfo.Groupings;
@@ -34,6 +35,15 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.GroupingRepositories
             return _context.Groupings.ToList();
         }
 
+        public List<GroupingSelectDto> GetAllGrouping()
+        {
+            return _context.Groupings.Select(r => new GroupingSelectDto()
+            {  
+                Id = r.Id,
+               Title = r.Tilte,
+               GropuPic = r.GroupPic
+            }).ToList();
+        }
 
         public Grouping GetById(int id)
         {
@@ -57,5 +67,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.GroupingRepositories
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

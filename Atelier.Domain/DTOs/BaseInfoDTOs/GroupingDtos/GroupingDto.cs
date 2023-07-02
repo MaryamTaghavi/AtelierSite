@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos
 {
@@ -17,6 +18,25 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos
 
 		[Display(Name = "تصویر")]
 		[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-		public string GropuPic { get; set; }
+		public IFormFile GropuPic { get; set; }
     }
+
+    public class GroupingSelectDto
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Display(Name = "ردیف")]
+        public int Row { get; set; }
+
+        [Display(Name = "عنوان")]
+        public string Title { get; set; }
+
+        [Display(Name = "تصویر")]
+        public string GropuPic { get; set; }
+
+        [Display(Name = "عملیات")]
+        public string Operation { get; set; }
+    }
+
 }
