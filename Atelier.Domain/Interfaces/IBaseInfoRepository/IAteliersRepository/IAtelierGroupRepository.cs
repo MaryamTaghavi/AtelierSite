@@ -12,6 +12,6 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository.IAteliersRepository
 	public interface IAtelierGroupRepository
 	{
 		List<AtelierGroup> GetAll();
-		List<AtelierSearchResultDto> SearchAtelier(string atelierName, int groupId, int cityId);
+		List<AtelierSearchResultDto> SearchAtelier(SearchDto dto);
 	}
 }

@@ -20,16 +20,16 @@ namespace AtelierSite.Controllers
 
         public IActionResult Index()
         {
-	        return View();
+	        return View(new SearchDto());
         }
 
-		[HttpGet]
-		public IActionResult SearchAtelier(string text , int groupId , int cityId)
+		[HttpPost]
+		public IActionResult SearchAtelier(SearchDto dto)
 		{
-			var list = _atelierGroupService.SearchAtelier(text, groupId, cityId).ToList();
+			var list = _atelierGroupService.SearchAtelier(dto).ToList();
 
-			return RedirectToAction("Atelier", "SearchAtelier", new {list = JsonConvert.SerializeObject(list) });
-        }
+			return RedirectToAction("Atelier", "SearchAtelier", new { list = JsonConvert.SerializeObject(list) });
+		}
 
 
 	}
