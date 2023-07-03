@@ -61,7 +61,7 @@ namespace AtelierSite
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(20);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -115,7 +115,13 @@ namespace AtelierSite
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            });
+
+                endpoints.MapControllerRoute(
+	                name: "areas",
+	                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+			});
         }
 
         public static void RegisterServices(IServiceCollection services)
