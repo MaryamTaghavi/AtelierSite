@@ -30,17 +30,10 @@ namespace Atelier.Domain.Models
         public DateTime? EditedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
 
-        [Display(Name = "توضیحات")]
-        [MaxLength(500, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
-        public string Desc { get; set; }
-
         [Display(Name = "نام ایجاد کننده")]
         public int UserId { get; set; }
 
-        [Display(Name = "کد")]
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        [MaxLength(20, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
-        public string Code { get; set; }
+
 
         #region Navigation Property
 

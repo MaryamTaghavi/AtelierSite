@@ -1,30 +1,94 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Atelier.Application.Interfaces.IBaseInfoServices;
+using Atelier.Application.Security;
+using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
+using Atelier.Domain.Models.BaseInfo;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace AtelierSite.Contollers
 {
-	public class AccountController : Controller
+    [AllowAnonymous]
+
+    public class AccountController : Controller
 	{
-		[AllowAnonymous]
-		public IActionResult Login(string returnUrl = null)
+		private readonly IUserService _userService;
+
+		public AccountController(IUserService userService)
 		{
-			return View();
+			_userService = userService;
 		}
 
-		[HttpPost]
 		public IActionResult Login()
 		{
-			return View();
-		}
-		public IActionResult Logout()
-		{
-			return View();
+			return View(new LoginDto());
 		}
 
 		[HttpPost]
-		public IActionResult Logout(string returnUrl = null)
+		public IActionResult Login(LoginDto loginDto)
 		{
-			return View();
+            if (!ModelState.IsValid)
+            {
+                return View(loginDto);
+            }
+            var result = _userService.LoginUser(loginDto);
+
+            if(result != null)
+            {
+                var claims = new List<Claim>()
+                {
+                        new Claim(ClaimTypes.NameIdentifier,result.Id.ToString()),
+                        new Claim(ClaimTypes.Name,result.Title),
+                        new Claim("LastName", result.FullName),
+                    };
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                var properties = new AuthenticationProperties
+                {
+                    IsPersistent = true
+                };
+                HttpContext.SignInAsync(principal, properties);
+
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(loginDto);
+        }
+
+
+		[Authorize]
+		public IActionResult LogOut()
+		{
+			HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			return RedirectToAction("Index" , "Home");
 		}
-	}
+
+
+		#region Register
+
+		public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(dto);
+            }
+
+			_userService.Add(dto);
+
+            return RedirectToAction("Login");
+        }
+
+        #endregion
+    }
 }
