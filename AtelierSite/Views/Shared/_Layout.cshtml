@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices;
+@inject IGroupingService GroupingService ;
+
+@{
+	var listGrouping = GroupingService.GetAll();
+}
+
+<!DOCTYPE html>
 <html lang="fa">
 
 <head>
@@ -8,6 +15,8 @@
 	<link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="/assets/vendors/css/forms/select/select2.min.css">
+	<link href="/assets/plugins/select2/select2.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="/assets/css/font.css" />
 	@*<link href="/assets/css/carousel.css" rel="stylesheet" type="text/css" />*@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -70,8 +79,6 @@
 									</a>
 								}
 
-
-
 								<div class="dropdown-menu" id="dropdownMenu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="#">پنل کاربری</a>
 									<a class="dropdown-item" href="#">علاقه مندی ها</a>
@@ -88,92 +95,74 @@
 
 			</nav>
 
-			<main class="w-full flex flex-col items-center overflow-hidden">
-				<div class="w-full flex flex-col items-center ">
 
-					<div class="w-full flex flex-col justify-center items-center home-img-container" style="display: flex; flex-direction: column; justify-content: center;">
-
-						<div class="" style="margin: auto; width: 75%;">
-							<div class="search-box-container card login-card d-flex flex-row" style="height: 100px; align-items: center; border-radius: 15px; margin-top: 200px;">
-								<input type="search" class="bg-transparent px-2 col-6" style="border: none; outline: none;" placeholder="جستجوی آتلیه" value="">
-								@*<span class="h-[65%] border-r-[0.5px] border-[#88A2D2] "></span>*@
-								<ul class="d-flex col-5" style="width: 45%; align-items: center; margin: auto; list-style: none; text-align: center;">
-									<li class="col-6 cursor-pointer">
-										دسته بندی
-										@*<img src="/static/media/arrow-down.97f6f3a7cc290309abf56d9009600ad8.svg" alt="arrow-down" class="mr-2 mb-1 transition-all duration-300 rotate-0 ">*@
-									</li>
-									<li class="col-6 cursor-pointer show-more-item">
-										شهرها
-										@*<img src="/static/media/arrow-down.97f6f3a7cc290309abf56d9009600ad8.svg" alt="arrow-down" class="mr-2 mb-1 transition-all duration-300 rotate-0 ">*@
-									</li>
-								</ul>
-								<img src="/assets/images/icons/search.png" alt="search-icon" class="col-1 cursor-pointer">
-							</div>
-						</div>
-
-					</div>
-
-				</div>
-			</main>
 
 			<div>
 				@RenderBody()
 			</div>
-
-
-			@*<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-			<p class="col-md-4 mb-0 text-muted align-items-center">© 2022 Atelian,</p>
-
-			<a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-			<svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-			</a>
-
-			<ul class="nav col-md-4 align-items-center">
-			<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">خانه</a></li>
-			<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">آتلیه ها</a></li>
-			<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">درباره ما</a></li>
-			<li class="nav-item"><a href="#" class="nav-link px-2 text-muted">تماس با ما</a></li>
-			</ul>
-			</footer>*@
-
-			@*<footer>
-			<div class="container">
-			<div class="row justify-content-center">
-			<div class="col-md-9 text-center">
-			<div class="footer-site-logo mb-4">
-			<a href="#">Colorlib</a>
-			</div>
-			<ul class="list-unstyled nav-links mb-5">
-			<li><a href="#">About</a></li>
-			<li><a href="#">Services</a></li>
-			<li><a href="#">Press</a></li>
-			<li><a href="#">Careers</a></li>
-			<li><a href="#">FAQ</a></li>
-			<li><a href="#">Legal</a></li>
-			<li><a href="#">Contact</a></li>
-			</ul>
-
-			<div class="social mb-4">
-			<h3>Stay in touch</h3>
-			<ul class="list-unstyled">
-			<li class="in"><a href="#"><span class="icon-instagram"></span></a></li>
-			<li class="fb"><a href="#"><span class="icon-facebook"></span></a></li>
-			<li class="tw"><a href="#"><span class="icon-twitter"></span></a></li>
-			<li class="pin"><a href="#"><span class="icon-pinterest"></span></a></li>
-			<li class="dr"><a href="#"><span class="icon-dribbble"></span></a></li>
-			</ul>
-			</div>
-
-			<div class="copyright">
-			<p class="mb-0"><small>&copy; Colorlib. All Rights Reserved.</small></p>
+			
+			
+			<div class="row" style="justify-content: center; background: white;  width: 100%; margin: 0;">
+				<div class="col-3 card " style="align-items: center; margin: 25px; border-radius: 15px; border: 0;">
+					<img src="/assets/images/banner/confusion.jpg" style="width:150px; height:150px;"/>
+					<span>رهایی از سردرگمی</span>
+				</div>
+				<div class="col-3 card d-flex" style="align-items: center; margin: 25px; border-radius: 15px; border: 0;">
+					<img src="/assets/images/banner/time.jpg" style="width:150px; height:150px;" />
+					<span>صرفه جویی در زمان</span>
+				</div>
+				<div class="col-3 card d-flex" style="align-items: center; margin: 25px; border-radius: 15px; border: 0;">
+					<img src="/assets/images/banner/location.jpg" style="width:150px; height:150px;" />
+					<span>دسترسی به لوکیشن</span>
+				</div>
 			</div>
 
 
-			</div>
-			</div>
-			</div>
+			<footer class="w-full flex flex-col items-center overflow-hidden">
+				<div class="w-full flex flex-col items-center ">
+					<div class="w-full flex flex-col justify-center items-center footer-img-container">
+						<div class="col-md-9 text-center">
+							<div class="footer-site-logo mb-4" style="text-align: right; padding: 25px;">
+								<a href="#" style="font-size:35px; font-weight:bolder; color:black; text-decoration: none;">
+									<img src="assets/images/logo.png" style="width: 84px; height: 54px; margin-left: 25px;" />
+									آتلین؛ آتلیه یاب آنلاین
+								</a>
+								<p style="padding: 25px; font-size:18px;">
+									  با آتلین میتونید خیلی راحت آتلیه های شهرتون رو پیدا کنید و ویژگی های اونها رو مقایسه کنید و<br/> هر کدوم رو دوست داشتین انتخاب کنید.
+								</p>
+							</div>
+
+							<div class="social mb-4" style="text-align:right;">
+								<h5>دسترسی سریع</h5>
+								<ul class="d-flex mb-5" style="list-style:none; color:black; display: flex;">
+									<li class="nav-item"><a class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" href="#">صفحه اصلی</a></li>
+									<li class="nav-item"><a class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" href="#">آتلیه ها</a></li>
+									<li class="nav-item"><a class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" href="#">درباره ما</a></li>
+									<li class="nav-item"><a class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" href="#">تماس با ما</a></li>
+								</ul>
+							</div>
+
+
+							<div class="mb-4" style="text-align:right;">
+								<h5>ما را دنبال کنید</h5>
+								<ul class="" style="list-style: none; color: black; display: flex;">
+									<li class="p-3"><a href="#"><img src="/assets/images/icons/eita.png" class="img-icon"></img></a></li>
+									<li class="p-3"><a href="#"><img src="/assets/images/icons/instagram.png" class="img-icon"></img></a></li>
+									<li class="p-3"><a href="#"><img src="/assets/images/icons/watsapp.png" class="img-icon"></img></a></li>
+									<li class="p-3"><a href="#"><img src="/assets/images/icons/telegram.png" class="img-icon"></img></a></li>
+								</ul>
+							</div>
+
+							@*<div class="copyright">
+								<p class="mb-0"><small>&copy; Colorlib. All Rights Reserved.</small></p>
+							</div>*@
+
+
+						</div>
+					</div>
+				</div>
 			</footer>
-			*@
+
 
 
 
@@ -181,7 +170,8 @@
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 			<script src="/assets/js/bootstrap.js"></script>
-
+			<script src="/assets/vendors/js/forms/select/select2.full.min.js"></script>
+			<script src="/assets/js/scripts/forms/select/form-select2.js"></script>
 			@*slider*@
 			<script>
 				$('#owl-carousel1').owlCarousel({
@@ -237,6 +227,7 @@
 				};
 			</script>
 
+			@await RenderSectionAsync("myScripts", false)
 
 
 		</div>

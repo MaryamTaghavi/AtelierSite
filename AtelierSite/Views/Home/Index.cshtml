@@ -1,19 +1,64 @@
-﻿@*category*@
+﻿@using Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices;
+@using Atelier.Application.Interfaces.IBaseInfoServices.ICitiesServices
+@inject IGroupingService GroupingService ;
+@inject ICityService CityService ;
+
+@{
+	var groupings = GroupingService.GetAllSelectList();
+	var cityList = CityService.GetAllSelectList();
+	var listGrouping = GroupingService.GetAll();
+}
+
+<main class="w-full flex flex-col items-center overflow-hidden">
+	<div class="w-full flex flex-col items-center ">
+
+		<div class="w-full flex flex-col justify-center items-center home-img-container" style="display: flex; flex-direction: column; justify-content: center;">
+
+			<div class="" style="margin: auto; width: 75%;">
+				<div class="search-box-container card login-card d-flex flex-row" style="height: 100px; align-items: center; border-radius: 15px; margin-top: 200px;">
+					<input id="searchAtelier" class="bg-transparent px-2 col-5" style="border: none; outline: none;" placeholder="جستجوی آتلیه" value="">
+					<ul class="d-flex col-5" style="width: 45%; align-items: center; margin: auto; list-style: none; text-align: center;">
+						<li class="col-6 cursor-pointer">
+							<select id="GroupId" asp-items="@(new SelectList(groupings, "Value", "Text"))"  class="select2 form-control select2-hidden-accessible input-validation-error border-0">
+							</select>
+						</li>
+						<li class="col-6 cursor-pointer show-more-item">
+							<select id="CityId"  asp-items="@(new SelectList(cityList, "Value","Text"))" class="select2 form-control select2-hidden-accessible input-validation-error">
+							</select>
+						</li>
+					</ul>
+					<a onclick="SearchAtelier()" class="searchIcon" style="cursor:pointer; padding:30px;">
+						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 32 32">
+							<circle cx="14" cy="14" r="12" fill="#79b5ba"></circle><path fill="#302529" d="M14,27C6.832,27,1,21.168,1,14S6.832,1,14,1s13,5.832,13,13S21.168,27,14,27z M14,3	C7.935,3,3,7.935,3,14s4.935,11,11,11s11-4.935,11-11S20.065,3,14,3z"></path><path fill="#fff" d="M6,14H5c0-4.962,4.038-9,9-9v1C9.589,6,6,9.589,6,14z"></path><rect width="2" height="10.607" x="25.25" y="20.947" fill="#302529" transform="rotate(-45.001 26.25 26.25)"></rect>
+						</svg>
+					</a>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</main>
+
+
 <h3 style="text-align: right; margin: 30px 30px 0 0;">
 	دسته بندی
 </h3>
 <div class="container mt-3">
 	<div class="row">
 		<div id="owl-carousel1" class="owl-carousel owl-theme" style="direction:ltr;">
-
-			<div class="item mb-4" style="width:250px;">
-				<div class="category">
-					<a href="">
-						<img src="/assets/images/category/wedding.jpg" alt="" class="shadow-category" style="width:150px; height:150px;  margin-left: auto; margin-right: auto;" />
-						<p class="m-4">عروسی</p>
-					</a>
+			@foreach (var item in listGrouping)
+			{
+				<div class="item mb-4" style="width:250px;">
+					<div class="category">
+						<a href="">
+							<img src="/assets/images/category/wedding.jpg" alt="" class="shadow-category" style="width:150px; height:150px;  margin-left: auto; margin-right: auto;" />
+							<p class="m-4">@item.Tilte</p>
+						</a>
+					</div>
 				</div>
-			</div>
+			}
+			
 		</div>
 	</div>
 </div>
@@ -58,3 +103,24 @@
 		</div>
 	</div>
 </div>
+
+
+@section myScripts {
+	<script>
+		function SearchAtelier() {
+			$.ajax({
+				type: 'Get',
+				datatype: 'JSON',
+				url: "/Home/SearchAtelier",
+				contentType: "application/json;charset=utf-8",
+				data: {
+					'text': $("#searchAtelier").val(),
+					'groupId': $("#GroupId option:selected").val(),
+					'cityId': $("#CityId option:selected").val()
+
+				},
+			});
+		}
+
+	</script>
+}
