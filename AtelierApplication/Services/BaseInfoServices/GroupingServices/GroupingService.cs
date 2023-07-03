@@ -55,12 +55,12 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
         {
             var uploadedResult = UploadFile(groupingDto.GropuPic);
 
-            Grouping group = new Grouping()
+            Grouping grouping = new Grouping()
             {
                 Tilte = groupingDto.Title,
                 GroupPic = uploadedResult.FileNameAddress
             };
-            _groupingRepository.Add(group);
+            _groupingRepository.Add(grouping);
 
         }
 

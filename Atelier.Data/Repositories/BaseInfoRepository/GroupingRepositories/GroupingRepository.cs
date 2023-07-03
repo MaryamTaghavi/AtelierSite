@@ -51,7 +51,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.GroupingRepositories
         }
 
 
-        public void Add(Grouping grouping)
+        public void Add(Grouping grouping )
         {
             _context.Groupings.Add(grouping);
             _context.SaveChanges();
