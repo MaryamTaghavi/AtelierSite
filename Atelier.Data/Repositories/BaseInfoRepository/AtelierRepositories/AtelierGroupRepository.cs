@@ -26,24 +26,24 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			return _context.AtelierGroups.ToList();
 		}
 
-		public List<AtelierSearchResultDto> SearchAtelier(string atelierName, int groupId, int cityId)
+		public List<AtelierSearchResultDto> SearchAtelier(SearchDto dto)
 		{
 			var result = _context.AtelierGroups
 				.Include(r => r.Atelier).ThenInclude(r => r.city).AsQueryable();
 
-			if (!string.IsNullOrEmpty(atelierName))
+			if (!string.IsNullOrEmpty(dto.Title))
 			{
-				result = result.Where(r => r.Atelier.Title.Contains(atelierName));
+				result = result.Where(r => r.Atelier.Title.Contains(dto.Title));
 			}
 
-			if (groupId > 0)
+			if (dto.GroupingId > 0)
 			{
-				result = result.Where(r => r.GroupId == groupId);
+				result = result.Where(r => r.GroupId == dto.GroupingId);
 			}
 
-			if (cityId > 0)
+			if (dto.CityId > 0)
 			{
-				result = result.Where(r => r.Atelier.CityId == cityId);
+				result = result.Where(r => r.Atelier.CityId == dto.CityId);
 			}
 
 			var list = result.ToList();

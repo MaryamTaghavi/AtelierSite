@@ -1,10 +1,12 @@
-﻿
-@model List<Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos.AtelierSearchResultDto>
+﻿@model List<Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos.AtelierSearchResultDto>
 
-
+@{
+	Layout = "_Layout";
+    ViewData["Title"] = "Atelier";
+}
 
 <div style="overflow: hidden;">
-	<h3 style="text-align: right; margin: 30px 30px 15px 0;"> آتلیه ها</h3>
+	<h3 style="text-align: right; margin: 100px 30px 15px 0;"> آتلیه ها</h3>
 
 	<div class="row" style="padding: 0 25px 0 25px;">
 		@foreach (var item in Model)
@@ -15,23 +17,24 @@
 					<div class="card-body" style="direction:rtl;">
 						<p class="card-title">@item.Title</p>
 						<p class="card-text d-flex">
-							<img src="/assets/images/icons/location.png" style="width:36px; height:36px;"/>
+							<img src="/assets/images/icons/location.png" style="width:36px; height:36px;" />
 							<span>@item.cityTitle</span>
 						</p>
 					</div>
 					<div class="card-footer d-flex justify-content-around">
 						<div style="cursor: pointer;">
-							<img src="/assets/images/icons/heart.png" style="width:24px; height:24px;"/>
+							<img src="/assets/images/icons/heart.png" style="width:24px; height:24px;" />
 						</div>
 						<span>|</span>
 						<div style="cursor: pointer;">
-							<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;"/>
+							<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;" />
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		}
 	</div>
 
 </div>
+

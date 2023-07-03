@@ -1,8 +1,10 @@
 ﻿using Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices;
 using Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,16 +22,17 @@ namespace AtelierSite.Controllers
 
         public IActionResult Index()
         {
-	        return View();
+	        return View(new SearchDto());
         }
 
-		[HttpGet]
-		public IActionResult SearchAtelier(string text , int groupId , int cityId)
+		[HttpPost]
+		public IActionResult SearchAtelier(SearchDto dto)
 		{
-			var list = _atelierGroupService.SearchAtelier(text, groupId, cityId).ToList();
-
-			return RedirectToAction("Atelier", "SearchAtelier", new {list = JsonConvert.SerializeObject(list) });
-        }
+			var list = _atelierGroupService.SearchAtelier(dto).ToList();
+            var list2 = JsonConvert.SerializeObject(list) ;
+            HttpContext.Session.SetString("Data", list2);
+            return RedirectToAction("Atelier", "SearchAtelier");
+		}
 
 
 	}

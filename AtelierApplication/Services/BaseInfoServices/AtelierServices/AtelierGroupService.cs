@@ -24,9 +24,9 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 			return _atelierGroupRepository.GetAll();
 		}
 
-		public List<AtelierSearchResultDto> SearchAtelier(string atelierName, int groupId, int cityId)
+		public List<AtelierSearchResultDto> SearchAtelier(SearchDto dto)
 		{
-			return _atelierGroupRepository.SearchAtelier(atelierName, groupId,cityId);
+			return _atelierGroupRepository.SearchAtelier(dto);
 		}
 	}
 }

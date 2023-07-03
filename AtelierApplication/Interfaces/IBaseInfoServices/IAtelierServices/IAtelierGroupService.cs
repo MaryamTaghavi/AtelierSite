@@ -12,6 +12,6 @@ namespace Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices
 	public interface IAtelierGroupService
 	{
 		List<AtelierGroup> GetAll();
-		List<AtelierSearchResultDto> SearchAtelier(string atelierName, int groupId, int cityId);
+		List<AtelierSearchResultDto> SearchAtelier(SearchDto dto);
 	}
 }
