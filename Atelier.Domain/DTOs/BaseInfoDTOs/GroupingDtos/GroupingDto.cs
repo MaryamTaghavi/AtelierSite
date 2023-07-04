@@ -18,9 +18,17 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos
 
 		[Display(Name = "تصویر")]
 		[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-		public IFormFile GropuPic { get; set; }
+		public IFormFile GroupPic { get; set; }
     }
+    public class GroupingUpdateDto : BaseDto<int>
+    {
+        [Display(Name = "عنوان")]
+        [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+        public string Title { get; set; }
 
+        [Display(Name = "تصویر")]
+        public IFormFile GroupPic { get; set; }
+    }
     public class GroupingSelectDto
     {
         [Key]

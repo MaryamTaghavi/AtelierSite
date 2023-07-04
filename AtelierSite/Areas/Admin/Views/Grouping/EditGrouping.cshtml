@@ -1,7 +1,8 @@
 ﻿@model Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos.GroupingDto
+
 @{
-	ViewData["Title"] = "AddGrouping";
-	Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+    ViewData["Title"] = "EditGrouping";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
 }
 
 <div class="page-body">
@@ -13,7 +14,7 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a><i data-feather="home"></i></a></li>
 						<li class="breadcrumb-item">گروه بندی ها</li>
-						<li class="breadcrumb-item">افزودن </li>
+						<li class="breadcrumb-item">ویرایش </li>
 					</ol>
 				</div>
 			</div>
@@ -22,9 +23,9 @@
 	<div class="col-sm-12">
 		<div class="card">
 			<div class="card-header">
-				<h5>افزودن گروه بندی</h5>
+				<h5>ویرایش گروه بندی</h5>
 			</div>
-			<form class="form theme-form" enctype="multipart/form-data" method="post" asp-controller="Grouping" asp-action="AddGrouping">
+			<form class="form theme-form" enctype="multipart/form-data" method="post" asp-controller="Grouping" asp-action="EditGrouping">
 				<div class="card-body">
 					<div class="row">
 						<div class="col-12">
@@ -38,7 +39,6 @@
 							<div class="form-group">
 								<label asp-for="GroupPic">عکس</label>
 								<input asp-for="GroupPic" class="form-control" type="file" data-original-title="" title="">
-								<span class="text-danger" asp-validation-for="GroupPic"></span>
 
 							</div>
 						</div>
@@ -51,3 +51,5 @@
 		</div>
 	</div>
 </div>
+
+

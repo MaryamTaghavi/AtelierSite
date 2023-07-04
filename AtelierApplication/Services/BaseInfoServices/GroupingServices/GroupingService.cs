@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Atelier.Application.Utilities;
+using Atelier.Application.Helpers;
+using Atelier.Domain.Models.BaseInfo;
 
 namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
 {
@@ -51,36 +53,58 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
 
 		public Grouping GetById(int id)
         {
-            throw new NotImplementedException();
-        }
+			return _groupingRepository.GetById(id);
+		}
 
 
-        public void Add(GroupingDto groupingDto)
+		public void Add(GroupingDto groupingDto)
         {
-            var fileNameAddress = groupingDto.GropuPic.SaveFile("images\\GroupingImages\\");
+            var fileNameAddress = groupingDto.GroupPic.SaveFile("images\\GroupingImages\\");
 
             Grouping grouping = new Grouping()
             {
-                Tilte = groupingDto.Title,
+                Title = groupingDto.Title,
                 GroupPic = fileNameAddress
 			};
             _groupingRepository.Add(grouping);
 
         }
 
-
-
-
-        public void Delete(int id)
+		public RequestResult Delete(int id)
         {
-            throw new NotImplementedException();
-        }
+			var grouping = GetById(id);
 
-        public void Update(Grouping grouping)
+			grouping.DeletedDate = DateTime.Now;
+
+			Update(grouping);
+
+			return new RequestResult(true, RequestResultStatusCode.Success, "مشتری با موفقیت حذف شد.");
+		}
+
+		public void Update(Grouping grouping)
+		{
+			grouping.EditedDate = DateTime.Now;
+			_groupingRepository.Update(grouping);
+		}
+
+		public void UpdateDto(GroupingDto groupingDto)
         {
-            throw new NotImplementedException();
-        }
+	        var grouping = GetById(groupingDto.Id);
 
+	        if (groupingDto.GroupPic!=null)
+	        {
+		        grouping.GroupPic.DeleteFile();
+		        var fileNameAddress = groupingDto.GroupPic.SaveFile("images\\GroupingImages\\");
+				grouping.GroupPic = fileNameAddress;
 
+	        }
+	        grouping.Title=groupingDto.Title;
+	        Update(grouping);
+		}
+
+		public GroupingDto GetByIdGroupingDto(int id)
+		{
+			return _groupingRepository.GetByIdGroupingDto(id);
+		}
 	}
 }

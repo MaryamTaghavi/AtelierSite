@@ -169,7 +169,8 @@
     <!-- Theme js-->
     <script src="/AdminTemplate/assets/js/script.js"></script>
     <script src="/AdminTemplate/assets/js/theme-customizer/customizer.js"></script>
-    <!-- Plugin used-->
+<!-- Plugin used-->
+    @await RenderSectionAsync("myScripts", false)
 </body>
 
 </html>
