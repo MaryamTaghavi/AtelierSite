@@ -44,7 +44,24 @@ namespace Atelier.Domain.Models
 
     }
 
-    public abstract class BaseInterfaceEntity<TKey> : IEntity
+    public abstract class BaseEntityWithOutUser<TKey> : IEntity
+    {
+	    [Key]
+	    public TKey Id { get; set; }
+
+	    [Display(Name = "عنوان")]
+	    [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+	    [MaxLength(150, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
+	    public string Title { get; set; }
+
+	    [Display(Name = "تاریخ ایجاد")]
+	    public DateTime CreateDate { get; set; } = DateTime.Now;
+	    public DateTime? EditedDate { get; set; }
+	    public DateTime? DeletedDate { get; set; }
+
+
+    }
+	public abstract class BaseInterfaceEntity<TKey> : IEntity
     {
         [Key]
         public TKey Id { get; set; }
