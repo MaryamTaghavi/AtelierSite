@@ -1,40 +1,172 @@
-﻿@model List<Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos.AtelierSearchResultDto>
+﻿@using Atelier.Application.Interfaces.IBaseInfoServices.ICitiesServices
+@using Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices
+@model List<Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos.AtelierSearchResultDto>
+@inject IGroupingService GroupingService ;
+@inject ICityService CityService ;
 
 @{
 	Layout = "_Layout";
-    ViewData["Title"] = "Atelier";
+	ViewData["Title"] = "Atelier";
+	var groupings = GroupingService.GetAll();
+	var cityList = CityService.GetAll();
 }
 
-<div style="overflow: hidden;">
+<div style="overflow: hidden; width: 95%;  padding: 10px 50px 10px 50px;">
 	<h3 style="text-align: right; margin: 100px 30px 15px 0;"> آتلیه ها</h3>
 
-	<div class="row" style="padding: 0 25px 0 25px;">
-		@foreach (var item in Model)
-		{
-			<div class="item mb-4" style="margin:15px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius:15px; width:350px;">
-				<div class="card" style="border-radius:15px; cursor: pointer;">
-					<img class="card-img-top" src="/assets/images/login.jpg" alt="" style="height:250px; border-radius:15px 15px 0 0;">
-					<div class="card-body" style="direction:rtl;">
-						<p class="card-title">@item.Title</p>
-						<p class="card-text d-flex">
-							<img src="/assets/images/icons/location.png" style="width:36px; height:36px;" />
-							<span>@item.cityTitle</span>
-						</p>
+	<div class="row d-flex">
+
+		<div class="col-md-3 col-12">
+			<div class="card" style="border-radius:15px;">
+				<h5 style="text-align: right; padding: 20px;">
+					فیلترها
+				</h5>
+				<div class="col-12" style="margin: 0 0 15px;">
+					<div class="card-header" id="headingOne">
+						<h5 class="my-0" style="text-align:right;">
+							<button class="btn btn-link ml-4" style=" color:black;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								دسته بندی
+							</button>
+						</h5>
 					</div>
-					<div class="card-footer d-flex justify-content-around">
-						<div style="cursor: pointer;">
-							<img src="/assets/images/icons/heart.png" style="width:24px; height:24px;" />
-						</div>
-						<span>|</span>
-						<div style="cursor: pointer;">
-							<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;" />
+
+					<div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample-faq">
+						<div class="card-body" style="text-align:right; overflow: auto; max-height: 150px;">
+							<div class="col-md-12">
+								<div class="form-group">
+									<div>
+										<input type="checkbox" id="changes">
+										انتخاب همه
+									</div>
+									<div class="position-relative has-icon-left">
+										@foreach (var item in groupings)
+										{
+											<div class="col-12">
+												<input id="input_@item.Id" type="checkbox" name="selected" value="@item.Tilte">
+												<span>@item.Tilte</span>
+											</div>
+										}
+
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
+
+					<div class="card-header" id="headingTwo">
+						<h5 class="my-0" style="text-align:right; color:black;">
+							<button class="btn btn-link ml-4" style=" color:black;" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+								شهرها
+							</button>
+						</h5>
+					</div>
+
+					<div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordionExample-faq">
+						<div class="card-body" style="text-align:right; overflow: auto; max-height: 150px;">
+							<div class="col-md-12">
+								<div class="form-group">
+									<div>
+										<input type="checkbox" id="changes">
+										انتخاب همه
+									</div>
+									<div class="position-relative has-icon-left">
+										@foreach (var item in cityList)
+										{
+											<div class="col-12">
+												<input id="input_@item.Id" type="checkbox" name="selected" value="@item.Tilte">
+												<span>@item.Tilte</span>
+											</div>
+										}
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					@*<div class="col-12" style="margin: 5px 0px 15px;">
+					<select id="groupId" asp-items="@(new SelectList(groupings, "Value", "Text"))" class="select2 form-control select2-hidden-accessible input-validation-error border-0">
+					</select>
+					</div>
+
+					<div class="col-12" style="margin: 5px 0px 15px;">
+					<select id="cityId" asp-items="@(new SelectList(cityList, "Value", "Text"))" class="select2 form-control select2-hidden-accessible input-validation-error">
+					</select>
+					</div>*@
 
 				</div>
 			</div>
-		}
+		</div>
+
+		<div class="row col-md-9 col-12" style="padding: 0 25px 0 25px;">
+			@foreach (var item in Model)
+			{
+				<div class="item mb-4" style="margin:15px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius:15px; width:350px;">
+					<div class="card" style="border-radius:15px; cursor: pointer;">
+						<img class="card-img-top" src="/assets/images/login.jpg" alt="" style="height:250px; border-radius:15px 15px 0 0;">
+						<div class="card-body" style="direction:rtl;">
+							<p class="card-title">@item.Title</p>
+							<p class="card-text d-flex">
+								<img src="/assets/images/icons/location.png" style="width:36px; height:36px;" />
+								<span>@item.cityTitle</span>
+							</p>
+						</div>
+						<div class="card-footer d-flex justify-content-around">
+							<div style="cursor: pointer;">
+								<img src="/assets/images/icons/heart.png" style="width:24px; height:24px;" />
+							</div>
+							<span>|</span>
+							<div style="cursor: pointer;">
+								<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;" />
+							</div>
+						</div>
+
+					</div>
+				</div>
+			}
+		</div>
 	</div>
+
 
 </div>
 
+<script>
+	$('input:checkbox').change(function () {
+
+		if ($(this).val() !== 'on') {
+
+			var id = $(this).val();
+
+			//if ($(this).is(":checked")) {
+			//    $(`#${id}`).html('<i data-toggle="tooltip" data-placement="top" title="تایید" class="fas fa-check text-success font-16"></i>');
+			//} else {
+			//    $(`#${id}`).html('<i data-toggle="tooltip" data-placement="top" title="عدم تایید" class="fas fa-times text-danger font-16"></i>');
+			//}
+		}
+	});
+</script>
+
+<script>
+	var checkbox = document.querySelectorAll("selected");
+	checkbox.addEventListener("change", changes(event));
+
+	function changes(event) {
+		console.log(event);
+	}
+
+	$("#changes").change(function () {
+		{
+
+			if ($('#changes').is(":checked")) {
+				$('input:checkbox').prop('checked', true);
+
+
+			} else {
+				$('input:checkbox').prop('checked', false);
+
+
+			}
+		}
+	});
+
+</script>

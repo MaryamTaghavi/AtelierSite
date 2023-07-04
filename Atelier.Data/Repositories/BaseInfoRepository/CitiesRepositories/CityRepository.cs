@@ -1,5 +1,6 @@
 ﻿using Atelier.Data.Context;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.ICitiesRepository;
+using Atelier.Domain.Models.BaseInfo.Cities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,12 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.CitiesRepositories
 			_context = context;
         }
 
-        public List<SelectListItem> GetAllSelectList()
+		public List<City> GetAll()
+		{
+			return _context.Cities.ToList();
+		}
+
+		public List<SelectListItem> GetAllSelectList()
 		{
 			return _context.Cities.Select(r => new SelectListItem()
 			{

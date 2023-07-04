@@ -59,14 +59,13 @@ body {
     height: 28px;
 }
 
+.searchBtn:hover{
+    background-color: darkgray;
+}
 
 .search-box-container {
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
     background-color: rgb(231 236 246 1);
-}
-
-.searchIcon:hover {
-    background-color: background-color: rgb(240, 240, 246);
 }
 
 .category {

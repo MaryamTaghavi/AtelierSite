@@ -1,6 +1,7 @@
 ﻿using Atelier.Application.Interfaces.IBaseInfoServices.ICitiesServices;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.ICitiesRepository;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IGropingRepository;
+using Atelier.Domain.Models.BaseInfo.Cities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,13 @@ namespace Atelier.Application.Services.BaseInfoServices.CitiesServices
 			_cityRepository = cityRepository;
         }
 
-        public List<SelectListItem> GetAllSelectList()
+		public List<City> GetAll()
+		{
+			return _cityRepository.GetAll();
+
+		}
+
+		public List<SelectListItem> GetAllSelectList()
 		{
 			var list = new List<SelectListItem>()
 			{
