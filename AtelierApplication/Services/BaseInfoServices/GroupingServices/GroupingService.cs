@@ -1,12 +1,19 @@
 ﻿using Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices;
+using Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IGropingRepository;
 using Atelier.Domain.Models.BaseInfo.Groupings;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atelier.Application.Utilities;
+using Atelier.Application.Helpers;
+using Atelier.Domain.Models.BaseInfo;
 
 namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
 {
@@ -18,6 +25,7 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
         {
 			_groupingRepository = groupingRepository;
         }
+
 
         public List<Grouping> GetAll()
         {
@@ -38,30 +46,65 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
        
             return list;
         }
-
-        public Grouping GetById(int id)
+        public List<GroupingSelectDto> GetAllGrouping()
         {
-            throw new NotImplementedException();
+	        return _groupingRepository.GetAllGrouping();
         }
 
-        public void Add(Grouping grouping)
+		public Grouping GetById(int id)
         {
-            Grouping group = new Grouping()
+			return _groupingRepository.GetById(id);
+		}
+
+
+		public void Add(GroupingDto groupingDto)
+        {
+            var fileNameAddress = groupingDto.GroupPic.SaveFile("images\\GroupingImages\\");
+
+            Grouping grouping = new Grouping()
             {
-                Tilte = grouping.Tilte,
-                GroupPic = grouping.GroupPic
-            };
+                Title = groupingDto.Title,
+                GroupPic = fileNameAddress
+			};
             _groupingRepository.Add(grouping);
+
         }
 
-        public void Delete(int id)
+		public RequestResult Delete(int id)
         {
-            throw new NotImplementedException();
-        }
+			var grouping = GetById(id);
 
-        public void Update(Grouping grouping)
+			grouping.DeletedDate = DateTime.Now;
+
+			Update(grouping);
+
+			return new RequestResult(true, RequestResultStatusCode.Success, "مشتری با موفقیت حذف شد.");
+		}
+
+		public void Update(Grouping grouping)
+		{
+			grouping.EditedDate = DateTime.Now;
+			_groupingRepository.Update(grouping);
+		}
+
+		public void UpdateDto(GroupingDto groupingDto)
         {
-            throw new NotImplementedException();
-        }
-    }
+	        var grouping = GetById(groupingDto.Id);
+
+	        if (groupingDto.GroupPic!=null)
+	        {
+		        grouping.GroupPic.DeleteFile();
+		        var fileNameAddress = groupingDto.GroupPic.SaveFile("images\\GroupingImages\\");
+				grouping.GroupPic = fileNameAddress;
+
+	        }
+	        grouping.Title=groupingDto.Title;
+	        Update(grouping);
+		}
+
+		public GroupingDto GetByIdGroupingDto(int id)
+		{
+			return _groupingRepository.GetByIdGroupingDto(id);
+		}
+	}
 }

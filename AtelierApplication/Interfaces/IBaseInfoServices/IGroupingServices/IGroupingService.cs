@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atelier.Application.Helpers;
+using Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos;
 
 namespace Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices
 {
@@ -12,10 +14,14 @@ namespace Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices
 	{
 		List<Grouping> GetAll();
 		public List<SelectListItem> GetAllSelectList();
+		List<GroupingSelectDto> GetAllGrouping();
+		Grouping GetById(int id);
 
-        Grouping GetById(int id);
-        void Add(Grouping grouping);
-        void Delete(int id);
+		GroupingDto GetByIdGroupingDto(int id);
+        void Add(GroupingDto groupingDto);
+        RequestResult Delete(int id);
         void Update(Grouping grouping);
-    }
+        void UpdateDto(GroupingDto groupingDto);
+
+	}
 }
