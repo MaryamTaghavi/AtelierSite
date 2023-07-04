@@ -42,6 +42,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.GroupingRepositories
                 Id = r.Id,
                Title = r.Tilte,
                GropuPic = r.GroupPic
+               
             }).ToList();
         }
 

@@ -26,17 +26,11 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "ردیف")]
-        public int Row { get; set; }
-
         [Display(Name = "عنوان")]
         public string Title { get; set; }
 
         [Display(Name = "تصویر")]
         public string GropuPic { get; set; }
-
-        [Display(Name = "عملیات")]
-        public string Operation { get; set; }
     }
 
 }

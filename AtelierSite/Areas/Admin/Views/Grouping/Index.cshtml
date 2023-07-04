@@ -1,86 +1,64 @@
 ﻿@using Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices;
 @inject IGroupingService GroupingService ;
+@model List<Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos.GroupingSelectDto>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
-	var listGrouping = GroupingService.GetAll();
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+	int cnt = 1;
 }
 
 <div class="page-body">
-    <div class="page-header">
-        <div class="row">
-            <div class="col">
-                <div class="page-header-left">
-                    <h3>گروه بندی</h3>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a ><i data-feather="home"></i></a></li>
-                        <li class="breadcrumb-item">گروه بندی</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="card">
-            <div class="m-20" style="text-align: end;">
-                <a class="btn btn-primary" asp-action="addGrouping">افزودن</a>
-            </div>
-            <div class="table-responsive">
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th>آیدی</th>
-                            <th>عنوان</th>
-                            <th>تصویر</th>
-	                        <th>عملیات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>مهمانی</td>
-                            <td>
-                                <button class="btn btn-warning" data-original-title="" title="">ویرایش</button>
-                                <button class="btn btn-danger" data-original-title="" title="">حذف</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>جشن</td>
-                            <td>
-                                <button class="btn btn-warning" data-original-title="" title="">ویرایش</button>
-                                <button class="btn btn-danger" data-original-title="" title="">حذف</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>تولد</td>
-                            <td>
-                                <button class="btn btn-warning" data-original-title="" title="">ویرایش</button>
-                                <button class="btn btn-danger" data-original-title="" title="">حذف</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>عروسی</td>
-                            <td>
-                                <button class="btn btn-warning" data-original-title="" title="">ویرایش</button>
-                                <button class="btn btn-danger" data-original-title="" title="">حذف</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>عکاسی</td>
-                            <td>
-                                <button class="btn btn-warning" data-original-title="" title="">ویرایش</button>
-                                <button class="btn btn-danger" data-original-title="" title="">حذف</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+	<div class="page-header">
+		<div class="row">
+			<div class="col">
+				<div class="page-header-left">
+					<h3>گروه بندی</h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a><i data-feather="home"></i></a></li>
+						<li class="breadcrumb-item">گروه بندی</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="card">
+			<div class="m-20" style="text-align: end;">
+				<a asp-area="Admin" asp-controller="Grouping" asp-action="AddGrouping" type="button" class="btn btn-primary">افزودن</a>
+			</div>
+			<div class="table-responsive">
+				<table class="table text-center">
+					<thead>
+						<tr>
+							<th>آیدی</th>
+							<th>عنوان</th>
+							<th>تصویر</th>
+							<th>عملیات</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						@foreach (var item in Model)
+						{
+							<tr id="Group_@item.Id">
+								<td class="index">@cnt</td>
+								<td>@item.Title</td>
+								<td>
+									<img src="@item.GropuPic" alt="" style="width:100px; height:100px;  margin-left: auto; margin-right: auto;" />
+								</td>
+								<td>
+									<button class="btn btn-warning">ویرایش</button>
+									<button class="btn btn-danger">حذف</button>
+								</td>
+							</tr>
+							cnt++;
+						}
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
 

@@ -11,17 +11,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atelier.Application.Utilities;
 
 namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
 {
 	public class GroupingService : IGroupingService
 	{
 		private readonly IGroupingRepository _groupingRepository;
-        private readonly IHostingEnvironment _environment;
-        public GroupingService(IGroupingRepository groupingRepository, IHostingEnvironment hostingEnvironment)
+
+        public GroupingService(IGroupingRepository groupingRepository)
         {
 			_groupingRepository = groupingRepository;
-            _environment = hostingEnvironment;
         }
 
 
@@ -44,8 +44,12 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
        
             return list;
         }
+        public List<GroupingSelectDto> GetAllGrouping()
+        {
+	        return _groupingRepository.GetAllGrouping();
+        }
 
-        public Grouping GetById(int id)
+		public Grouping GetById(int id)
         {
             throw new NotImplementedException();
         }
@@ -53,60 +57,18 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
 
         public void Add(GroupingDto groupingDto)
         {
-            var uploadedResult = UploadFile(groupingDto.GropuPic);
+            var fileNameAddress = groupingDto.GropuPic.SaveFile("images\\GroupingImages\\");
 
             Grouping grouping = new Grouping()
             {
                 Tilte = groupingDto.Title,
-                GroupPic = uploadedResult.FileNameAddress
-            };
+                GroupPic = fileNameAddress
+			};
             _groupingRepository.Add(grouping);
 
         }
 
 
-        private UploadDto UploadFile(IFormFile file)
-        {
-            if (file != null)
-            {
-                string folder = $@"images\GroupingImages\";
-                var uploadsRootFolder = Path.Combine(_environment.WebRootPath, folder);
-                if (!Directory.Exists(uploadsRootFolder))
-                {
-                    Directory.CreateDirectory(uploadsRootFolder);
-                }
-
-
-                if (file == null || file.Length == 0)
-                {
-                    return new UploadDto()
-                    {
-                        Status = false,
-                        FileNameAddress = "",
-                    };
-                }
-
-                string fileName = DateTime.Now.Ticks.ToString() + file.FileName;
-                var filePath = Path.Combine(uploadsRootFolder, fileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
-
-                return new UploadDto()
-                {
-                    FileNameAddress = folder + fileName,
-                    Status = true,
-                };
-            }
-            return null;
-        }
-        public class UploadDto
-        {
-            public long Id { get; set; }
-            public bool Status { get; set; }
-            public string FileNameAddress { get; set; }
-        }
 
 
         public void Delete(int id)
@@ -118,5 +80,7 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
         {
             throw new NotImplementedException();
         }
-    }
+
+
+	}
 }
