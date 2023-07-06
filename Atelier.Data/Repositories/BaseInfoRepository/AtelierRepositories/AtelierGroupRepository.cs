@@ -42,7 +42,6 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			{
 				result = result.Where(r => r.GroupId == dto.GroupingId);
 			}
-			a
 			if (dto.CityId > 0)
 			{
 				result = result.Where(r => r.Atelier.CityId == dto.CityId);
