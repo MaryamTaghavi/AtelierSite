@@ -19,6 +19,8 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 			_atelierGroupRepository = atelierGroupRepository;
 		}
 
+		
+
 		public List<AtelierGroup> GetAll()
 		{
 			return _atelierGroupRepository.GetAll();
@@ -27,6 +29,16 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 		public List<AtelierSearchResultDto> SearchAtelier(SearchDto dto)
 		{
 			return _atelierGroupRepository.SearchAtelier(dto);
+		}
+
+		public List<AtelierSearchResultDto> FilterAtelier(List<string> groupingIds, List<string> cityIds)
+		{
+			List<int> groupings = groupingIds[0] != null ? groupingIds[0].Split(',').Select(r => int.Parse(r)).ToList() : new List<int>();
+			List<int> cities = cityIds[0] != null
+				? cityIds[0].Split(',').Select(r => int.Parse(r)).ToList()
+				: new List<int>();
+
+			return _atelierGroupRepository.FilterAtelier(groupings , cities);
 		}
 	}
 }

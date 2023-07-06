@@ -42,8 +42,8 @@
 										@foreach (var item in groupings)
 										{
 											<div class="col-12">
-												<input id="input_@item.Id" type="checkbox" name="selected" value="@item.Tilte">
-												<span>@item.Tilte</span>
+												<input id="input_@item.Id" type="checkbox" name="grouping" value="@item.Id">
+												<span>@item.Title</span>
 											</div>
 										}
 
@@ -66,14 +66,14 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<div>
-										<input type="checkbox" id="changes">
+										<input type="checkbox" id="changes2">
 										انتخاب همه
 									</div>
 									<div class="position-relative has-icon-left">
 										@foreach (var item in cityList)
 										{
 											<div class="col-12">
-												<input id="input_@item.Id" type="checkbox" name="selected" value="@item.Tilte">
+												<input id="input_@item.Id" type="checkbox" name="cities" value="@item.Id">
 												<span>@item.Tilte</span>
 											</div>
 										}
@@ -83,91 +83,73 @@
 							</div>
 						</div>
 					</div>
-
-					@*<div class="col-12" style="margin: 5px 0px 15px;">
-					<select id="groupId" asp-items="@(new SelectList(groupings, "Value", "Text"))" class="select2 form-control select2-hidden-accessible input-validation-error border-0">
-					</select>
-					</div>
-
-					<div class="col-12" style="margin: 5px 0px 15px;">
-					<select id="cityId" asp-items="@(new SelectList(cityList, "Value", "Text"))" class="select2 form-control select2-hidden-accessible input-validation-error">
-					</select>
-					</div>*@
-
 				</div>
 			</div>
 		</div>
 
-		<div class="row col-md-9 col-12" style="padding: 0 25px 0 25px;">
-			@foreach (var item in Model)
-			{
-				<div class="item mb-4" style="margin:15px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius:15px; width:350px;">
-					<div class="card" style="border-radius:15px; cursor: pointer;">
-						<img class="card-img-top" src="/assets/images/login.jpg" alt="" style="height:250px; border-radius:15px 15px 0 0;">
-						<div class="card-body" style="direction:rtl;">
-							<p class="card-title">@item.Title</p>
-							<p class="card-text d-flex">
-								<img src="/assets/images/icons/location.png" style="width:36px; height:36px;" />
-								<span>@item.cityTitle</span>
-							</p>
-						</div>
-						<div class="card-footer d-flex justify-content-around">
-							<div style="cursor: pointer;">
-								<img src="/assets/images/icons/heart.png" style="width:24px; height:24px;" />
-							</div>
-							<span>|</span>
-							<div style="cursor: pointer;">
-								<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;" />
-							</div>
-						</div>
 
-					</div>
-				</div>
+		<div class="row col-md-9 col-12" style="padding: 0 25px 0 25px;">
+			@{
+				Html.RenderPartial("AtelierPartial", Model);
 			}
 		</div>
+
 	</div>
-	
-
-
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
 <script>
-	$('input:checkbox').change(function () {
-
-		if ($(this).val() !== 'on') {
-
-			var id = $(this).val();
-
-			//if ($(this).is(":checked")) {
-			//    $(`#${id}`).html('<i data-toggle="tooltip" data-placement="top" title="تایید" class="fas fa-check text-success font-16"></i>');
-			//} else {
-			//    $(`#${id}`).html('<i data-toggle="tooltip" data-placement="top" title="عدم تایید" class="fas fa-times text-danger font-16"></i>');
-			//}
+	$("#changes").change(function () {
+		if ($('#changes').is(":checked")) {
+			$('input[name="grouping"]').prop('checked', true);
+		} else {
+			$('input[name="grouping"]').prop('checked', false);
 		}
 	});
+
+	$("#changes2").change(function () {
+		if ($('#changes2').is(":checked")) {
+			$('input[name="cities"]').prop('checked', true);
+		} else {
+			$('input[name="cities"]').prop('checked', false);
+		}
+	});
+
 </script>
 
 <script>
-	var checkbox = document.querySelectorAll("selected");
-	checkbox.addEventListener("change", changes(event));
+	$('input[type="checkbox"]').on('change', function () {
 
-	function changes(event) {
-		console.log(event);
-	}
+		var formData = new FormData();
 
-	$("#changes").change(function () {
-		{
+		var selectedGrouping = $('input[type="checkbox"][name="grouping"]:checked').map(function () {
+			return $(this).val();
+		}).get();
+		var selectedCities = $('input[type="checkbox"][name="cities"]:checked').map(function () {
+			return $(this).val();
+		}).get();
 
-			if ($('#changes').is(":checked")) {
-				$('input:checkbox').prop('checked', true);
+		formData.append("groupingIds", selectedGrouping);
+		formData.append("cityIds", selectedCities);
 
+		console.log(selectedGrouping);
+		console.log(selectedCities);
 
-			} else {
-				$('input:checkbox').prop('checked', false);
+		$.ajax({
+			type: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false,
+			url: "/SearchAtelier/FilterAtelier",
+			success: function (result) {
+				console.log(result);
+				$('#atelier-list').html(result);
+			},
 
+		});
 
-			}
-		}
 	});
 
 </script>
