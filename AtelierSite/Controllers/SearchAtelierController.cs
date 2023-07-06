@@ -32,7 +32,7 @@ namespace AtelierSite.Controllers
 		public IActionResult FilterAtelier(List<string> groupingIds , List<string> cityIds)
 		{
 			var list = _atelierGroupService.FilterAtelier(groupingIds, cityIds);
-			return View("Atelier", list);
+			return PartialView("AtelierPartial", list);
 		}
 	}
 }
