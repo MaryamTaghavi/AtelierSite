@@ -105,8 +105,19 @@ namespace Atelier.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Tilte")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EditedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
@@ -120,11 +131,22 @@ namespace Atelier.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("EditedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("GroupPic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tilte")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("Id");
 
@@ -176,13 +198,13 @@ namespace Atelier.Data.Migrations
                     b.HasOne("Atelier.Domain.Models.BaseInfo.Cities.City", "city")
                         .WithMany("Atelier")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Atelier.Domain.Models.BaseInfo.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("city");
@@ -195,13 +217,13 @@ namespace Atelier.Data.Migrations
                     b.HasOne("Atelier.Domain.Models.BaseInfo.Ateliers.Atelier", "Atelier")
                         .WithMany("AtelierGroups")
                         .HasForeignKey("AtelierId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Atelier.Domain.Models.BaseInfo.Groupings.Grouping", "Grouping")
                         .WithMany("AtelierGroups")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Atelier");

@@ -21,6 +21,8 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			_context = context;
 		}
 
+		
+
 		public List<AtelierGroup> GetAll()
 		{
 			return _context.AtelierGroups.ToList();
@@ -40,7 +42,6 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			{
 				result = result.Where(r => r.GroupId == dto.GroupingId);
 			}
-
 			if (dto.CityId > 0)
 			{
 				result = result.Where(r => r.Atelier.CityId == dto.CityId);
@@ -53,7 +54,37 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 				Banner = r.Atelier.Banner,
 				Id = r.AtelierId,
 				Logo = r.Atelier.Logo,
-				cityTitle = r.Atelier.city.Tilte
+				cityTitle = r.Atelier.city.Title
+			}).ToList();
+		}
+
+		public List<AtelierSearchResultDto> FilterAtelier(List<int> groupIds, List<int> cityIds)
+		{
+			var ateliers = _context.Ateliers.AsQueryable();
+			var atelierGroups = _context.AtelierGroups.Include(r => r.Atelier.city).AsQueryable();
+
+
+			if (cityIds.Count > 0)
+			{
+				ateliers = ateliers.Where(r => cityIds.Contains(r.CityId));
+				var ids = ateliers.Select(r => r.Id).ToList();
+
+				atelierGroups = groupIds.Count > 0 ? atelierGroups.Where(r => groupIds.Contains(r.GroupId) && ids.Contains(r.AtelierId)) : atelierGroups.Where(r =>  ids.Contains(r.AtelierId));
+			}
+
+			else if (groupIds.Count > 0)
+			{
+				atelierGroups = atelierGroups.Where(r => groupIds.Contains(r.GroupId));
+			}
+
+			return atelierGroups.Select(r => new AtelierSearchResultDto()
+			{
+				Id = r.Id,
+				Title = r.Atelier.Title,
+				cityTitle = r.Atelier.city.Title,
+				Banner = r.Atelier.Banner,
+				Logo = r.Atelier.Logo,
+				
 			}).ToList();
 		}
 	}

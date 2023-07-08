@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Atelier.Domain.Models.BaseInfo.Cities
 {
-	public class City: BaseInterfaceEntity<int>
+	public class City: BaseEntityWithOutUser<int>
 	{
-		public string Tilte { get; set; }
 
 		#region Navigation Property
 

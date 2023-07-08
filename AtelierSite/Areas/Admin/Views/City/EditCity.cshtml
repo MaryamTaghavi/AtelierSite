@@ -1,0 +1,47 @@
+﻿@model Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto.CityDto
+
+@{
+    ViewData["Title"] = "EditCity";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+}
+
+<div class="page-body">
+	<div class="page-header">
+		<div class="row">
+			<div class="col">
+				<div class="page-header-left">
+					<h3>شهرها</h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a><i data-feather="home"></i></a></li>
+						<li class="breadcrumb-item">شهرها</li>
+						<li class="breadcrumb-item">ویرایش </li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<h5>ویرایش شهر</h5>
+			</div>
+			<form class="form theme-form" enctype="multipart/form-data" method="post" asp-controller="City" asp-action="EditCity">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<div class="form-group">
+								<label asp-for="Title">عنوان</label>
+								<input asp-for="Title" class="form-control" type="text" data-original-title="" title="">
+								<span class="text-danger" asp-validation-for="Title"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer w-100" style="text-align: end;">
+					<button class="btn btn-primary" type="submit" data-original-title="" title="">ویرایش</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

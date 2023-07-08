@@ -1,4 +1,5 @@
-﻿using Atelier.Domain.Models.BaseInfo;
+﻿using System.Linq;
+using Atelier.Domain.Models.BaseInfo;
 using Atelier.Domain.Models.BaseInfo.Cities;
 using Atelier.Domain.Models.BaseInfo.Groupings;
 using Atelier.Domain.Models.BaseInfo.Ateliers;
@@ -22,9 +23,18 @@ namespace Atelier.Data.Context
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+	        var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+		        .SelectMany(t => t.GetForeignKeys())
+		        .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+	        foreach (var fk in cascadeFKs)
+		        fk.DeleteBehavior = DeleteBehavior.Restrict;
+
+			modelBuilder.Entity<Grouping>().HasQueryFilter(u => u.DeletedDate == null);
+			modelBuilder.Entity<City>().HasQueryFilter(u => u.DeletedDate == null);
 
         }
-    }
+	}
 
 }
 

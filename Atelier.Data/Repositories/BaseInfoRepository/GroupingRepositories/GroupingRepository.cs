@@ -1,4 +1,5 @@
 ﻿using Atelier.Data.Context;
+using Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IGropingRepository;
 using Atelier.Domain.Models.BaseInfo;
 using Atelier.Domain.Models.BaseInfo.Groupings;
@@ -24,7 +25,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.GroupingRepositories
         {
             return _context.Groupings.Select(r => new SelectListItem()
             {
-                Text = r.Tilte,
+                Text = r.Title,
                 Value = r.Id.ToString()
             }).ToList();
         }
@@ -34,28 +35,43 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.GroupingRepositories
             return _context.Groupings.ToList();
         }
 
+        public List<GroupingSelectDto> GetAllGrouping()
+        {
+            return _context.Groupings.Select(r => new GroupingSelectDto()
+            {  
+                Id = r.Id,
+               Title = r.Title,
+               GropuPic = r.GroupPic
+               
+            }).ToList();
+        }
 
         public Grouping GetById(int id)
         {
-            throw new NotImplementedException();
+			return _context.Groupings.Find(id);
+		}
+        public GroupingDto GetByIdGroupingDto(int id)
+        {
+	        return _context.Groupings.Where(x => x.Id==id).Select(x=> new GroupingDto()
+	        {
+                Id = x.Id,
+                Title = x.Title,
+	        }).SingleOrDefault();
         }
 
-
-        public void Add(Grouping grouping)
+		public void Add(Grouping grouping )
         {
             _context.Groupings.Add(grouping);
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-     
         public void Update(Grouping grouping)
         {
-            throw new NotImplementedException();
-        }
-    }
+			_context.Update(grouping);
+			_context.SaveChanges();
+		}
+
+
+	}
 }
