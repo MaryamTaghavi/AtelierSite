@@ -34,7 +34,6 @@ namespace AtelierSite.Controllers
             return RedirectToAction("Atelier", "SearchAtelier");
 		}
 
-
 	}
 
 

@@ -29,7 +29,7 @@
 								</select>
 							</li>
 						</ul>
-						<button type="submit" class="bg-transparent outline-none border-0 cursor-pointer">
+						<button type="submit" class="searchBtn bg-transparent outline-none border-0" style="outline: none; padding: 30px; cursor: pointer;">
 							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 32 32">
 								<circle cx="14" cy="14" r="12" fill="#79b5ba"></circle>
 								<path fill="#302529" d="M14,27C6.832,27,1,21.168,1,14S6.832,1,14,1s13,5.832,13,13S21.168,27,14,27z M14,3	C7.935,3,3,7.935,3,14s4.935,11,11,11s11-4.935,11-11S20.065,3,14,3z"></path>
@@ -37,11 +37,6 @@
 								<rect width="2" height="10.607" x="25.25" y="20.947" fill="#302529" transform="rotate(-45.001 26.25 26.25)"></rect>
 							</svg>
 						</button>
-						@*<a onclick="SearchAtelier()" class="searchIcon" style="cursor:pointer; padding:30px;">
-							<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 32 32">
-								<circle cx="14" cy="14" r="12" fill="#79b5ba"></circle><path fill="#302529" d="M14,27C6.832,27,1,21.168,1,14S6.832,1,14,1s13,5.832,13,13S21.168,27,14,27z M14,3	C7.935,3,3,7.935,3,14s4.935,11,11,11s11-4.935,11-11S20.065,3,14,3z"></path><path fill="#fff" d="M6,14H5c0-4.962,4.038-9,9-9v1C9.589,6,6,9.589,6,14z"></path><rect width="2" height="10.607" x="25.25" y="20.947" fill="#302529" transform="rotate(-45.001 26.25 26.25)"></rect>
-							</svg>
-						</a>*@
 				</div>
 			</div>
 
@@ -117,6 +112,10 @@
 
 @section myScripts {
 	<script>
+		$('select').select2({
+			dir: "rtl"
+		});
+
 		function SearchAtelier() {
 			$.ajax({
 				type: 'Get',
@@ -132,5 +131,6 @@
 			});
 		}
 
+	
 	</script>
 }

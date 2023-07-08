@@ -13,5 +13,7 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository.IAteliersRepository
 	{
 		List<AtelierGroup> GetAll();
 		List<AtelierSearchResultDto> SearchAtelier(SearchDto dto);
+		List<AtelierSearchResultDto> FilterAtelier(List<int> groupIds , List<int> cityIds);
+
 	}
 }

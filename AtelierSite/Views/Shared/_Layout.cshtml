@@ -30,7 +30,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-transparent" style="justify-content: center; position: absolute; z-index: 50; width: 100%">
 
 				<div style="display: flex; width: 95%; border-bottom: 1px solid black; justify-content: space-between;">
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" asp-controller="Home" asp-action="Index">
 						<img src="/assets/images/logo.png"
 							 alt=""
 							 style="width: 84px; height: 54px; margin-left: 25px;" />
@@ -43,10 +43,10 @@
 					<div class="navbar-collapse collapse text-right mobileNavbar " id="navbarSupportedContent">
 						<ul class="navbar-nav mr-auto p-0" style="flex: auto; justify-content: center; font-weight: bolder;">
 							<li class="nav-item pr-1 pl-1">
-								<a class="nav-link" href="#">خانه</a>
+								<a class="nav-link" asp-controller="Home" asp-action="Index">خانه</a>
 							</li>
 							<li class="nav-item pr-1 pl-1">
-								<a class="nav-link" href="#">آتلیه ها</a>
+								<a class="nav-link">آتلیه ها</a>
 							</li>
 							<li class="nav-item pr-1 pl-1">
 								<a class="nav-link" href="#">درباره ما</a>
@@ -97,7 +97,7 @@
 
 
 
-			<div>
+			<div >
 				@RenderBody()
 			</div>
 			
@@ -113,7 +113,7 @@
 				</div>
 				<div class="col-3 card d-flex" style="align-items: center; margin: 25px; border-radius: 15px; border: 0;">
 					<img src="/assets/images/banner/location.jpg" style="width:150px; height:150px;" />
-					<span>دسترسی به لوکیشن</span>
+					<span>دسترسی سریع به لوکیشن</span>
 				</div>
 			</div>
 
@@ -124,7 +124,7 @@
 						<div class="col-md-9 text-center">
 							<div class="footer-site-logo mb-4" style="text-align: right; padding: 25px;">
 								<a href="#" style="font-size:35px; font-weight:bolder; color:black; text-decoration: none;">
-									<img src="assets/images/logo.png" style="width: 84px; height: 54px; margin-left: 25px;" />
+									<img src="/assets/images/logo.png" style="width: 84px; height: 54px; margin-left: 25px;" />
 									آتلین؛ آتلیه یاب آنلاین
 								</a>
 								<p style="padding: 25px; font-size:18px;">
@@ -172,6 +172,9 @@
 			<script src="/assets/js/bootstrap.js"></script>
 			<script src="/assets/vendors/js/forms/select/select2.full.min.js"></script>
 			<script src="/assets/js/scripts/forms/select/form-select2.js"></script>
+			
+
+
 			@*slider*@
 			<script>
 				$('#owl-carousel1').owlCarousel({
