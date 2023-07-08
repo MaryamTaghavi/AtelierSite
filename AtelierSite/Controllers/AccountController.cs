@@ -41,7 +41,8 @@ namespace AtelierSite.Controllers
                         new Claim(ClaimTypes.NameIdentifier,result.Id.ToString()),
                         new Claim(ClaimTypes.Name,result.Title),
                         new Claim("LastName", result.FullName),
-                    };
+                        new Claim("Id", result.Id.ToString()),
+                };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
 
