@@ -54,7 +54,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 				Banner = r.Atelier.Banner,
 				Id = r.AtelierId,
 				Logo = r.Atelier.Logo,
-				cityTitle = r.Atelier.city.Tilte
+				cityTitle = r.Atelier.city.Title
 			}).ToList();
 		}
 
@@ -81,7 +81,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			{
 				Id = r.Id,
 				Title = r.Atelier.Title,
-				cityTitle = r.Atelier.city.Tilte,
+				cityTitle = r.Atelier.city.Title,
 				Banner = r.Atelier.Banner,
 				Logo = r.Atelier.Logo,
 				

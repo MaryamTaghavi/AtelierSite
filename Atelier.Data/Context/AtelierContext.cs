@@ -31,8 +31,9 @@ namespace Atelier.Data.Context
 		        fk.DeleteBehavior = DeleteBehavior.Restrict;
 
 			modelBuilder.Entity<Grouping>().HasQueryFilter(u => u.DeletedDate == null);
+			modelBuilder.Entity<City>().HasQueryFilter(u => u.DeletedDate == null);
 
-		}
+        }
 	}
 
 }
