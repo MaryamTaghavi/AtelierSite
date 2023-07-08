@@ -1,4 +1,5 @@
 ﻿using Atelier.Data.Context;
+using Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.ICitiesRepository;
 using Atelier.Domain.Models.BaseInfo.Cities;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,19 +20,54 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.CitiesRepositories
 			_context = context;
         }
 
-		public List<City> GetAll()
+        public List<City> GetAll()
 		{
 			return _context.Cities.ToList();
 		}
 
-		public List<SelectListItem> GetAllSelectList()
+        public List<SelectListItem> GetAllSelectList()
 		{
 			return _context.Cities.Select(r => new SelectListItem()
 			{
-				Text = r.Tilte,
+				Text = r.Title,
 				Value = r.Id.ToString()
 			}
 			).ToList();
+		}
+
+        public List<CitySelectDto> GetAllCities()
+        {
+	        return _context.Cities.Select(r => new CitySelectDto()
+	        {
+		        Id = r.Id,
+		        Title = r.Title
+	        }).ToList();
+        }
+
+		public City GetById(int id)
+		{
+			return _context.Cities.Find(id);
+		}
+
+		public CityDto GetByIdCityDto(int id)
+		{
+			return _context.Cities.Where(r => r.Id == id).Select(r => new CityDto()
+			{
+				Id = r.Id,
+				Title = r.Title
+			}).SingleOrDefault();
+		}
+
+		public void Add(City city)
+		{
+			_context.Cities.Add(city);
+			_context.SaveChanges();
+		}
+
+		public void Update(City city)
+		{
+			_context.Cities.Update(city);
+			_context.SaveChanges();
 		}
 	}
 }

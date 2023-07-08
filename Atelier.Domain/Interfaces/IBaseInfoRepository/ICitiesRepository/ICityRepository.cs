@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto;
 using Atelier.Domain.Models.BaseInfo.Cities;
 
 namespace Atelier.Domain.Interfaces.IBaseInfoRepository.ICitiesRepository
@@ -13,5 +14,10 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository.ICitiesRepository
 	{
 		List<City> GetAll();
 		List<SelectListItem> GetAllSelectList();
+		List<CitySelectDto> GetAllCities();
+		City GetById(int id);
+		CityDto GetByIdCityDto(int id);
+		void Add(City city);
+		void Update(City city);
 	}
 }
