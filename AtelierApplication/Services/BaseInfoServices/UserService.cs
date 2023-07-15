@@ -2,6 +2,7 @@
 using Atelier.Application.Interfaces.IBaseInfoServices;
 using Atelier.Application.Security;
 using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
+using Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto;
 using Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs;
 using Atelier.Domain.Interfaces.IBaseInfoRepository;
 using Atelier.Domain.Models.BaseInfo;
@@ -54,6 +55,7 @@ namespace Atelier.Application.Services.BaseInfoServices
 				CreateDate = DateTime.Now,
 				FullName = registerDto.FullName,
 				Title = registerDto.UserName,
+				PhoneNumber = registerDto.PhoneNumber,
 				Password = PasswordHelper.EncodePasswordMd5(registerDto.Password),
 			};
 			_userRepositrory.Add(user);
@@ -65,14 +67,12 @@ namespace Atelier.Application.Services.BaseInfoServices
 		{
 			throw new NotImplementedException();
 		}
-
-
-		public void UpdateDto(UserDto userDto)
+        public void UpdateDto(UserDto userDto)
 		{
-			var user = _userRepositrory.GetById(userDto.Id);
+            var user = _userRepositrory.GetById(userDto.Id);
 			user.Title = userDto.UserName;
 			user.FullName =userDto.FullName;
-			user.Password = userDto.Password;
+			user.Password = PasswordHelper.EncodePasswordMd5(userDto.Password);
 			user.PhoneNumber = userDto.PhoneNumber;
 
 			Update(user);

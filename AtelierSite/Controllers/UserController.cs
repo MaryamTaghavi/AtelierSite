@@ -1,22 +1,41 @@
-﻿using Atelier.Application.Services.BaseInfoServices;
+﻿using Atelier.Application.Interfaces.IBaseInfoServices;
+using Atelier.Application.Security;
+using Atelier.Application.Services.BaseInfoServices;
+using Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto;
+using Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtelierSite.Controllers
 {
 	public class UserController : Controller
 	{
-		private readonly UserService _userService;
+		private readonly IUserService _userService;
 
-		public UserController(UserService userService)
+		public UserController(IUserService userService)
 		{
 			_userService = userService;
 		}
-		public IActionResult Index(string id)
+		public IActionResult Index()
 		{
-			var UserId = int.Parse(id);
-			var model = _userService.GetByIdUserDto(UserId);
+			var userId = User.GetUserId();
+
+			var model = _userService.GetByIdUserDto(userId);
 
 			return View(model);
 		}
+
+        [HttpPost]
+        public IActionResult Index(UserDto userDto)
+        {
+			//if (!ModelState.IsValid)
+			//    return View(userDto);
+
+			_userService.UpdateDto(userDto);
+
+			//var userId = User.GetUserId();
+			//var model = _userService.GetByIdUserDto(userId);
+
+			return View(userDto);
+        }
 	}
 }
