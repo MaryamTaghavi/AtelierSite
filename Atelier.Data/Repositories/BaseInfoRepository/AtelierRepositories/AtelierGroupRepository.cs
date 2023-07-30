@@ -28,27 +28,27 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			return _context.AtelierGroups.ToList();
 		}
 
-		public List<AtelierSearchResultDto> SearchAtelier(SearchDto dto)
+		public List<AtelierSearchResultViewModel> SearchAtelier(SearchViewModel viewModel)
 		{
 			var result = _context.AtelierGroups
 				.Include(r => r.Atelier).ThenInclude(r => r.city).AsQueryable();
 
-			if (!string.IsNullOrEmpty(dto.Title))
+			if (!string.IsNullOrEmpty(viewModel.Title))
 			{
-				result = result.Where(r => r.Atelier.Title.Contains(dto.Title));
+				result = result.Where(r => r.Atelier.Title.Contains(viewModel.Title));
 			}
 
-			if (dto.GroupingId > 0)
+			if (viewModel.GroupingId > 0)
 			{
-				result = result.Where(r => r.GroupId == dto.GroupingId);
+				result = result.Where(r => r.GroupId == viewModel.GroupingId);
 			}
-			if (dto.CityId > 0)
+			if (viewModel.CityId > 0)
 			{
-				result = result.Where(r => r.Atelier.CityId == dto.CityId);
+				result = result.Where(r => r.Atelier.CityId == viewModel.CityId);
 			}
 
 			var list = result.ToList();
-			return list.Select(r => new AtelierSearchResultDto()
+			return list.Select(r => new AtelierSearchResultViewModel()
 			{
 				Title = r.Atelier.Title,
 				Banner = r.Atelier.Banner,
@@ -58,7 +58,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			}).ToList();
 		}
 
-		public List<AtelierSearchResultDto> FilterAtelier(List<int> groupIds, List<int> cityIds)
+		public List<AtelierSearchResultViewModel> FilterAtelier(List<int> groupIds, List<int> cityIds)
 		{
 			var ateliers = _context.Ateliers.AsQueryable();
 			var atelierGroups = _context.AtelierGroups.Include(r => r.Atelier.city).AsQueryable();
@@ -77,7 +77,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 				atelierGroups = atelierGroups.Where(r => groupIds.Contains(r.GroupId));
 			}
 
-			return atelierGroups.Select(r => new AtelierSearchResultDto()
+			return atelierGroups.Select(r => new AtelierSearchResultViewModel()
 			{
 				Id = r.Id,
 				Title = r.Atelier.Title,

@@ -14,9 +14,9 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository
         List<User> GetAll();
 
         User GetById(int id);
-        UserDto GetByIdUserDto(int id);
+        UserViewModel GetByIdUserDto(int id);
 		void Add(User user);
-        User LoginUser(LoginDto loginDto);
+        User LoginUser(LoginViewModel loginViewModel);
         void Update(User user);
 
 

@@ -25,17 +25,17 @@ namespace AtelierSite.Areas.Admin.Controllers
 
         public IActionResult AddGrouping()
         {
-	        return View(new GroupingDto());
+	        return View(new GroupingViewModel());
         }
 
         [HttpPost]
-        public IActionResult AddGrouping(GroupingDto groupingDto)
+        public IActionResult AddGrouping(GroupingViewModel groupingViewModel)
         {
 			if (!ModelState.IsValid)
 			{
-				return View(groupingDto);
+				return View(groupingViewModel);
 			}
-			_groupingService.Add(groupingDto);
+			_groupingService.Add(groupingViewModel);
 
 			return RedirectToAction("Index");
 		}
@@ -47,7 +47,7 @@ namespace AtelierSite.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditGrouping(GroupingDto grouping)
+        public IActionResult EditGrouping(GroupingViewModel grouping)
         {
 	        if (!ModelState.IsValid)
 		        return View(grouping);

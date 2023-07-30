@@ -25,17 +25,17 @@ namespace AtelierSite.Controllers
 		}
 
         [HttpPost]
-        public IActionResult Index(UserDto userDto)
+        public IActionResult Index(UserViewModel userViewModel)
         {
 			//if (!ModelState.IsValid)
-			//    return View(userDto);
+			//    return View(userViewModel);
 
-			_userService.UpdateDto(userDto);
+			_userService.UpdateDto(userViewModel);
 
 			//var userId = User.GetUserId();
 			//var model = _userService.GetByIdUserDto(userId);
 
-			return View(userDto);
+			return View(userViewModel);
         }
 	}
 }

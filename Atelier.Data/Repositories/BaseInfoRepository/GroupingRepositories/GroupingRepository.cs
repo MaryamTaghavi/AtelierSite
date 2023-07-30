@@ -35,9 +35,9 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.GroupingRepositories
             return _context.Groupings.ToList();
         }
 
-        public List<GroupingSelectDto> GetAllGrouping()
+        public List<GroupingShowViewModel> GetAllGrouping()
         {
-            return _context.Groupings.Select(r => new GroupingSelectDto()
+            return _context.Groupings.Select(r => new GroupingShowViewModel()
             {  
                 Id = r.Id,
                Title = r.Title,
@@ -50,9 +50,9 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.GroupingRepositories
         {
 			return _context.Groupings.Find(id);
 		}
-        public GroupingDto GetByIdGroupingDto(int id)
+        public GroupingViewModel GetByIdGroupingDto(int id)
         {
-	        return _context.Groupings.Where(x => x.Id==id).Select(x=> new GroupingDto()
+	        return _context.Groupings.Where(x => x.Id==id).Select(x=> new GroupingViewModel()
 	        {
                 Id = x.Id,
                 Title = x.Title,

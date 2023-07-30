@@ -24,17 +24,17 @@ namespace AtelierSite.Areas.Admin.Controllers
 
         public IActionResult AddCity()
         {
-            return View(new CityDto());
+            return View(new CityViewModel());
         }
 
         [HttpPost]
-        public IActionResult AddCity(CityDto cityDto)
+        public IActionResult AddCity(CityViewModel cityViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(cityDto);
+                return View(cityViewModel);
             }
-            _cityService.Add(cityDto);
+            _cityService.Add(cityViewModel);
 
             return RedirectToAction("Index");
         }
@@ -46,12 +46,12 @@ namespace AtelierSite.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditCity(CityDto cityDto)
+        public IActionResult EditCity(CityViewModel cityViewModel)
         {
 	        if (!ModelState.IsValid)
-		        return View(cityDto);
+		        return View(cityViewModel);
 
-	        _cityService.UpdateDto(cityDto);
+	        _cityService.UpdateDto(cityViewModel);
 	        return RedirectToAction("Index");
         }
 

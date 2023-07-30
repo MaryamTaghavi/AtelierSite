@@ -38,7 +38,7 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
                 new SelectListItem()
                 {
                     Value = null,
-                    Text = "دسته بندی"
+                    Text = "لطفا انتخاب کنید"
                 }
             };
 
@@ -46,7 +46,7 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
        
             return list;
         }
-        public List<GroupingSelectDto> GetAllGrouping()
+        public List<GroupingShowViewModel> GetAllGrouping()
         {
 	        return _groupingRepository.GetAllGrouping();
         }
@@ -57,13 +57,13 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
 		}
 
 
-		public void Add(GroupingDto groupingDto)
+		public void Add(GroupingViewModel groupingViewModel)
         {
-            var fileNameAddress = groupingDto.GroupPic.SaveFile("images\\GroupingImages\\");
+            var fileNameAddress = groupingViewModel.GroupPic.SaveFile("images\\GroupingImages\\");
 
             Grouping grouping = new Grouping()
             {
-                Title = groupingDto.Title,
+                Title = groupingViewModel.Title,
                 GroupPic = fileNameAddress
 			};
             _groupingRepository.Add(grouping);
@@ -78,7 +78,7 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
 
 			Update(grouping);
 
-			return new RequestResult(true, RequestResultStatusCode.Success, "گروهبمدی با موفقیت حذف شد.");
+			return new RequestResult(true, RequestResultStatusCode.Success, "گروهبندی با موفقیت حذف شد.");
 		}
 
 		public void Update(Grouping grouping)
@@ -87,22 +87,22 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
 			_groupingRepository.Update(grouping);
 		}
 
-		public void UpdateDto(GroupingDto groupingDto)
+		public void UpdateDto(GroupingViewModel groupingViewModel)
         {
-	        var grouping = GetById(groupingDto.Id);
+	        var grouping = GetById(groupingViewModel.Id);
 
-	        if (groupingDto.GroupPic!=null)
+	        if (groupingViewModel.GroupPic!=null)
 	        {
 		        grouping.GroupPic.DeleteFile();
-		        var fileNameAddress = groupingDto.GroupPic.SaveFile("images\\GroupingImages\\");
+		        var fileNameAddress = groupingViewModel.GroupPic.SaveFile("images\\GroupingImages\\");
 				grouping.GroupPic = fileNameAddress;
 
 	        }
-	        grouping.Title=groupingDto.Title;
+	        grouping.Title=groupingViewModel.Title;
 	        Update(grouping);
 		}
 
-		public GroupingDto GetByIdGroupingDto(int id)
+		public GroupingViewModel GetByIdGroupingDto(int id)
 		{
 			return _groupingRepository.GetByIdGroupingDto(id);
 		}

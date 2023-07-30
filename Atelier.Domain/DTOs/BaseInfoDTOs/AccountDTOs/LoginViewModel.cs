@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs
 {
-    public class LoginDto
+    public class LoginViewModel
     {
         [Display(Name = "نام کاربری")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]

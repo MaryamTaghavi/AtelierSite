@@ -14,9 +14,9 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository.ICitiesRepository
 	{
 		List<City> GetAll();
 		List<SelectListItem> GetAllSelectList();
-		List<CitySelectDto> GetAllCities();
+		List<CityShowViewModel> GetAllCities();
 		City GetById(int id);
-		CityDto GetByIdCityDto(int id);
+		CityViewModel GetByIdCityViewModel(int id);
 		void Add(City city);
 		void Update(City city);
 	}

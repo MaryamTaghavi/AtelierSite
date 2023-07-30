@@ -15,9 +15,9 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository.IGropingRepository
 	{
 		List<Grouping> GetAll();
 		List<SelectListItem> GetAllSelectList();
-        List<GroupingSelectDto> GetAllGrouping();
+        List<GroupingShowViewModel> GetAllGrouping();
         Grouping GetById(int id);
-		GroupingDto GetByIdGroupingDto(int id);
+		GroupingViewModel GetByIdGroupingDto(int id);
 		void Add(Grouping grouping);
         void Update(Grouping grouping);
     }

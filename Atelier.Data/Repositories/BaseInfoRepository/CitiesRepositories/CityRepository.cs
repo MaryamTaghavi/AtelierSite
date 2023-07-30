@@ -35,9 +35,9 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.CitiesRepositories
 			).ToList();
 		}
 
-        public List<CitySelectDto> GetAllCities()
+        public List<CityShowViewModel> GetAllCities()
         {
-	        return _context.Cities.Select(r => new CitySelectDto()
+	        return _context.Cities.Select(r => new CityShowViewModel()
 	        {
 		        Id = r.Id,
 		        Title = r.Title
@@ -49,9 +49,9 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.CitiesRepositories
 			return _context.Cities.Find(id);
 		}
 
-		public CityDto GetByIdCityDto(int id)
+		public CityViewModel GetByIdCityViewModel(int id)
 		{
-			return _context.Cities.Where(r => r.Id == id).Select(r => new CityDto()
+			return _context.Cities.Where(r => r.Id == id).Select(r => new CityViewModel()
 			{
 				Id = r.Id,
 				Title = r.Title

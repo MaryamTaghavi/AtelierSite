@@ -36,7 +36,7 @@ namespace Atelier.Application.Services.BaseInfoServices.CitiesServices
 				new SelectListItem()
 				{
 					Value = null,
-					Text = "شهر"
+					Text = "لطفا انتخاب کنید"
 				}
 			};
 
@@ -45,7 +45,7 @@ namespace Atelier.Application.Services.BaseInfoServices.CitiesServices
 			return list;
 		}
 
-		public List<CitySelectDto> GetAllCities()
+		public List<CityShowViewModel> GetAllCities()
 		{
 			return _cityRepository.GetAllCities();
 		}
@@ -55,16 +55,16 @@ namespace Atelier.Application.Services.BaseInfoServices.CitiesServices
 			return _cityRepository.GetById(id);
 		}
 
-		public CityDto GetByIdCityDto(int id)
+		public CityViewModel GetByIdCityDto(int id)
 		{
-			return _cityRepository.GetByIdCityDto(id);
+			return _cityRepository.GetByIdCityViewModel(id);
 		}
 
-		public void Add(CityDto cityDto)
+		public void Add(CityViewModel cityViewModel)
 		{
 			City city = new City()
 			{
-				Title = cityDto.Title
+				Title = cityViewModel.Title
 			};
 			_cityRepository.Add(city);
 		}
@@ -83,10 +83,10 @@ namespace Atelier.Application.Services.BaseInfoServices.CitiesServices
 			_cityRepository.Update(city);
 		}
 
-		public void UpdateDto(CityDto cityDto)
+		public void UpdateDto(CityViewModel cityViewModel)
 		{
-			var city = GetById(cityDto.Id);
-			city.Title = cityDto.Title;
+			var city = GetById(cityViewModel.Id);
+			city.Title = cityViewModel.Title;
 			Update(city);
 		}
 	}

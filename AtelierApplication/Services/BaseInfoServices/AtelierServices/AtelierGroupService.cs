@@ -26,12 +26,12 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 			return _atelierGroupRepository.GetAll();
 		}
 
-		public List<AtelierSearchResultDto> SearchAtelier(SearchDto dto)
+		public List<AtelierSearchResultViewModel> SearchAtelier(SearchViewModel viewModel)
 		{
-			return _atelierGroupRepository.SearchAtelier(dto);
+			return _atelierGroupRepository.SearchAtelier(viewModel);
 		}
 
-		public List<AtelierSearchResultDto> FilterAtelier(List<string> groupingIds, List<string> cityIds)
+		public List<AtelierSearchResultViewModel> FilterAtelier(List<string> groupingIds, List<string> cityIds)
 		{
 			List<int> groupings = groupingIds[0] != null ? groupingIds[0].Split(',').Select(r => int.Parse(r)).ToList() : new List<int>();
 			List<int> cities = cityIds[0] != null
