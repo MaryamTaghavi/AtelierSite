@@ -82,10 +82,10 @@
 						</div>
 						<div class="col-6">
 							<div class="form-group">
-								<label asp-for="GroupingList">گروهبندی</label>
-								<select asp-for="GroupingList" class="select2 form-control select2-hidden-accessible input-validation-error"  asp-items="@(new SelectList(groupList, "Value", "Text"))">
+								<label asp-for="GroupingIds">گروهبندی</label>
+								<select asp-for="GroupingIds" class="select2 form-control select2-hidden-accessible input-validation-error"  asp-items="@(new SelectList(groupList, "Value", "Text"))">
 								</select>
-								<span class="text-danger" asp-validation-for="GroupingList"></span>
+								<span class="text-danger" asp-validation-for="GroupingIds"></span>
 							</div>
 						</div>
 						
