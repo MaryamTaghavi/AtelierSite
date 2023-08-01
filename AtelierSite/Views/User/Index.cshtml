@@ -1,0 +1,58 @@
+﻿@model Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs.UserViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="overflow: hidden; width: 95%;  padding: 10px 50px 10px 50px;">
+
+	<div class="row d-flex" style="margin: 120px 30px 15px 0;">
+
+		<div class="col-md-3 col-12">
+			<div class="card" style="border-radius:15px; align-items: center;">
+				<img src="assets/images/user.png" style="width:80px; height:80px; margin-top: 10px;" />
+				<h5 style="text-align: center; padding: 20px;">
+					@Model.UserName
+				</h5>
+				<div class="col-12" style="margin: 0 0 15px;">
+					<ul style="list-style: none; text-align: center; padding: 0;">
+						<li style="margin: 20px;"><a >اطلاعات کاربر</a></li>
+						<li style="margin: 20px;">><a>علاقه مندی ها</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="" class="col-md-9 col-12" style="padding: 0 25px 0 25px;text-align: right;">
+			<form method="post" asp-controller="User" asp-action="Index">
+				
+				<input type="hidden" asp-for="Id"/>
+
+				<div class="form-group" style="width: 100%; text-align: right;">
+					<label asp-for="FullName">نام و نام خانوادگی</label>
+					<input asp-for="FullName" class="form-control">
+					<span class="text-danger" asp-validation-for="FullName"></span>
+
+				</div>
+				<div class="form-group">
+					<label asp-for="UserName">نام کاربری</label>
+					<input asp-for="UserName" class="form-control">
+					<span class="text-danger" asp-validation-for="UserName"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="PhoneNumber">موبایل</label>
+					<input asp-for="PhoneNumber" class="form-control">
+					<span class="text-danger" asp-validation-for="PhoneNumber"></span>
+				</div>
+				<div class="form-group mb-4">
+					<label asp-for="Password">رمز عبور</label>
+					<input asp-for="Password" type="password" class="form-control">
+					<span class="text-danger" asp-validation-for="Password"></span>
+				</div>
+				<button type="submit" class="btn btn-primary login-btn mb-4">ویرایش</button>
+			</form>
+		</div>
+
+	</div>
+</div>
+

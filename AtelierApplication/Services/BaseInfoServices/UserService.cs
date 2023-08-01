@@ -2,6 +2,8 @@
 using Atelier.Application.Interfaces.IBaseInfoServices;
 using Atelier.Application.Security;
 using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
+using Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto;
+using Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs;
 using Atelier.Domain.Interfaces.IBaseInfoRepository;
 using Atelier.Domain.Models.BaseInfo;
 using System;
@@ -22,24 +24,6 @@ namespace Atelier.Application.Services.BaseInfoServices
             _userRepositrory = repositrory;
         }
 
-        public RequestResult Add(RegisterDto registerDto)
-        {
-            User user = new User()
-            {
-                CreateDate = DateTime.Now,
-                FullName = registerDto.FullName,
-                Title = registerDto.UserName,
-                Password = PasswordHelper.EncodePasswordMd5(registerDto.Password),
-            };
-            _userRepositrory.Add(user);
-
-            return new RequestResult(true ,statusCode:RequestResultStatusCode.Success);
-        }
-
-        public RequestResult Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<User> GetAll()
         {
@@ -49,19 +33,55 @@ namespace Atelier.Application.Services.BaseInfoServices
 
         public User GetById(int id)
         {
-            throw new NotImplementedException();
+	        return _userRepositrory.GetById(id);
         }
 
-        public User LoginUser(LoginDto loginDto)
+		public UserViewModel GetByIdUserDto(int id)
+		{
+			return _userRepositrory.GetByIdUserDto(id);
+		}
+
+		public User LoginUser(LoginViewModel loginViewModel)
         {
             //has
 
-            return _userRepositrory.LoginUser(loginDto);
+            return _userRepositrory.LoginUser(loginViewModel);
         }
 
-        public RequestResult Update(User user)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public RequestResult Add(RegisterViewModel registerViewModel)
+		{
+			User user = new User()
+			{
+				CreateDate = DateTime.Now,
+				FullName = registerViewModel.FullName,
+				Title = registerViewModel.UserName,
+				PhoneNumber = registerViewModel.PhoneNumber,
+				Password = PasswordHelper.EncodePasswordMd5(registerViewModel.Password),
+			};
+			_userRepositrory.Add(user);
+
+			return new RequestResult(true, statusCode: RequestResultStatusCode.Success);
+		}
+
+		public RequestResult Delete(int id)
+		{
+			throw new NotImplementedException();
+		}
+        public void UpdateDto(UserViewModel userViewModel)
+		{
+            var user = _userRepositrory.GetById(userViewModel.Id);
+			user.Title = userViewModel.UserName;
+			user.FullName =userViewModel.FullName;
+			user.Password = PasswordHelper.EncodePasswordMd5(userViewModel.Password);
+			user.PhoneNumber = userViewModel.PhoneNumber;
+
+			Update(user);
+		}
+
+		public void Update(User user)
+		{
+			user.EditedDate = DateTime.Now;
+			_userRepositrory.Update(user);
+		}
+	}
 }

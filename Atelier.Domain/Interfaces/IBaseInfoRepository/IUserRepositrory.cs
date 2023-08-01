@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs;
 
 namespace Atelier.Domain.Interfaces.IBaseInfoRepository
 {
@@ -13,9 +14,9 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository
         List<User> GetAll();
 
         User GetById(int id);
-        void Add(User user);
-        User LoginUser(LoginDto loginDto);
-        void Delete(int id);
+        UserViewModel GetByIdUserDto(int id);
+		void Add(User user);
+        User LoginUser(LoginViewModel loginViewModel);
         void Update(User user);
 
 

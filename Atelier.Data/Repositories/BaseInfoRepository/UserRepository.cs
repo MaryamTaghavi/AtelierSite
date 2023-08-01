@@ -1,6 +1,7 @@
 ﻿using Atelier.Application.Security;
 using Atelier.Data.Context;
 using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
+using Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs;
 using Atelier.Domain.Interfaces.IBaseInfoRepository;
 using Atelier.Domain.Models.BaseInfo;
 using System;
@@ -21,17 +22,6 @@ namespace Atelier.Data.Repositories.BaseInfoRepository
         }
 
 
-        public void Add(User user)
-        {
-            _context.Users.Add(user);
-            _context.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<User> GetAll()
         {
             return _context.Users.ToList();
@@ -39,18 +29,40 @@ namespace Atelier.Data.Repositories.BaseInfoRepository
 
         public User GetById(int id)
         {
-            throw new NotImplementedException();
+			return _context.Users.Find(id);
+		}
+
+		public UserViewModel GetByIdUserDto(int id)
+		{
+			return _context.Users.Where(x => x.Id == id).Select(r => new UserViewModel()
+			{
+				Id = r.Id,
+				FullName = r.FullName,
+				UserName = r.Title,
+				Password = r.Password,
+				PhoneNumber = r.PhoneNumber
+			}).SingleOrDefault();
+		}
+
+		public User LoginUser(LoginViewModel loginViewModel)
+        {
+            var pass = PasswordHelper.EncodePasswordMd5(loginViewModel.Password);
+            return _context.Users.SingleOrDefault(r => r.Title == loginViewModel.UserName && r.Password  == pass);
         }
 
-        public User LoginUser(LoginDto loginDto)
-        {
-            var pass = PasswordHelper.EncodePasswordMd5(loginDto.Password);
-            return _context.Users.SingleOrDefault(r => r.Title == loginDto.UserName && r.Password  == pass);
-        }
 
-        public void Update(User user)
+		public void Add(User user)
+		{
+			_context.Users.Add(user);
+			_context.SaveChanges();
+		}
+
+		public void Update(User user)
         {
-            throw new NotImplementedException();
-        }
-    }
+			_context.Users.Update(user);
+			_context.SaveChanges();
+		}
+
+
+	}
 }

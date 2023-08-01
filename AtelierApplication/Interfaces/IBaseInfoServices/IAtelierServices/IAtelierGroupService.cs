@@ -12,7 +12,7 @@ namespace Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices
 	public interface IAtelierGroupService
 	{
 		List<AtelierGroup> GetAll();
-		List<AtelierSearchResultDto> SearchAtelier(SearchDto dto);
-		List<AtelierSearchResultDto> FilterAtelier(List<string> groupingIds, List<string> cityIds);
+		List<AtelierSearchResultViewModel> SearchAtelier(SearchViewModel viewModel);
+		List<AtelierSearchResultViewModel> FilterAtelier(List<string> groupingIds, List<string> cityIds);
 	}
 }

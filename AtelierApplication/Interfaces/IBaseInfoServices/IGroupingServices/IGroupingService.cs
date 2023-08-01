@@ -14,14 +14,14 @@ namespace Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices
 	{
 		List<Grouping> GetAll();
 		public List<SelectListItem> GetAllSelectList();
-		List<GroupingSelectDto> GetAllGrouping();
+		List<GroupingShowViewModel> GetAllGrouping();
 		Grouping GetById(int id);
 
-		GroupingDto GetByIdGroupingDto(int id);
-        void Add(GroupingDto groupingDto);
+		GroupingViewModel GetByIdGroupingDto(int id);
+        void Add(GroupingViewModel groupingViewModel);
         RequestResult Delete(int id);
         void Update(Grouping grouping);
-        void UpdateDto(GroupingDto groupingDto);
+        void UpdateDto(GroupingViewModel groupingViewModel);
 
 	}
 }

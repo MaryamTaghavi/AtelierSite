@@ -22,13 +22,13 @@ namespace AtelierSite.Controllers
 
         public IActionResult Index()
         {
-	        return View(new SearchDto());
+	        return View(new SearchViewModel());
         }
 
 		[HttpPost]
-		public IActionResult SearchAtelier(SearchDto dto)
+		public IActionResult SearchAtelier(SearchViewModel viewModel)
 		{
-			var list = _atelierGroupService.SearchAtelier(dto).ToList();
+			var list = _atelierGroupService.SearchAtelier(viewModel).ToList();
             var list2 = JsonConvert.SerializeObject(list) ;
             HttpContext.Session.SetString("Data", list2);
             return RedirectToAction("Atelier", "SearchAtelier");

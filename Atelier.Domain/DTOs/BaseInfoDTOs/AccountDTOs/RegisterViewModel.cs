@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs
 {
-    public class RegisterDto
+    public class RegisterViewModel
     {
         [Display(Name = "نام و نام خانوادگی")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]

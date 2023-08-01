@@ -22,17 +22,17 @@ namespace AtelierSite.Controllers
 
 		public IActionResult Login()
 		{
-			return View(new LoginDto());
+			return View(new LoginViewModel());
 		}
 
 		[HttpPost]
-		public IActionResult Login(LoginDto loginDto)
+		public IActionResult Login(LoginViewModel loginViewModel)
 		{
             if (!ModelState.IsValid)
             {
-                return View(loginDto);
+                return View(loginViewModel);
             }
-            var result = _userService.LoginUser(loginDto);
+            var result = _userService.LoginUser(loginViewModel);
 
             if(result != null)
             {
@@ -41,7 +41,7 @@ namespace AtelierSite.Controllers
                         new Claim(ClaimTypes.NameIdentifier,result.Id.ToString()),
                         new Claim(ClaimTypes.Name,result.Title),
                         new Claim("LastName", result.FullName),
-                    };
+                };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
 
@@ -55,7 +55,7 @@ namespace AtelierSite.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(loginDto);
+            return View(loginViewModel);
         }
 
 
@@ -75,14 +75,14 @@ namespace AtelierSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterDto dto)
+        public ActionResult Register(RegisterViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(dto);
+                return View(viewModel);
             }
 
-			_userService.Add(dto);
+			_userService.Add(viewModel);
 
             return RedirectToAction("Login");
         }
