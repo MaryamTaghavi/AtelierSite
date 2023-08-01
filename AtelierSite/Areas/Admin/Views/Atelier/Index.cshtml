@@ -1,10 +1,8 @@
-﻿@using Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices;
-@inject IGroupingService GroupingService ;
-@model List<Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos.GroupingShowViewModel>
-
+﻿
+@model List<Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs.AtelierShowViewModel>
 @{
-	ViewData["Title"] = "Index";
-	Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
 	int cnt = 1;
 }
 
@@ -25,7 +23,7 @@
 	<div class="container-fluid">
 		<div class="card">
 			<div class="m-20" style="text-align: end;">
-				<a asp-area="Admin" asp-controller="Grouping" asp-action="AddGrouping" type="button" class="btn btn-primary">افزودن</a>
+				<a asp-area="Admin" asp-controller="Atelier" asp-action="AddAtelier" type="button" class="btn btn-primary">افزودن</a>
 			</div>
 			<div class="table-responsive">
 				<table class="table text-center">
@@ -33,7 +31,8 @@
 						<tr>
 							<th>ردیف</th>
 							<th>عنوان</th>
-							<th>تصویر</th>
+							<th>استان</th>
+							<th>لوگو</th>
 							<th>عملیات</th>
 						</tr>
 					</thead>
@@ -45,16 +44,18 @@
 								<td class="index">@cnt</td>
 								<td>@item.Title</td>
 								<td>
-									<img src="@item.GropuPic" alt="" style="width:100px; height:100px;  margin-left: auto; margin-right: auto;" />
+									<img src="@item.Logo" alt="" style="width:100px; height:100px;  margin-left: auto; margin-right: auto;" />
 								</td>
 								<td>
-									<a class="btn btn-warning" asp-controller="Grouping" asp-action="EditGrouping" asp-route-id="@item.Id" asp-area="Admin">ویرایش</a>
-									<a class="btn btn-danger" onclick="DeleteGrouping(@item.Id)">حذف</a>
+									<a class="btn btn-success" asp-controller="Atelier" asp-action="EditAtelier" asp-route-id="@item.Id" asp-area="Admin">عکاس</a>
+									<a class="btn btn-primary" asp-controller="Atelier" asp-action="EditAtelier" asp-route-id="@item.Id" asp-area="Admin">نمونه کار</a>
+									<a class="btn btn-warning" asp-controller="Atelier" asp-action="EditAtelier" asp-route-id="@item.Id" asp-area="Admin">ویرایش</a>
+									<a class="btn btn-danger" onclick="DeleteAtelier(@item.Id)">حذف</a>
 								</td>
 							</tr>
 							cnt++;
 						}
-						
+
 					</tbody>
 				</table>
 			</div>
@@ -63,7 +64,7 @@
 </div>
 
 @section myScripts
-{
+	{
 	<script src="/assets/vendors/js/extenstions/sweetalert2.all.min.js"></script>
 	<script>
 
@@ -75,7 +76,7 @@
 		}
 		function DeleteGrouping(id) {
 			Swal.fire({
-				title: 'آیا از حذف گروهبندی مطمئنید؟',
+				title: 'آیا از حذف آتلیه مطمئنید؟',
 				text: "این عمل قابل بازگشت نخواهد بود!",
 				type: 'warning',
 				showCancelButton: true,
@@ -86,7 +87,7 @@
 				buttonsStyling: false,
 			}).then(function (result) {
 				if (result.value) {
-					$.get("/Admin/Grouping/DeleteGrouping/" + id,
+					$.get("/Admin/Grouping/DeleteAtelier/" + id,
 						function (data) {
 
 							if (data.isSuccess) {
@@ -119,6 +120,7 @@
 			});
 
 		}
-	
+
 	</script>
 }
+

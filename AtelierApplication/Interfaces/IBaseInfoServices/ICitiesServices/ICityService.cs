@@ -16,13 +16,13 @@ namespace Atelier.Application.Interfaces.IBaseInfoServices.ICitiesServices
 	{
 		List<City> GetAll();
 		public List<SelectListItem> GetAllSelectList();
-		List<CitySelectDto> GetAllCities();
+		List<CityShowViewModel> GetAllCities();
 		City GetById(int id);
-		CityDto GetByIdCityDto(int id);
-		void Add(CityDto cityDto);
+		CityViewModel GetByIdCityDto(int id);
+		void Add(CityViewModel cityViewModel);
 		RequestResult Delete(int id);
 		void Update(City city);
-		void UpdateDto(CityDto cityDto);
+		void UpdateDto(CityViewModel cityViewModel);
 
 	}
 }

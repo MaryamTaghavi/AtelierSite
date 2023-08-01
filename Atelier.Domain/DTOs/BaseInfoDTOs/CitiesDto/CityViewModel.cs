@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto
 {
-	public class CityDto : BaseDto<int>
+	public class CityViewModel : BaseDto<int>
 	{
 		[Display(Name = "عنوان")]
 		[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -16,7 +16,7 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto
 		public string Title { get; set; }
 	}
 
-	public class CitySelectDto
+	public class CityShowViewModel
 	{
 		[Key]
 		public int Id { get; set; }

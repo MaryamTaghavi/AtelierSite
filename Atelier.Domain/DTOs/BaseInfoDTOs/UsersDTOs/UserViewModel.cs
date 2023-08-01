@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs
 {
-	public class UserDto : BaseDto<int>
+	public class UserViewModel : BaseDto<int>
 	{
 		[Display(Name = "نام و نام خانوادگی")]
 		[MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]

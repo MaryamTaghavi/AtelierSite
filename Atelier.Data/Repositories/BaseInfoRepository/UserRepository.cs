@@ -32,9 +32,9 @@ namespace Atelier.Data.Repositories.BaseInfoRepository
 			return _context.Users.Find(id);
 		}
 
-		public UserDto GetByIdUserDto(int id)
+		public UserViewModel GetByIdUserDto(int id)
 		{
-			return _context.Users.Where(x => x.Id == id).Select(r => new UserDto()
+			return _context.Users.Where(x => x.Id == id).Select(r => new UserViewModel()
 			{
 				Id = r.Id,
 				FullName = r.FullName,
@@ -44,10 +44,10 @@ namespace Atelier.Data.Repositories.BaseInfoRepository
 			}).SingleOrDefault();
 		}
 
-		public User LoginUser(LoginDto loginDto)
+		public User LoginUser(LoginViewModel loginViewModel)
         {
-            var pass = PasswordHelper.EncodePasswordMd5(loginDto.Password);
-            return _context.Users.SingleOrDefault(r => r.Title == loginDto.UserName && r.Password  == pass);
+            var pass = PasswordHelper.EncodePasswordMd5(loginViewModel.Password);
+            return _context.Users.SingleOrDefault(r => r.Title == loginViewModel.UserName && r.Password  == pass);
         }
 
 

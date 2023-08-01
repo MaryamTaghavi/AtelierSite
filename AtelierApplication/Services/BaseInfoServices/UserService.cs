@@ -36,27 +36,27 @@ namespace Atelier.Application.Services.BaseInfoServices
 	        return _userRepositrory.GetById(id);
         }
 
-		public UserDto GetByIdUserDto(int id)
+		public UserViewModel GetByIdUserDto(int id)
 		{
 			return _userRepositrory.GetByIdUserDto(id);
 		}
 
-		public User LoginUser(LoginDto loginDto)
+		public User LoginUser(LoginViewModel loginViewModel)
         {
             //has
 
-            return _userRepositrory.LoginUser(loginDto);
+            return _userRepositrory.LoginUser(loginViewModel);
         }
 
-		public RequestResult Add(RegisterDto registerDto)
+		public RequestResult Add(RegisterViewModel registerViewModel)
 		{
 			User user = new User()
 			{
 				CreateDate = DateTime.Now,
-				FullName = registerDto.FullName,
-				Title = registerDto.UserName,
-				PhoneNumber = registerDto.PhoneNumber,
-				Password = PasswordHelper.EncodePasswordMd5(registerDto.Password),
+				FullName = registerViewModel.FullName,
+				Title = registerViewModel.UserName,
+				PhoneNumber = registerViewModel.PhoneNumber,
+				Password = PasswordHelper.EncodePasswordMd5(registerViewModel.Password),
 			};
 			_userRepositrory.Add(user);
 
@@ -67,13 +67,13 @@ namespace Atelier.Application.Services.BaseInfoServices
 		{
 			throw new NotImplementedException();
 		}
-        public void UpdateDto(UserDto userDto)
+        public void UpdateDto(UserViewModel userViewModel)
 		{
-            var user = _userRepositrory.GetById(userDto.Id);
-			user.Title = userDto.UserName;
-			user.FullName =userDto.FullName;
-			user.Password = PasswordHelper.EncodePasswordMd5(userDto.Password);
-			user.PhoneNumber = userDto.PhoneNumber;
+            var user = _userRepositrory.GetById(userViewModel.Id);
+			user.Title = userViewModel.UserName;
+			user.FullName =userViewModel.FullName;
+			user.Password = PasswordHelper.EncodePasswordMd5(userViewModel.Password);
+			user.PhoneNumber = userViewModel.PhoneNumber;
 
 			Update(user);
 		}

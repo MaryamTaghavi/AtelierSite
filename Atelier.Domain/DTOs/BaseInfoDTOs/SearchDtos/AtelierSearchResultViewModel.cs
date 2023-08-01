@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos
 {
-    public class AtelierSearchResultDto : BaseDto
+    public class AtelierSearchResultViewModel : BaseDto
     {
         public string Title { get; set; }
         public string Logo { get; set; }

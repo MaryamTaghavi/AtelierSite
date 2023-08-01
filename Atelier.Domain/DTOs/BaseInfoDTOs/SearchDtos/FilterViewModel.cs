@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos
 {
-	public class FillterDto
+	public class FilterViewModel
 	{
 		public string GroupingIds { get; set; }
 		public string CityIds { get; set; }

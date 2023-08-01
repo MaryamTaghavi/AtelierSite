@@ -3,7 +3,7 @@
 @inject IGroupingService GroupingService ;
 @inject ICityService CityService ;
 
-@model Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos.SearchDto
+@model Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos.SearchViewModel
 @{
 	var groupings = GroupingService.GetAllSelectList();
 	var cityList = CityService.GetAllSelectList();

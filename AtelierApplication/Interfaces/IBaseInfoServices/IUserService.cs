@@ -16,11 +16,11 @@ namespace Atelier.Application.Interfaces.IBaseInfoServices
     {
         List<User> GetAll();
         User GetById(int id);
-        UserDto GetByIdUserDto(int id);
-		RequestResult Add(RegisterDto registerDto);
-        User LoginUser(LoginDto loginDto);
+        UserViewModel GetByIdUserDto(int id);
+		RequestResult Add(RegisterViewModel registerViewModel);
+        User LoginUser(LoginViewModel loginViewModel);
         RequestResult Delete(int id);
 		void Update(User user);
-		void UpdateDto(UserDto userDto);
+		void UpdateDto(UserViewModel userViewModel);
 	}
 }

@@ -12,8 +12,8 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository.IAteliersRepository
 	public interface IAtelierGroupRepository
 	{
 		List<AtelierGroup> GetAll();
-		List<AtelierSearchResultDto> SearchAtelier(SearchDto dto);
-		List<AtelierSearchResultDto> FilterAtelier(List<int> groupIds , List<int> cityIds);
+		List<AtelierSearchResultViewModel> SearchAtelier(SearchViewModel viewModel);
+		List<AtelierSearchResultViewModel> FilterAtelier(List<int> groupIds , List<int> cityIds);
 
 	}
 }

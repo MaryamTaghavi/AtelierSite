@@ -24,7 +24,7 @@ namespace AtelierSite.Controllers
 		public IActionResult Atelier()
 		{
             var data = HttpContext.Session.GetString("Data");
-            var list1 = JsonConvert.DeserializeObject<List<AtelierSearchResultDto>>(data);
+            var list1 = JsonConvert.DeserializeObject<List<AtelierSearchResultViewModel>>(data);
 			return View(list1);
 		}
 
