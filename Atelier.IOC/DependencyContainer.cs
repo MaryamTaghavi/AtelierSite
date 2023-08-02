@@ -34,7 +34,7 @@ namespace Atelier.IOC
 
 			//Infra Data Layer
 			//  service.AddScoped<IUserRepository, UserRepository>();
-			service.AddScoped<IUserRepositrory, UserRepository>();
+			service.AddScoped<IUserRepository, UserRepository>();
 			service.AddScoped<IGroupingRepository, GroupingRepository>();
 			service.AddScoped<ICityRepository, CityRepository>();
 			service.AddScoped<IAtelierRepository, AtelierRepository>();

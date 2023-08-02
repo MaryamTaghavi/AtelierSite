@@ -4,12 +4,15 @@ using Atelier.Application.Security;
 using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
 using Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos;
 using Atelier.Domain.Models.BaseInfo.Groupings;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtelierSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class GroupingController : Controller
+    [Authorize(Roles = "Admin", AuthenticationSchemes = "Admin_Schema")]
+
+	public class GroupingController : Controller
     {
 	    private readonly IGroupingService _groupingService;
 

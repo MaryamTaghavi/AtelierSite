@@ -17,8 +17,8 @@ namespace Atelier.Application.Interfaces.IBaseInfoServices
         List<User> GetAll();
         User GetById(int id);
         UserViewModel GetByIdUserDto(int id);
-		RequestResult Add(RegisterViewModel registerViewModel);
-        User LoginUser(LoginViewModel loginViewModel);
+		RequestResult Add(RegisterViewModel registerViewModel, TypeUser typeUser);
+        User LoginUser(LoginViewModel loginViewModel,TypeUser typeUser);
         RequestResult Delete(int id);
 		void Update(User user);
 		void UpdateDto(UserViewModel userViewModel);

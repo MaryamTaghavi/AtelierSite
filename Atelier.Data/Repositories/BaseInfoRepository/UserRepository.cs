@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Atelier.Data.Repositories.BaseInfoRepository
 {
-    public class UserRepository : IUserRepositrory
+    public class UserRepository : IUserRepository
     {
         private readonly AtelierContext _context;
 
@@ -38,16 +38,16 @@ namespace Atelier.Data.Repositories.BaseInfoRepository
 			{
 				Id = r.Id,
 				FullName = r.FullName,
-				UserName = r.Title,
+				UserName = r.UserName,
 				Password = r.Password,
 				PhoneNumber = r.PhoneNumber
 			}).SingleOrDefault();
 		}
 
-		public User LoginUser(LoginViewModel loginViewModel)
+		public User LoginUser(LoginViewModel loginViewModel, TypeUser typeUser)
         {
             var pass = PasswordHelper.EncodePasswordMd5(loginViewModel.Password);
-            return _context.Users.SingleOrDefault(r => r.Title == loginViewModel.UserName && r.Password  == pass);
+            return _context.Users.SingleOrDefault(r =>r.TypeUser==typeUser&&r.UserName == loginViewModel.UserName && r.Password  == pass);
         }
 
 
@@ -63,6 +63,9 @@ namespace Atelier.Data.Repositories.BaseInfoRepository
 			_context.SaveChanges();
 		}
 
-
-	}
+        public bool IsExist(string username, TypeUser typeUser)
+        {
+            return _context.Users.Any(x => x.UserName == username&&x.TypeUser==typeUser);
+        }
+    }
 }

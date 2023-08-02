@@ -9,12 +9,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Atelier.Domain.Models.BaseInfo;
 using Atelier.IOC;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace AtelierSite
 {
@@ -30,74 +33,68 @@ namespace AtelierSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            services.AddRazorPages();
 
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+
+            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            #region SqlServer
             services.AddDbContext<AtelierContext>(options =>
+                {
+                    options.UseSqlServer(connectionString);
+                }
+            );
+            #endregion
+
+
+            #region Session
+
+            //services.AddDistributedMemoryCache();
+            services.AddSession(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
+            });
+            #endregion
+
+            #region Authentication
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "User_Schema";
+            }).AddCookie("User_Schema", options =>
+            {
+                options.LoginPath = "/Login";
+                options.LogoutPath = "/Logout";
+                options.AccessDeniedPath = "/AccessDenied";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
+
+            }).AddCookie("Admin_Schema", options =>
+            {
+                options.LoginPath = "/Admin/Login";
+                options.LogoutPath = "/Admin/Logout";
+                options.AccessDeniedPath = "/AccessDenied";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
+
             });
 
-            services.Configure<SecurityStampValidatorOptions>(options =>
-            {
-                options.ValidationInterval = TimeSpan.FromMinutes(10);
-            });
-
-            services.AddMvc(options =>
-            {
-                options.EnableEndpointRouting = false;
-                options.Filters.Add(new AuthorizeFilter());
-            });
-
-            // Add framework services.
-            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddMvc().AddNewtonsoftJson(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
+            #endregion
 
 
             RegisterServices(services);
-
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromSeconds(20);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
-
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = "Cookies";
-                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
-                })
-                .AddCookie("Cookies", options =>
-                {
-                    options.LoginPath = "/Account/Login";
-                    options.LogoutPath = "/Account/LogOut";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
-                });
-
-            services.AddDistributedMemoryCache();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
+
             else
-            {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+
 
             app.UseRouting();
             app.UseStaticFiles();
@@ -106,8 +103,27 @@ namespace AtelierSite
             app.UseSession();
             app.UseMvc();
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            app.Use(async (context, next) =>
+            {
+                var principal = new ClaimsPrincipal();
+
+                var result1 = await context.AuthenticateAsync("User_Schema");
+                if (result1?.Principal != null)
+                {
+                    principal.AddIdentities(result1.Principal.Identities);
+                }
+
+
+                var result2 = await context.AuthenticateAsync("Admin_Schema");
+                if (result2?.Principal != null)
+                {
+                    principal.AddIdentities(result2.Principal.Identities);
+                }
+
+                context.User = principal;
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {
@@ -115,15 +131,12 @@ namespace AtelierSite
                     name: "Admin",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
-
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            });
 
-            
-
-			});
         }
 
         public static void RegisterServices(IServiceCollection services)

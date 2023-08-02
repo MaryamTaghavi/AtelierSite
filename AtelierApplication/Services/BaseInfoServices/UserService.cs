@@ -17,48 +17,54 @@ namespace Atelier.Application.Services.BaseInfoServices
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepositrory _userRepositrory;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IUserRepositrory repositrory)
+        public UserService(IUserRepository userRepository)
         {
-            _userRepositrory = repositrory;
+            _userRepository = userRepository;
         }
 
 
         public List<User> GetAll()
         {
-            return _userRepositrory
+            return _userRepository
                 .GetAll();
         }
 
         public User GetById(int id)
         {
-	        return _userRepositrory.GetById(id);
+	        return _userRepository.GetById(id);
         }
 
 		public UserViewModel GetByIdUserDto(int id)
 		{
-			return _userRepositrory.GetByIdUserDto(id);
+			return _userRepository.GetByIdUserDto(id);
 		}
 
-		public User LoginUser(LoginViewModel loginViewModel)
+		public User LoginUser(LoginViewModel loginViewModel,TypeUser typeUser)
         {
             //has
 
-            return _userRepositrory.LoginUser(loginViewModel);
+            return _userRepository.LoginUser(loginViewModel,typeUser);
         }
 
-		public RequestResult Add(RegisterViewModel registerViewModel)
+		public RequestResult Add(RegisterViewModel registerViewModel,TypeUser typeUser)
 		{
-			User user = new User()
+
+			if(_userRepository.IsExist(registerViewModel.UserName.Trim(),typeUser))
+                return new RequestResult(false, statusCode: RequestResultStatusCode.Conflict,"نام کاربری صحیح نمی باشد");
+
+
+            User user = new User()
 			{
 				CreateDate = DateTime.Now,
 				FullName = registerViewModel.FullName,
-				Title = registerViewModel.UserName,
+				UserName = registerViewModel.UserName.Trim(),
 				PhoneNumber = registerViewModel.PhoneNumber,
 				Password = PasswordHelper.EncodePasswordMd5(registerViewModel.Password),
+				TypeUser = typeUser
 			};
-			_userRepositrory.Add(user);
+			_userRepository.Add(user);
 
 			return new RequestResult(true, statusCode: RequestResultStatusCode.Success);
 		}
@@ -69,8 +75,8 @@ namespace Atelier.Application.Services.BaseInfoServices
 		}
         public void UpdateDto(UserViewModel userViewModel)
 		{
-            var user = _userRepositrory.GetById(userViewModel.Id);
-			user.Title = userViewModel.UserName;
+            var user = _userRepository.GetById(userViewModel.Id);
+			user.UserName = userViewModel.UserName;
 			user.FullName =userViewModel.FullName;
 			user.Password = PasswordHelper.EncodePasswordMd5(userViewModel.Password);
 			user.PhoneNumber = userViewModel.PhoneNumber;
@@ -81,7 +87,7 @@ namespace Atelier.Application.Services.BaseInfoServices
 		public void Update(User user)
 		{
 			user.EditedDate = DateTime.Now;
-			_userRepositrory.Update(user);
+			_userRepository.Update(user);
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Atelier.Application.Interfaces.IBaseInfoServices;
 using Atelier.Domain.DTOs.BaseInfoDTOs.AccountDTOs;
+using Atelier.Domain.Models.BaseInfo;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -19,37 +20,38 @@ namespace AtelierSite.Controllers
 		{
 			_userService = userService;
 		}
+        [Route("/Login")]
 
-		public IActionResult Login()
+        public IActionResult Login()
 		{
 			return View(new LoginViewModel());
 		}
-
-		[HttpPost]
+        [Route("/Login")]
+        [HttpPost]
 		public IActionResult Login(LoginViewModel loginViewModel)
 		{
             if (!ModelState.IsValid)
             {
                 return View(loginViewModel);
             }
-            var result = _userService.LoginUser(loginViewModel);
+            var user = _userService.LoginUser(loginViewModel,TypeUser.User);
 
-            if(result != null)
+            if(user != null)
             {
                 var claims = new List<Claim>()
                 {
-                        new Claim(ClaimTypes.NameIdentifier,result.Id.ToString()),
-                        new Claim(ClaimTypes.Name,result.Title),
-                        new Claim("LastName", result.FullName),
+                    new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                    new Claim(ClaimTypes.Name,user.UserName),
+                    new Claim(ClaimTypes.Role,"User"),
+                    new Claim("FullName", user.FullName),
                 };
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var identity = new ClaimsIdentity(claims, "User_Schema");
                 var principal = new ClaimsPrincipal(identity);
-
                 var properties = new AuthenticationProperties
                 {
                     IsPersistent = true
                 };
-                HttpContext.SignInAsync(principal, properties);
+                HttpContext.SignInAsync("User_Schema", principal, properties);
 
 
                 return RedirectToAction("Index", "Home");
@@ -58,21 +60,23 @@ namespace AtelierSite.Controllers
             return View(loginViewModel);
         }
 
-
-		[Authorize]
+        [Route("/Logout")]
+        [Authorize]
 		public IActionResult LogOut()
 		{
-			HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-			return RedirectToAction("Index" , "Home");
+            HttpContext.SignOutAsync("User_Schema"); 
+            return RedirectToAction("Index" , "Home");
 		}
 
 
-		#region Register
+        #region Register
+        [Route("/Register")]
 
-		public ActionResult Register()
+        public ActionResult Register()
         {
             return View();
         }
+        [Route("/Register")]
 
         [HttpPost]
         public ActionResult Register(RegisterViewModel viewModel)
@@ -82,9 +86,14 @@ namespace AtelierSite.Controllers
                 return View(viewModel);
             }
 
-			_userService.Add(viewModel);
+			var res=_userService.Add(viewModel,TypeUser.User);
 
-            return RedirectToAction("Login");
+            if (res.IsSuccess)
+                return RedirectToAction("Login");
+
+            ModelState.AddModelError(nameof(viewModel.UserName),res.Message);
+            return View(viewModel);
+
         }
 
         #endregion

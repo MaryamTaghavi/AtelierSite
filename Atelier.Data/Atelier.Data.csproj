@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Seeder\" />
+    <Folder Include="Seeder\" />
   </ItemGroup>
 
   <ItemGroup>

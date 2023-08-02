@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Atelier.Data.Seeder;
 using Atelier.Domain.Models.BaseInfo;
 using Atelier.Domain.Models.BaseInfo.Cities;
 using Atelier.Domain.Models.BaseInfo.Groupings;
@@ -33,6 +34,14 @@ namespace Atelier.Data.Context
 			modelBuilder.Entity<Grouping>().HasQueryFilter(u => u.DeletedDate == null);
 			modelBuilder.Entity<City>().HasQueryFilter(u => u.DeletedDate == null);
 
+
+
+
+
+
+            var assembly = typeof(UserSeeder).Assembly;
+            modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+            base.OnModelCreating(modelBuilder);
         }
 	}
 

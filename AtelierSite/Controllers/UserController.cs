@@ -3,10 +3,13 @@ using Atelier.Application.Security;
 using Atelier.Application.Services.BaseInfoServices;
 using Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto;
 using Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtelierSite.Controllers
 {
+	[Authorize(Roles = "User", AuthenticationSchemes = "User_Schema")]
+
 	public class UserController : Controller
 	{
 		private readonly IUserService _userService;

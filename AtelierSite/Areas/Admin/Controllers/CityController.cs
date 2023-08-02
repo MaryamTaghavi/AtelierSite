@@ -2,13 +2,15 @@
 using Atelier.Application.Interfaces.IBaseInfoServices.ICitiesServices;
 using Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto;
 using Atelier.Domain.Models.BaseInfo.Cities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AtelierSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin", AuthenticationSchemes = "Admin_Schema")]
 
-    public class CityController : Controller
+	public class CityController : Controller
 	{
 		private readonly ICityService _cityService;
 
