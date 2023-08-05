@@ -4,6 +4,9 @@ using Atelier.Domain.Models.BaseInfo;
 using Atelier.Domain.Models.BaseInfo.Cities;
 using Atelier.Domain.Models.BaseInfo.Groupings;
 using Atelier.Domain.Models.BaseInfo.Ateliers;
+using Atelier.Domain.Models.BaseInfo.Favorites;
+using Atelier.Domain.Models.BaseInfo.Photographers;
+using Atelier.Domain.Models.BaseInfo.WorkSamples;
 using Microsoft.EntityFrameworkCore;
 
 namespace Atelier.Data.Context
@@ -20,9 +23,12 @@ namespace Atelier.Data.Context
         public DbSet<City> Cities { get; set; }
         public DbSet<Domain.Models.BaseInfo.Ateliers.Atelier> Ateliers { get; set; }
         public DbSet<AtelierGroup> AtelierGroups { get; set; }
+        public DbSet<Photographer> Photographers { get; set; }
+        public DbSet<WorkSample> WorkSamples { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
 
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 	        var cascadeFKs = modelBuilder.Model.GetEntityTypes()
 		        .SelectMany(t => t.GetForeignKeys())
@@ -33,13 +39,16 @@ namespace Atelier.Data.Context
 
 			modelBuilder.Entity<Grouping>().HasQueryFilter(u => u.DeletedDate == null);
 			modelBuilder.Entity<City>().HasQueryFilter(u => u.DeletedDate == null);
+			modelBuilder.Entity<Domain.Models.BaseInfo.Ateliers.Atelier>().HasQueryFilter(u => u.DeletedDate == null);
+			modelBuilder.Entity<Photographer>().HasQueryFilter(u => u.DeletedDate == null);
+			modelBuilder.Entity<WorkSample>().HasQueryFilter(u => u.DeletedDate == null);
 
 
 
 
 
 
-            var assembly = typeof(UserSeeder).Assembly;
+			var assembly = typeof(UserSeeder).Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
             base.OnModelCreating(modelBuilder);
         }

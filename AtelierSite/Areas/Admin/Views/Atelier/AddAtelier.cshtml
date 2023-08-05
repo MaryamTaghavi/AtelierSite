@@ -21,7 +21,7 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a><i data-feather="home"></i></a></li>
 						<li class="breadcrumb-item">آتلیه ها</li>
-						<li class="breadcrumb-item">افزودن </li>
+						<li class="breadcrumb-item">افزودن</li>
 					</ol>
 				</div>
 			</div>
@@ -82,8 +82,8 @@
 						</div>
 						<div class="col-6">
 							<div class="form-group">
-								<label asp-for="GroupingIds">گروهبندی</label>
-								<select asp-for="GroupingIds" class="select2 form-control select2-hidden-accessible input-validation-error"  asp-items="@(new SelectList(groupList, "Value", "Text"))">
+								<label>گروه بندی</label>
+								<select asp-for="GroupingIds" class="select2 form-control select2-hidden-accessible input-validation-error" multiple="multiple" asp-items="@(new SelectList(groupList, "Value", "Text"))">
 								</select>
 								<span class="text-danger" asp-validation-for="GroupingIds"></span>
 							</div>
@@ -107,5 +107,3 @@
 		</div>
 	</div>
 </div>
-
-

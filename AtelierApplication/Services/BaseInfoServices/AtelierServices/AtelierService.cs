@@ -35,6 +35,7 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 			{
 				Title = atelierViewModel.Title,
 				Address = atelierViewModel.Address,
+				Phone = atelierViewModel.Phone,
 				Logo = logoNameAddress,
 				Banner = bannerNameAddress,
 				Instagram = atelierViewModel.Instagram,
@@ -87,9 +88,22 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 				atelier.Logo.DeleteFile();
 				var logoNameAddress = atelierViewModel.Logo.SaveFile("images\\LogoImages\\");
 				atelier.Logo = logoNameAddress;
-
 			}
+
+			if (atelierViewModel.Banner != null)
+			{
+				atelier.Banner.DeleteFile();
+				var bannerNameAddress = atelierViewModel.Banner.SaveFile("images\\BannerImages\\");
+				atelier.Banner = bannerNameAddress;
+			}
+
 			atelier.Title = atelierViewModel.Title;
+			atelier.Address = atelierViewModel.Address;
+			atelier.Phone = atelierViewModel.Phone;
+			atelier.Instagram = atelierViewModel.Instagram;
+			atelier.CityId = atelierViewModel.CityId;
+			atelier.UserId = atelierViewModel.UserId;
+
 			Update(atelier);
 		}
 	}

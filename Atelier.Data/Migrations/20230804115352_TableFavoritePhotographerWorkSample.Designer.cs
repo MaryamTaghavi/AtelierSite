@@ -4,14 +4,16 @@ using Atelier.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Atelier.Data.Migrations
 {
     [DbContext(typeof(AtelierContext))]
-    partial class AtelierContextModelSnapshot : ModelSnapshot
+    [Migration("20230804115352_TableFavoritePhotographerWorkSample")]
+    partial class TableFavoritePhotographerWorkSample
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,37 +126,6 @@ namespace Atelier.Data.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Atelier.Domain.Models.BaseInfo.Favorites.Favorite", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AtelierId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("EditedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AtelierId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Favorites");
-                });
-
             modelBuilder.Entity("Atelier.Domain.Models.BaseInfo.Groupings.Grouping", b =>
                 {
                     b.Property<int>("Id")
@@ -210,7 +181,7 @@ namespace Atelier.Data.Migrations
 
                     b.HasIndex("AtelierId");
 
-                    b.ToTable("Photographers");
+                    b.ToTable("Photographer");
                 });
 
             modelBuilder.Entity("Atelier.Domain.Models.BaseInfo.Role", b =>
@@ -302,12 +273,12 @@ namespace Atelier.Data.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("WorkSamples");
+                    b.ToTable("WorkSample");
                 });
 
             modelBuilder.Entity("Atelier.Domain.Models.BaseInfo.Ateliers.Atelier", b =>
                 {
-                    b.HasOne("Atelier.Domain.Models.BaseInfo.Cities.City", "City")
+                    b.HasOne("Atelier.Domain.Models.BaseInfo.Cities.City", "city")
                         .WithMany("Atelier")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -319,7 +290,7 @@ namespace Atelier.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("City");
+                    b.Navigation("city");
 
                     b.Navigation("User");
                 });
@@ -343,34 +314,15 @@ namespace Atelier.Data.Migrations
                     b.Navigation("Grouping");
                 });
 
-            modelBuilder.Entity("Atelier.Domain.Models.BaseInfo.Favorites.Favorite", b =>
-                {
-                    b.HasOne("Atelier.Domain.Models.BaseInfo.Ateliers.Atelier", "Atelier")
-                        .WithMany()
-                        .HasForeignKey("AtelierId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Atelier.Domain.Models.BaseInfo.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Atelier");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Atelier.Domain.Models.BaseInfo.Photographers.Photographer", b =>
                 {
-                    b.HasOne("Atelier.Domain.Models.BaseInfo.Ateliers.Atelier", "Atelier")
+                    b.HasOne("Atelier.Domain.Models.BaseInfo.Ateliers.Atelier", "atelier")
                         .WithMany("Photographers")
                         .HasForeignKey("AtelierId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Atelier");
+                    b.Navigation("atelier");
                 });
 
             modelBuilder.Entity("Atelier.Domain.Models.BaseInfo.WorkSamples.WorkSample", b =>

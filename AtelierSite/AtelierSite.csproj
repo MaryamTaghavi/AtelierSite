@@ -35,6 +35,9 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\AdminTemplate\assets\js\theme-customizer\" />
+    <Folder Include="wwwroot\images\BannerImages\" />
+    <Folder Include="wwwroot\images\GroupingImages\" />
+    <Folder Include="wwwroot\images\LogoImages\" />
   </ItemGroup>
 
 </Project>

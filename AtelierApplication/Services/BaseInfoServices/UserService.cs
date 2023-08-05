@@ -43,8 +43,6 @@ namespace Atelier.Application.Services.BaseInfoServices
 
 		public User LoginUser(LoginViewModel loginViewModel,TypeUser typeUser)
         {
-            //has
-
             return _userRepository.LoginUser(loginViewModel,typeUser);
         }
 
@@ -73,6 +71,7 @@ namespace Atelier.Application.Services.BaseInfoServices
 		{
 			throw new NotImplementedException();
 		}
+
         public void UpdateDto(UserViewModel userViewModel)
 		{
             var user = _userRepository.GetById(userViewModel.Id);

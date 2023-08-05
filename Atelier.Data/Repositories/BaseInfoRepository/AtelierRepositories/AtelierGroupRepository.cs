@@ -31,7 +31,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 		public List<AtelierSearchResultViewModel> SearchAtelier(SearchViewModel viewModel)
 		{
 			var result = _context.AtelierGroups
-				.Include(r => r.Atelier).ThenInclude(r => r.city).AsQueryable();
+				.Include(r => r.Atelier).ThenInclude(r => r.City).AsQueryable();
 
 			if (!string.IsNullOrEmpty(viewModel.Title))
 			{
@@ -54,14 +54,14 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 				Banner = r.Atelier.Banner,
 				Id = r.AtelierId,
 				Logo = r.Atelier.Logo,
-				cityTitle = r.Atelier.city.Title
+				cityTitle = r.Atelier.City.Title
 			}).ToList();
 		}
 
 		public List<AtelierSearchResultViewModel> FilterAtelier(List<int> groupIds, List<int> cityIds)
 		{
 			var ateliers = _context.Ateliers.AsQueryable();
-			var atelierGroups = _context.AtelierGroups.Include(r => r.Atelier.city).AsQueryable();
+			var atelierGroups = _context.AtelierGroups.Include(r => r.Atelier.City).AsQueryable();
 
 
 			if (cityIds.Count > 0)
@@ -81,7 +81,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			{
 				Id = r.Id,
 				Title = r.Atelier.Title,
-				cityTitle = r.Atelier.city.Title,
+				cityTitle = r.Atelier.City.Title,
 				Banner = r.Atelier.Banner,
 				Logo = r.Atelier.Logo,
 				

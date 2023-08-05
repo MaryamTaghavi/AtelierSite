@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Atelier.Data.Context;
 using Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IAteliersRepository;
+using Microsoft.EntityFrameworkCore;
 
 namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 {
@@ -25,7 +26,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			{
 				Id	= r.Id,
 				Title = r.Title,
-				City =r.city.Title,
+				City =r.City.Title,
 				Logo = r.Logo
 			}).ToList();
 		}
@@ -37,13 +38,17 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 
 		public AtelierViewModel GetByIdAtelierViewModel(int id)
 		{
-			return _context.Ateliers.Where(r => r.Id == id).Select(x => new AtelierViewModel()
+			return _context.Ateliers
+				.Include(x=> x.AtelierGroups)
+				.Where(r => r.Id == id).Select(x => new AtelierViewModel()
 			{
 				Id = x.Id,
 				Title = x.Title,
 				Address = x.Address,
 				Phone = x.Phone,
 				Instagram = x.Instagram,
+				CityId = x.CityId,
+				GroupingIds = x.AtelierGroups.Select(g=> g.GroupId).ToList()
 			}).SingleOrDefault();
 		}
 

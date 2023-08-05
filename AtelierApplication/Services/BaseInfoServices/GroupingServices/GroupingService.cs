@@ -78,7 +78,7 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
 
 			Update(grouping);
 
-			return new RequestResult(true, RequestResultStatusCode.Success, "گروهبندی با موفقیت حذف شد.");
+			return new RequestResult(true, RequestResultStatusCode.Success, "گروه بندی با موفقیت حذف شد.");
 		}
 
 		public void Update(Grouping grouping)

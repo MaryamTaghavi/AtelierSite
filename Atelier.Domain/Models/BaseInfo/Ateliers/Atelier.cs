@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Atelier.Domain.Models.BaseInfo.Cities;
+using Atelier.Domain.Models.BaseInfo.Photographers;
+using Atelier.Domain.Models.BaseInfo.WorkSamples;
 
 namespace Atelier.Domain.Models.BaseInfo.Ateliers
 {
@@ -22,9 +24,11 @@ namespace Atelier.Domain.Models.BaseInfo.Ateliers
 		#region Navigation Property
 
 		public ICollection<AtelierGroup> AtelierGroups { get; set; }
+		public ICollection<Photographer> Photographers { get; set; }
+		public ICollection<WorkSample> WorkSamples { get; set; }
 
         [ForeignKey(nameof(CityId))]
-		public City city { get; set; }
+		public City City { get; set; }
 
 		#endregion
 
