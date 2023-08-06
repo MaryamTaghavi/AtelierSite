@@ -27,7 +27,7 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.WorkSamplesDTOs
 		public string WorkSamplePic { get; set; }
 
 		[Display(Name = "گروه بندی")]
-		public int GroupTitle { get; set; }
+		public string GroupTitle { get; set; }
 	}
 
 }

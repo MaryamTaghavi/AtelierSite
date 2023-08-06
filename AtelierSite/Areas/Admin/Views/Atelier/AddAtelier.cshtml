@@ -7,7 +7,7 @@
 
 @{
     ViewData["Title"] = "AddAtelier";
-    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+    Layout = "_Adminlayout";
 	var cityList = CityService.GetAllSelectList();
 	var groupList = GroupingService.GetAllSelectList();
 }
@@ -75,7 +75,7 @@
 						<div class="col-6">
 							<div class="form-group">
 								<label asp-for="CityId">شهر</label>
-								<select asp-for="CityId" asp-items="@(new SelectList(cityList, "Value", "Text"))" class="select2 form-control select2-hidden-accessible input-validation-error border-0">
+								<select asp-for="CityId" asp-items="@(new SelectList(cityList, "Value", "Text"))" class="form-control js-example-basic-single">
 								</select>
 								<span class="text-danger" asp-validation-for="CityId"></span>
 							</div>
@@ -83,12 +83,12 @@
 						<div class="col-6">
 							<div class="form-group">
 								<label>گروه بندی</label>
-								<select asp-for="GroupingIds" class="select2 form-control select2-hidden-accessible input-validation-error" multiple="multiple" asp-items="@(new SelectList(groupList, "Value", "Text"))">
+								<select asp-for="GroupingIds" class="form-control js-example-placeholder-multiple" multiple="multiple" asp-items="@(new SelectList(groupList, "Value", "Text"))">
 								</select>
 								<span class="text-danger" asp-validation-for="GroupingIds"></span>
 							</div>
 						</div>
-						
+
 						<div class="col-6">
 							<div class="form-group">
 								<label asp-for="Address">آدرس</label>

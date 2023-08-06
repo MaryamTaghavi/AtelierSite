@@ -7,6 +7,7 @@ using Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices;
 using Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IAteliersRepository;
 using Atelier.Domain.Models.BaseInfo.Ateliers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 {
@@ -40,5 +41,10 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 
 			return _atelierGroupRepository.FilterAtelier(groupings , cities);
 		}
-	}
+
+        public List<SelectListItem> GetAllAtelierGroupByAtelierId(int atelierId)
+        {
+            return _atelierGroupRepository.GetAllAtelierGroupByAtelierId(atelierId);
+        }
+    }
 }

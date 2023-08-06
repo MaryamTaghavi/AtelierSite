@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Atelier.Data.Context;
+using Atelier.Domain.DTOs.BaseInfoDTOs.AtelierGroupDTOs;
 using Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IAteliersRepository;
 using Atelier.Domain.Models.BaseInfo.Ateliers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
@@ -28,7 +30,32 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			return _context.AtelierGroups.ToList();
 		}
 
-		public List<AtelierSearchResultViewModel> SearchAtelier(SearchViewModel viewModel)
+        public List<SelectListItem> GetAllAtelierGroupByAtelierId(int atelierId)
+        {
+
+			return _context.AtelierGroups.Include(x => x.Grouping)
+                .Where(x => x.AtelierId == atelierId)
+                .Select(x => new SelectListItem()
+			        {
+                        Text = x.Grouping.Title,
+                        Value = x.GroupId.ToString()
+                }).ToList();
+		}
+
+        public void DeleteAllAtelierGroup(int atelierId)
+        {
+			var result = _context.AtelierGroups.Where(r => r.AtelierId == atelierId);
+			_context.AtelierGroups.RemoveRange(result);
+			_context.SaveChanges();
+		}
+
+        public void AddRangeOAtelierGroup(List<AtelierGroup> list)
+        {
+			_context.AddRange(list);
+			_context.SaveChanges();
+		}
+
+        public List<AtelierSearchResultViewModel> SearchAtelier(SearchViewModel viewModel)
 		{
 			var result = _context.AtelierGroups
 				.Include(r => r.Atelier).ThenInclude(r => r.City).AsQueryable();
@@ -86,6 +113,8 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 				Logo = r.Atelier.Logo,
 				
 			}).ToList();
+
+
 		}
 	}
 }

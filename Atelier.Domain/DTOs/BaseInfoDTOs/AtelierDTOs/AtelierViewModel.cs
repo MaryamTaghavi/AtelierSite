@@ -26,11 +26,11 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs
 		public string Phone { get; set; }
 
 		[Display(Name = "بنر")]
-		[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+		//[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
 		public IFormFile Banner { get; set; }
 
 		[Display(Name = "لوگو")]
-		[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+		//[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
 		public IFormFile Logo { get; set; }
 
 		[Display(Name = "اینستاگرام")]

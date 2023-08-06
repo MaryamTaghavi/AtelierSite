@@ -7,6 +7,7 @@ using Atelier.Data.Context;
 using Atelier.Domain.DTOs.BaseInfoDTOs.WorkSamplesDTOs;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IWorkSamplesRepository;
 using Atelier.Domain.Models.BaseInfo.WorkSamples;
+using Microsoft.EntityFrameworkCore;
 
 namespace Atelier.Data.Repositories.BaseInfoRepository.WorkSamplesRepository
 {
@@ -27,10 +28,11 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.WorkSamplesRepository
 
 		public List<WorkSampleShowViewModel> GetAllWorkSample(int atelierId)
 		{
-			return _context.WorkSamples.Where(x => x.AtelierId == atelierId).Select(r => new WorkSampleShowViewModel()
+			return _context.WorkSamples.Include(r => r.Grouping).Where(x => x.AtelierId == atelierId).Select(r => new WorkSampleShowViewModel()
 			{
 				Id = r.Id,
-				WorkSamplePic = r.WorkSamplePic
+				WorkSamplePic = r.WorkSamplePic,
+				GroupTitle = r.Grouping.Title
 			}).ToList();
 		}
 

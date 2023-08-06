@@ -1,8 +1,11 @@
-﻿@model Atelier.Domain.DTOs.BaseInfoDTOs.WorkSamplesDTOs.WorkSampleViewModel
+﻿@inject IAtelierGroupService AtelierGroupService;
+@using Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices
+@model Atelier.Domain.DTOs.BaseInfoDTOs.WorkSamplesDTOs.WorkSampleViewModel
+
 @{
     ViewData["Title"] = "EditWorkSample";
     Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
-	var groupList =
+	var groupList = AtelierGroupService.GetAllAtelierGroupByAtelierId(Model.AtelierId);
 }
 
 <div class="page-body">
@@ -14,7 +17,7 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a><i data-feather="home"></i></a></li>
 						<li class="breadcrumb-item">نمونه کارها</li>
-						<li class="breadcrumb-item">افزودن </li>
+						<li class="breadcrumb-item">ویرایش </li>
 					</ol>
 				</div>
 			</div>
@@ -23,15 +26,16 @@
 	<div class="col-sm-12">
 		<div class="card">
 			<div class="card-header">
-				<h5>افزودن نمونه کار</h5>
+				<h5>ویرایش نمونه کار</h5>
 			</div>
-			<form class="form theme-form" enctype="multipart/form-data" method="post" asp-controller="WorkSample" asp-action="AddWorkSample">
+			<form class="form theme-form" enctype="multipart/form-data" method="post" asp-controller="WorkSample" asp-action="EditWorkSample">
+				<input type="hidden" asp-for="AtelierId"/>
 				<div class="card-body">
 					<div class="row">
 						<div class="col-12">
 							<div class="form-group">
 								<label asp-for="GroupId">گروه بندی</label>
-								<select asp-for="GroupId" asp-items="@(new SelectList(groupList, "Value", "Text"))" class="select2 form-control select2-hidden-accessible input-validation-error border-0">
+								<select asp-for="GroupId" asp-items="@(new SelectList(groupList, "Value", "Text"))" class="form-control js-example-basic-single">
 								</select>
 								<span class="text-danger" asp-validation-for="GroupId"></span>
 							</div>

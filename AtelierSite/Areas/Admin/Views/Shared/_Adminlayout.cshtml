@@ -39,6 +39,10 @@
     <link id="color" rel="stylesheet" href="/AdminTemplate/assets/css/light-1.css" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="/AdminTemplate/assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="/AdminTemplate/assets/css/select2.css">
+
+    @await RenderSectionAsync("MyStyle", false)
+
 </head>
 <body main-theme-layout="rtl">
     <!-- Loader starts-->
@@ -141,8 +145,10 @@
     <script src="/AdminTemplate/assets/js/icons/feather-icon/feather-icon.js"></script>
     <!-- Sidebar jquery-->
     <script src="/AdminTemplate/assets/js/sidebar-menu.js"></script>
-    <script src="/AdminTemplate/assets/js/config.js"></script>
-    <!-- Plugins JS start-->
+	<script src="/AdminTemplate/assets/js/config.js"></script>
+	<!-- Plugins JS start-->
+	<script src="/AdminTemplate/assets/js/select2/select2.full.min.js"></script>
+	<script src="/AdminTemplate/assets/js/select2/select2-custom.js"></script>
     <script src="/AdminTemplate/assets/js/chart/chartjs/chart.min.js"></script>
     <script src="/AdminTemplate/assets/js/chart/chartjs/chart.custom.js"></script>
     <script src="/AdminTemplate/assets/js/typeahead/handlebars.js"></script>

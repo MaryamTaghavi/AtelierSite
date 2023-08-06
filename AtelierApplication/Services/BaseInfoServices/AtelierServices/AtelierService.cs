@@ -19,10 +19,12 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 	public class AtelierService : IAtelierService
 	{
 		private readonly IAtelierRepository _atelierRepository;
+		private readonly IAtelierGroupRepository _atelierGroupRepository;
 
-		public AtelierService(IAtelierRepository atelierRepository)
+		public AtelierService(IAtelierRepository atelierRepository, IAtelierGroupRepository atelierGroupRepository)
 		{
 			_atelierRepository = atelierRepository;
+			_atelierGroupRepository = atelierGroupRepository;
 		}
 
 
@@ -82,6 +84,7 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 		public void UpdateDto(AtelierViewModel atelierViewModel)
 		{
 			var atelier = GetById(atelierViewModel.Id);
+			_atelierGroupRepository.DeleteAllAtelierGroup(atelierViewModel.Id);
 
 			if (atelierViewModel.Logo != null)
 			{
@@ -103,6 +106,18 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 			atelier.Instagram = atelierViewModel.Instagram;
 			atelier.CityId = atelierViewModel.CityId;
 			atelier.UserId = atelierViewModel.UserId;
+
+			if (atelierViewModel.GroupingIds != null)
+			{
+				var listGroupIds = atelierViewModel.GroupingIds.Select(r => new AtelierGroup()
+				{
+					GroupId = r,
+					AtelierId = atelierViewModel.Id
+
+				}).ToList();
+				_atelierGroupRepository.AddRangeOAtelierGroup(listGroupIds);
+			}
+			
 
 			Update(atelier);
 		}
