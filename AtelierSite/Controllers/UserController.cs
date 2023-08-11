@@ -1,4 +1,5 @@
 ﻿using Atelier.Application.Interfaces.IBaseInfoServices;
+using Atelier.Application.Interfaces.IBaseInfoServices.IFavoriteServices;
 using Atelier.Application.Security;
 using Atelier.Application.Services.BaseInfoServices;
 using Atelier.Domain.DTOs.BaseInfoDTOs.CitiesDto;
@@ -13,11 +14,14 @@ namespace AtelierSite.Controllers
 	public class UserController : Controller
 	{
 		private readonly IUserService _userService;
+		private readonly IFavoriteService _favoriteService;
 
-		public UserController(IUserService userService)
+		public UserController(IUserService userService, IFavoriteService favoriteService)
 		{
 			_userService = userService;
+			_favoriteService = favoriteService;
 		}
+
 		public IActionResult Index()
 		{
 			var userId = User.GetUserId();
@@ -39,6 +43,21 @@ namespace AtelierSite.Controllers
 			//var model = _userService.GetByIdUserDto(userId);
 
 			return View(userViewModel);
+        }
+
+        public IActionResult FavoriteUser()
+        {
+			var userId = User.GetUserId();
+
+			var model = _favoriteService.GetFavoriteByUserId(userId);
+
+			return View(model);
+        }
+
+
+        public bool AddOrDeleteFavorite(int id)
+        {
+			return	_favoriteService.AddOrDelete(id,User.GetUserId());
         }
 	}
 }

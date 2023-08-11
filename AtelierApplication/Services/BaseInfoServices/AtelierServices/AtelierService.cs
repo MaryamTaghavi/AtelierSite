@@ -60,9 +60,13 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 			return new RequestResult(true, RequestResultStatusCode.Success, "آتلیه با موفقیت حذف شد.");
 		}
 
-		public List<AtelierShowViewModel> GetAllAteliers()
+		public List<AtelierShowViewModel> GetAllAteliers(int userId)
 		{
-			return _atelierRepository.GetAllAteliers();
+			return _atelierRepository.GetAllAteliers(userId);
+		}
+		public AtelierShowViewModel GetAtelierById(int id)
+		{
+			return _atelierRepository.GetAtelierById(id);
 		}
 
 		public Domain.Models.BaseInfo.Ateliers.Atelier GetById(int id)

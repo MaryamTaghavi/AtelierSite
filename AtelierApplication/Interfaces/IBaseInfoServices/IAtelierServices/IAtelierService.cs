@@ -12,7 +12,8 @@ namespace Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices
 {
 	public interface IAtelierService
 	{
-		List<AtelierShowViewModel> GetAllAteliers();
+		List<AtelierShowViewModel> GetAllAteliers(int userId);
+		AtelierShowViewModel GetAtelierById(int id);
 		Domain.Models.BaseInfo.Ateliers.Atelier GetById(int id);
 		AtelierViewModel GetByIdAtelierViewModel(int id);
 		void Add(AtelierViewModel atelierViewModel);

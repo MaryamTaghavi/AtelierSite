@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atelier.Domain.Models.BaseInfo.Favorites;
 
 namespace Atelier.Domain.Models.BaseInfo
 {
@@ -18,9 +19,14 @@ namespace Atelier.Domain.Models.BaseInfo
         public DateTime? EditedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
 
-    }
 
-    public enum TypeUser
+        #region Navigation Property
+        public ICollection<Favorite> Favorites { get; set; }
+        #endregion
+
+	}
+
+	public enum TypeUser
     {
         User,
         Admin,

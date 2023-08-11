@@ -30,4 +30,12 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.WorkSamplesDTOs
 		public string GroupTitle { get; set; }
 	}
 
+	public class WorkSampleShowDetailes
+	{
+		public string GroupTitle { get; set; }
+		public List<string> WorkSamplesPic { get; set; }
+
+	}
+
+
 }

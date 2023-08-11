@@ -11,7 +11,8 @@ namespace Atelier.Domain.Interfaces.IBaseInfoRepository.IAteliersRepository
 {
 	public interface IAtelierRepository
 	{
-		List<AtelierShowViewModel> GetAllAteliers();
+		List<AtelierShowViewModel> GetAllAteliers(int userId);
+		AtelierShowViewModel GetAtelierById(int id);
 		Models.BaseInfo.Ateliers.Atelier GetById(int id);
 		AtelierViewModel GetByIdAtelierViewModel(int id);
 		void Add(Models.BaseInfo.Ateliers.Atelier atelier);

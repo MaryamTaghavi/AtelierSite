@@ -1,5 +1,6 @@
 ﻿using Atelier.Application.Helpers;
 using Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices;
+using Atelier.Application.Security;
 using Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs;
 using Atelier.Domain.DTOs.BaseInfoDTOs.GroupingDtos;
 using Microsoft.AspNetCore.Authorization;
@@ -21,7 +22,7 @@ namespace AtelierSite.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View(_atelierService.GetAllAteliers());
+            return View(_atelierService.GetAllAteliers(User.GetUserId()));
         }
 
         public IActionResult AddAtelier()

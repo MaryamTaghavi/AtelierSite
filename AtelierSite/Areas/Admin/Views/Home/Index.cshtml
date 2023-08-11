@@ -1,8 +1,76 @@
-﻿
+﻿@using Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices
+@using Atelier.Application.Interfaces.IBaseInfoServices.ICitiesServices
+@using Atelier.Application.Interfaces.IBaseInfoServices.IGroupingServices
+@using Atelier.Application.Security
+@inject IAtelierService AtelierService;
+@inject IGroupingService GroupingService;
+@inject ICityService CityService;
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+	var countAtelier = AtelierService.GetAllAteliers(User.GetUserId()).Count();
+	var countGrouping = GroupingService.GetAllGrouping().Count();
+	
+	var countCity = CityService.GetAll().Count();
 }
 
-<h1>Index</h1>
+<div class="row pt-4">
+	<div class="col-md-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="chart-widget-dashboard">
+					<div class="media">
+						<div class="media-body">
+							<h5 class="mt-0 mb-0 f-w-600">
+								<span class="counter">@countAtelier</span>
+							</h5>
+							<p>مجموع آتلیه ها</p>
+						</div>
+					</div>
+					<div class="dashboard-chart-container">
+						<div class="small-chart-gradient-1"><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;"><g class="ct-grids"></g><g><g class="ct-series ct-series-a"><path d="M0,100L0,100C10.958,100,10.958,57.5,21.916,57.5C32.873,57.5,32.873,74.5,43.831,74.5C54.789,74.5,54.789,15,65.747,15C76.705,15,76.705,57.5,87.662,57.5C98.62,57.5,98.62,36.25,109.578,36.25C120.536,36.25,120.536,68.125,131.494,68.125C142.451,68.125,142.451,100,153.409,100L153.409,100Z" class="ct-area"></path><path d="M0,100C10.958,100,10.958,57.5,21.916,57.5C32.873,57.5,32.873,74.5,43.831,74.5C54.789,74.5,54.789,15,65.747,15C76.705,15,76.705,57.5,87.662,57.5C98.62,57.5,98.62,36.25,109.578,36.25C120.536,36.25,120.536,68.125,131.494,68.125C142.451,68.125,142.451,100,153.409,100" class="ct-line"></path><line x1="0" y1="100" x2="0.01" y2="100" class="ct-point" ct:value="0"></line><line x1="21.915584019252233" y1="57.5" x2="21.925584019252234" y2="57.5" class="ct-point" ct:value="2"></line><line x1="43.831168038504465" y1="74.5" x2="43.84116803850446" y2="74.5" class="ct-point" ct:value="1.2"></line><line x1="65.7467520577567" y1="15" x2="65.7567520577567" y2="15" class="ct-point" ct:value="4"></line><line x1="87.66233607700893" y1="57.5" x2="87.67233607700894" y2="57.5" class="ct-point" ct:value="2"></line><line x1="109.57792009626117" y1="36.25" x2="109.58792009626117" y2="36.25" class="ct-point" ct:value="3"></line><line x1="131.4935041155134" y1="68.125" x2="131.50350411551338" y2="68.125" class="ct-point" ct:value="1.5"></line><line x1="153.40908813476562" y1="100" x2="153.41908813476562" y2="100" class="ct-point" ct:value="0"></line></g></g><g class="ct-labels"></g><defs><linearGradient id="gradient2" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4466f2"></stop><stop offset="1" stop-color="#1ea6ec"></stop></linearGradient></defs></svg></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="chart-widget-dashboard">
+					<div class="media">
+						<div class="media-body">
+							<h5 class="mt-0 mb-0 f-w-600">
+								<span class="counter">@countGrouping</span>
+							</h5>
+							<p>تعداد گروه بندی</p>
+						</div>
+					</div>
+					<div class="dashboard-chart-container">
+						<div class="small-chart-gradient-2"><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;"><g class="ct-grids"></g><g><g class="ct-series ct-series-a"><path d="M0,100L0,100C12.784,100,12.784,57.5,25.568,57.5C38.352,57.5,38.352,74.5,51.136,74.5C63.92,74.5,63.92,15,76.705,15C89.489,15,89.489,57.5,102.273,57.5C115.057,57.5,115.057,36.25,127.841,36.25C140.625,36.25,140.625,100,153.409,100L153.409,100Z" class="ct-area"></path><path d="M0,100C12.784,100,12.784,57.5,25.568,57.5C38.352,57.5,38.352,74.5,51.136,74.5C63.92,74.5,63.92,15,76.705,15C89.489,15,89.489,57.5,102.273,57.5C115.057,57.5,115.057,36.25,127.841,36.25C140.625,36.25,140.625,100,153.409,100" class="ct-line"></path><line x1="0" y1="100" x2="0.01" y2="100" class="ct-point" ct:value="0"></line><line x1="25.56818135579427" y1="57.5" x2="25.57818135579427" y2="57.5" class="ct-point" ct:value="2"></line><line x1="51.13636271158854" y1="74.5" x2="51.14636271158854" y2="74.5" class="ct-point" ct:value="1.2"></line><line x1="76.70454406738281" y1="15" x2="76.71454406738282" y2="15" class="ct-point" ct:value="4"></line><line x1="102.27272542317708" y1="57.5" x2="102.28272542317708" y2="57.5" class="ct-point" ct:value="2"></line><line x1="127.84090677897134" y1="36.25" x2="127.85090677897135" y2="36.25" class="ct-point" ct:value="3"></line><line x1="153.40908813476562" y1="100" x2="153.41908813476562" y2="100" class="ct-point" ct:value="0"></line></g></g><g class="ct-labels"></g><defs><linearGradient id="gradient3" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4466f2"></stop><stop offset="1" stop-color="#1ea6ec"></stop></linearGradient></defs></svg></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="chart-widget-dashboard">
+					<div class="media">
+						<div class="media-body">
+							<h5 class="mt-0 mb-0 f-w-600">
+								<span class="counter">@countCity</span>
+							</h5>
+							<p>تعداد استان ها</p>
+						</div>
+					</div>
+					<div class="dashboard-chart-container">
+						<div class="small-chart-gradient-3"><svg xmlns:ct="http://gionkunz.github.com/chartist-js/ct" width="100%" height="100%" class="ct-chart-line" style="width: 100%; height: 100%;"><g class="ct-grids"></g><g><g class="ct-series ct-series-a"><path d="M0,100L0,100C9.588,100,9.588,57.5,19.176,57.5C28.764,57.5,28.764,74.5,38.352,74.5C47.94,74.5,47.94,15,57.528,15C67.116,15,67.116,57.5,76.705,57.5C86.293,57.5,86.293,36.25,95.881,36.25C105.469,36.25,105.469,68.125,115.057,68.125C124.645,68.125,124.645,57.5,134.233,57.5C143.821,57.5,143.821,100,153.409,100L153.409,100Z" class="ct-area"></path><path d="M0,100C9.588,100,9.588,57.5,19.176,57.5C28.764,57.5,28.764,74.5,38.352,74.5C47.94,74.5,47.94,15,57.528,15C67.116,15,67.116,57.5,76.705,57.5C86.293,57.5,86.293,36.25,95.881,36.25C105.469,36.25,105.469,68.125,115.057,68.125C124.645,68.125,124.645,57.5,134.233,57.5C143.821,57.5,143.821,100,153.409,100" class="ct-line"></path><line x1="0" y1="100" x2="0.01" y2="100" class="ct-point" ct:value="0"></line><line x1="19.176136016845703" y1="57.5" x2="19.186136016845705" y2="57.5" class="ct-point" ct:value="2"></line><line x1="38.352272033691406" y1="74.5" x2="38.362272033691404" y2="74.5" class="ct-point" ct:value="1.2"></line><line x1="57.52840805053711" y1="15" x2="57.53840805053711" y2="15" class="ct-point" ct:value="4"></line><line x1="76.70454406738281" y1="57.5" x2="76.71454406738282" y2="57.5" class="ct-point" ct:value="2"></line><line x1="95.88068008422852" y1="36.25" x2="95.89068008422852" y2="36.25" class="ct-point" ct:value="3"></line><line x1="115.05681610107422" y1="68.125" x2="115.06681610107422" y2="68.125" class="ct-point" ct:value="1.5"></line><line x1="134.23295211791992" y1="57.5" x2="134.2429521179199" y2="57.5" class="ct-point" ct:value="2"></line><line x1="153.40908813476562" y1="100" x2="153.41908813476562" y2="100" class="ct-point" ct:value="0"></line></g></g><g class="ct-labels"></g><defs><linearGradient id="gradient4" x1="1" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4466f2"></stop><stop offset="1" stop-color="#1ea6ec"></stop></linearGradient></defs></svg></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 

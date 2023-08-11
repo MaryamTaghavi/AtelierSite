@@ -1,31 +1,61 @@
-﻿@model List<Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos.AtelierSearchResultViewModel>
+﻿@model List<Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs.AtelierShowViewModel>
 
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
 
-	@foreach (var item in Model)
-	{
-		<div class="item mb-4" style="margin:15px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius:15px; width:350px;">
-			<div class="card" style="border-radius:15px; cursor: pointer;">
-				<img class="card-img-top" src="/assets/images/login.jpg" alt="" style="height:250px; border-radius:15px 15px 0 0;">
+@foreach (var item in Model)
+{
+	<div class="item mb-4" style="margin:15px; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius:15px; width:350px;">
+		
+			<div class="card" style="border-radius:15px;">
+				<img class="card-img-top" src="@item.Banner" alt="" style="height:250px; border-radius:15px 15px 0 0;">
 				<div class="card-body" style="direction:rtl;">
-					<p class="card-title">@item.Title</p>
+					<p class="card-title d-flex">
+						<img src="@item.Logo" style="width:36px; height:36px; border-radius: 50%; margin-left: 10px;" />
+						<span>@item.Title</span>
+					</p>
 					<p class="card-text d-flex">
 						<img src="/assets/images/icons/location.png" style="width:36px; height:36px;" />
-						<span>@item.cityTitle</span>
+						<span>@item.City</span>
+						<p>@item.GroupingTitle</p>
 					</p>
 				</div>
 				<div class="card-footer d-flex justify-content-around">
-					<div style="cursor: pointer;">
-						<img src="/assets/images/icons/heart.png" style="width:24px; height:24px;" />
-					</div>
-					<span>|</span>
-					<div style="cursor: pointer;">
-						<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;" />
-					</div>
-				</div>
+					@if (item.IsUserLiked)
+					{
+						<img data-id="@item.Id" class="hearts" src="/assets/images/icons/icon-heart2.png" style="width:24px; height:24px;" />
 
+					}
+					else
+					{
+						<img data-id="@item.Id" class="hearts" src="/assets/images/icons/icon-heart1.png" style="width:24px; height:24px;" />
+
+					}
+					<span>|</span>
+					<a asp-controller="SearchAtelier" asp-action="AtelierDetails" asp-route-atelierId="@item.Id" style="cursor: pointer;">
+						<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;" />
+					</a>
+				</div>
 			</div>
-		</div>
-	}
+
+	</div>
+}
+@section myScripts {
+	<script>
+	$(".hearts").click(function () {
+		let id = $(this).data("id");
+		$.ajax({
+			type: 'Get',
+			url: `/User/AddOrDeleteFavorite/${id}`,
+			contentType: "application/json;charset=utf-8",
+			success: response => {
+				if (response) {
+					$(this).attr("src", "/assets/images/icons/icon-heart2.png");
+
+				} else {
+					$(this).attr("src", "/assets/images/icons/icon-heart1.png");
+
+				}
+			}
+		});
+	})
+</script>
+}
