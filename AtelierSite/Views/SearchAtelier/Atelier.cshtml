@@ -11,7 +11,7 @@
 	var cityList = CityService.GetAll();
 }
 
-<div style="overflow: hidden; width: 95%;  padding: 10px 50px 10px 50px;">
+<div style="overflow: hidden;  padding: 10px 50px 10px 50px;">
 	<h3 style="text-align: right; margin: 100px 30px 15px 0;"> آتلیه ها</h3>
 
 	<div class="row d-flex">
@@ -97,11 +97,33 @@
 	</div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
+@section myScripts{
+	<script>
+console.log("stest")
+$(".hearts").click(function () {
+	let id = $(this).data("id");
+	$.ajax({
+		type: 'Get',
+		url: `/User/AddOrDeleteFavorite/${id}`,
+		contentType: "application/json;charset=utf-8",
+		success: response => {
+			if (response) {
+				$(this).attr("src", "/assets/images/icons/icon-heart2.png");
 
-<script>
+			} else {
+				$(this).attr("src", "/assets/images/icons/icon-heart1.png");
+
+			}
+		}
+	});
+})
+
+</script>
+
+
+	<script>
 	$("#changes").change(function () {
 		if ($('#changes').is(":checked")) {
 			$('input[name="grouping"]').prop('checked', true);
@@ -120,7 +142,7 @@
 
 </script>
 
-<script>
+	<script>
 	$('input[type="checkbox"]').on('change', function () {
 
 		var formData = new FormData();
@@ -154,3 +176,4 @@
 	});
 
 </script>
+}

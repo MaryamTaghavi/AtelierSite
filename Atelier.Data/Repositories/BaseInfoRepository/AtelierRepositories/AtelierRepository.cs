@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using Atelier.Data.Context;
 using Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs;
 using Atelier.Domain.DTOs.BaseInfoDTOs.WorkSamplesDTOs;
 using Atelier.Domain.Interfaces.IBaseInfoRepository.IAteliersRepository;
+using Atelier.Domain.Models.BaseInfo.Photographers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
@@ -28,7 +30,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 				.Include(x => x.Favorites)
 				.Select(r => new AtelierShowViewModel()
 				{
-					Id = r.Id,
+					AtelierId = r.Id,
 					Title = r.Title,
 					City = r.City.Title,
 					Logo = r.Logo,
@@ -37,10 +39,9 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 					Instagram = r.Instagram,
 					IsUserLiked = r.Favorites.Any(f=> f.UserId ==  userId),
 					Phone = r.Phone,
-					GroupingTitles = r.AtelierGroups.Select(g => g.Grouping.Title).ToList()
-				}).ToList();
+					GroupingTitle = string.Join(",", r.AtelierGroups.Select(g => g.Grouping.Title).ToList()),
 
-			result.ForEach(r => r.GroupingTitle = r.GroupingTitles.Aggregate((z, y) => z + " , " + y));
+				}).ToList();
 
 			return result;
 		}
@@ -58,7 +59,7 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 				.Include(x => x.Photographers)
 				.Where(r => r.Id == id).Select(x => new AtelierShowViewModel()
 				{
-					Id = x.Id,
+					AtelierId = x.Id,
 					Title = x.Title,
 					Banner = x.Banner,
 					Logo = x.Logo,
@@ -66,14 +67,11 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 					Phone = x.Phone,
 					Instagram = x.Instagram,
 					City = x.City.Title,
-					GroupingTitles =x.AtelierGroups.Select(g => g.Grouping.Title).ToList(),
-					Photographers = x.Photographers.Select(p=> p.FullName).ToList(),
-					WorkSamples = x.WorkSamples.ToList()
+					WorkSamples = x.WorkSamples.ToList(),
+					GroupingTitle = string.Join(",", x.AtelierGroups.Select(g=> g.Grouping.Title).ToList()),
+					Photographer = string.Join(",", x.Photographers.Select(g=> g.FullName).ToList()),
 
-					//GroupingTitle = x.AtelierGroups.Select(g => g.Grouping.Title).ToList().Aggregate((z, y) => z + " , " + y)
-				}).Single();
-			result.Photographer = result.Photographers.Aggregate((z, y) => z + " , " + y);
-			result.GroupingTitle = result.GroupingTitles.Aggregate((z, y) => z + " , " + y) ;
+				}).SingleOrDefault();
 			return result;
 		}
 

@@ -38,7 +38,7 @@ namespace Atelier.Application.Services.BaseInfoServices.GroupingServices
                 new SelectListItem()
                 {
                     Value = null,
-                    Text = "لطفا انتخاب کنید"
+                    Text = "لطفا گروه بندی را انتخاب کنید"
                 }
             };
 

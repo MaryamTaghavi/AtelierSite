@@ -55,7 +55,7 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs
     public class AtelierShowViewModel
     {
 	    [Key]
-	    public int Id { get; set; }
+	    public int AtelierId { get; set; }
 
 	    [Display(Name = "عنوان")]
 	    public string Title { get; set; }
@@ -78,12 +78,10 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs
 	    [Display(Name = "اینستاگرام")]
 	    public string Instagram { get; set; }
 
-	    [Display(Name = "گروه بندی")]
-	    public List<string> GroupingTitles { get; set; }
+	   
 	    public string GroupingTitle { get; set; }
 	    public bool IsUserLiked { get; set; }
 
-	    public List<string> Photographers { get; set; }
 	    public string Photographer { get; set; }
 	    public List<WorkSample> WorkSamples { get; set; }
 

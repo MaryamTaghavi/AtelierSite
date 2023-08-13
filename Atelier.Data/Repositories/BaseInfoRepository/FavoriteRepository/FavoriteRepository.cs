@@ -32,11 +32,11 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.FavoriteRepository
 				{
 					Title = r.Atelier.Title,
 					Banner = r.Atelier.Banner,
-					Id = r.Id,
+					AtelierId = r.AtelierId,
 					IsUserLiked = r.UserId == userId,
 					Logo = r.Atelier.Logo,
 					City = r.Atelier.City.Title,
-					GroupingTitles = r.Atelier.AtelierGroups.ToList().Select(g => g.Grouping.Title).ToList()
+					GroupingTitle = string.Join(",",r.Atelier.AtelierGroups.Select(g => g.Grouping.Title).ToList()),
 				})
 				.ToList();
 		}

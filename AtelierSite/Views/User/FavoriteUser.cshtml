@@ -47,17 +47,10 @@
 							</p>
 						</div>
 						<div class="card-footer d-flex justify-content-around">
-							@if (item.IsUserLiked)
-							{
-								<img data-id="@item.Id" class="hearts" src="/assets/images/icons/icon-heart2.png" style="width:24px; height:24px;" />
-							}
-							else
-							{
-								<img data-id="@item.Id" class="hearts" src="/assets/images/icons/icon-heart1.png" style="width:24px; height:24px;" />
-							}
+							<img data-id="@item.AtelierId" class="hearts" src="/assets/images/icons/icon-heart2.png" style="width:24px; height:24px;" />
 							<span>|</span>
-							<a asp-controller="SearchAtelier" asp-action="AtelierDetails" asp-route-atelierId="@item.Id" style="cursor: pointer;">
-								<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;" />
+							<a asp-controller="SearchAtelier" asp-action="AtelierDetails" asp-route-atelierId="@item.AtelierId" style="cursor: pointer;">
+								<img src="/assets/images/icons/eye.png" style="width:24px; height:24px;"/>
 							</a>
 						</div>
 
@@ -70,6 +63,7 @@
 	</div>
 </div>
 
+@section myScripts{
 <script>
 	$(".hearts").click(function () {
 		let id = $(this).data("id");
@@ -88,5 +82,8 @@
 			}
 		});
 	})
+
 </script>
+}
+
 

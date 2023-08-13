@@ -60,7 +60,8 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 		{
 			var result = _context.AtelierGroups
 				.Include(r => r.Grouping)
-				.Include(r => r.Atelier)
+				.Include(r => r.Atelier.City)
+				.Include(x=> x.Atelier)
 				.ThenInclude(r => r.Favorites).AsQueryable();
 
 			if (!string.IsNullOrEmpty(viewModel.Title))
@@ -77,17 +78,20 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 			{
 				Title = r.FirstOrDefault()?.Atelier.Title,
 				Banner = r.FirstOrDefault()?.Atelier.Banner,
-				Id =r.Key,
-				IsUserLiked = r.FirstOrDefault().Atelier.Favorites.Any(f => f.UserId == viewModel.UserId),
+				AtelierId =r.Key,
+				IsUserLiked = r.FirstOrDefault()?.Atelier.Favorites.Any(f => f.UserId == viewModel.UserId)??false,
 				Logo = r.FirstOrDefault()?.Atelier.Logo,
-				//City = r.FirstOrDefault()?.Atelier.City.Title,
+				City = r.FirstOrDefault()?.Atelier.City.Title,
 				Address = r.FirstOrDefault()?.Atelier.Address,
 				Phone = r.FirstOrDefault()?.Atelier.Phone,
 				Instagram = r.FirstOrDefault()?.Atelier.Instagram,
-				GroupingTitles = r.ToList().Select(g => g.Grouping.Title).ToList()
-				//GroupingTitles = r.ToList().Select(g => g.Grouping.Title).ToList().Aggregate((x, y) => x + " , " + y)
+				GroupingTitle = string.Join(",", r.Select(g => g.Grouping.Title).ToList()),
+
 			}).ToList();
-			res.ForEach(r => r.GroupingTitle = r.GroupingTitles.Aggregate((x, y) => x + " , " + y));
+
+			//دستور پایین هرجا Aggreate استفاده کردت خرابه 
+			//مثل این درست کند 					Photographer = string.Join(",", x.Photographers.Select(g=> g.FullName).ToList()),
+
 			return res;
 		}
 
@@ -109,16 +113,15 @@ namespace Atelier.Data.Repositories.BaseInfoRepository.AtelierRepositories
 	        {
 		        Title = r.FirstOrDefault()?.Atelier.Title,
 		        Banner = r.FirstOrDefault()?.Atelier.Banner,
-		        Id = r.Key,
+		        AtelierId = r.Key,
 		        Logo = r.FirstOrDefault()?.Atelier.Logo,
 		        City = r.FirstOrDefault()?.Atelier.City.Title,
 		        Address = r.FirstOrDefault()?.Atelier.Address,
 		        Phone = r.FirstOrDefault()?.Atelier.Phone,
 		        Instagram = r.FirstOrDefault()?.Atelier.Instagram,
-		        GroupingTitles = r.ToList().Select(g => g.Grouping.Title).ToList()
+		        GroupingTitle = string.Join(",", r.Select(g => g.Grouping.Title).ToList()),
 		       // GroupingTitles = r.ToList().Select(g => g.Grouping.Title).ToList().Aggregate((x, y) => x + " , " + y)
-	        }).ToList();
-	        res.ForEach(r => r.GroupingTitle = r.GroupingTitles.Aggregate((x, y) => x + " , " + y));
+			}).ToList();
 	        return res;
         }
 	}
