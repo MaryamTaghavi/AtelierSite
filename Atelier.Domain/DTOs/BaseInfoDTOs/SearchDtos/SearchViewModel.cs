@@ -11,5 +11,6 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos
 		public string Title { get; set; }
 		public int GroupingId { get; set; }
 		public int CityId { get; set; }
+		public int UserId { get; set; }
 	}
 }

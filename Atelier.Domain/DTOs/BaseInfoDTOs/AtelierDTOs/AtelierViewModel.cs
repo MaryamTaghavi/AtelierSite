@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Atelier.Domain.DTOs.BaseInfoDTOs.WorkSamplesDTOs;
+using Atelier.Domain.Models.BaseInfo.WorkSamples;
 using Microsoft.AspNetCore.Http;
 
 namespace Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs
@@ -26,11 +28,11 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs
 		public string Phone { get; set; }
 
 		[Display(Name = "بنر")]
-		[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+		//[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
 		public IFormFile Banner { get; set; }
 
 		[Display(Name = "لوگو")]
-		[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+		//[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
 		public IFormFile Logo { get; set; }
 
 		[Display(Name = "اینستاگرام")]
@@ -53,7 +55,7 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs
     public class AtelierShowViewModel
     {
 	    [Key]
-	    public int Id { get; set; }
+	    public int AtelierId { get; set; }
 
 	    [Display(Name = "عنوان")]
 	    public string Title { get; set; }
@@ -62,8 +64,29 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs
 	    public string City { get; set; }
 
 	    [Display(Name = "لوگو")]
-	    [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
 	    public string Logo { get; set; }
-	}
+
+	    [Display(Name = "بنر")]
+	    public string Banner { get; set; }
+
+	    [Display(Name = "آدرس")]
+	    public string Address { get; set; }
+
+	    [Display(Name = "تلفن")]
+	    public string Phone { get; set; }
+
+	    [Display(Name = "اینستاگرام")]
+	    public string Instagram { get; set; }
+
+	   
+	    public string GroupingTitle { get; set; }
+	    public bool IsUserLiked { get; set; }
+
+	    public string Photographer { get; set; }
+	    public List<WorkSample> WorkSamples { get; set; }
+
+    }
+
+    
 
 }

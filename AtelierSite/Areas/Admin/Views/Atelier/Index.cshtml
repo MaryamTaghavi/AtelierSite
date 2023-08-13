@@ -11,10 +11,10 @@
 		<div class="row">
 			<div class="col">
 				<div class="page-header-left">
-					<h3>گروه بندی</h3>
+					<h3>آتلیه ها</h3>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a><i data-feather="home"></i></a></li>
-						<li class="breadcrumb-item">گروه بندی</li>
+						<li class="breadcrumb-item">آتلیه ها</li>
 					</ol>
 				</div>
 			</div>
@@ -40,17 +40,18 @@
 
 						@foreach (var item in Model)
 						{
-							<tr id="Group_@item.Id">
+							<tr id="Group_@item.AtelierId">
 								<td class="index">@cnt</td>
 								<td>@item.Title</td>
+								<td>@item.City</td>
 								<td>
-									<img src="@item.Logo" alt="" style="width:100px; height:100px;  margin-left: auto; margin-right: auto;" />
+									<img src="@item.Logo" alt="" style="width:50px; height:50px;  margin-left: auto; margin-right: auto;" />
 								</td>
 								<td>
-									<a class="btn btn-success" asp-controller="Atelier" asp-action="EditAtelier" asp-route-id="@item.Id" asp-area="Admin">عکاس</a>
-									<a class="btn btn-primary" asp-controller="Atelier" asp-action="EditAtelier" asp-route-id="@item.Id" asp-area="Admin">نمونه کار</a>
-									<a class="btn btn-warning" asp-controller="Atelier" asp-action="EditAtelier" asp-route-id="@item.Id" asp-area="Admin">ویرایش</a>
-									<a class="btn btn-danger" onclick="DeleteAtelier(@item.Id)">حذف</a>
+									<a class="btn btn-success" asp-controller="Photographer" asp-action="Index" asp-route-id="@item.AtelierId" asp-area="Admin">عکاس</a>
+									<a class="btn btn-primary" asp-controller="WorkSample" asp-action="Index" asp-route-id="@item.AtelierId" asp-area="Admin">نمونه کار</a>
+									<a class="btn btn-warning" asp-controller="Atelier" asp-action="EditAtelier" asp-route-id="@item.AtelierId" asp-area="Admin">ویرایش</a>
+									<a class="btn btn-danger" onclick="DeleteAtelier(@item.AtelierId)">حذف</a>
 								</td>
 							</tr>
 							cnt++;
@@ -74,7 +75,7 @@
 
 			});
 		}
-		function DeleteGrouping(id) {
+		function DeleteAtelier(id) {
 			Swal.fire({
 				title: 'آیا از حذف آتلیه مطمئنید؟',
 				text: "این عمل قابل بازگشت نخواهد بود!",
@@ -87,7 +88,7 @@
 				buttonsStyling: false,
 			}).then(function (result) {
 				if (result.value) {
-					$.get("/Admin/Grouping/DeleteAtelier/" + id,
+					$.get("/Admin/Atelier/DeleteAtelier/" + id,
 						function (data) {
 
 							if (data.isSuccess) {

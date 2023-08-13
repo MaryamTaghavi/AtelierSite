@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices;
+using Atelier.Application.Security;
+using Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs;
 using Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,18 +16,19 @@ namespace AtelierSite.Controllers
 	{
 
 		private readonly IAtelierGroupService _atelierGroupService;
+		private readonly IAtelierService _atelierService;
 
-		public SearchAtelierController(IAtelierGroupService atelierGroupService)
+		public SearchAtelierController(IAtelierGroupService atelierGroupService, IAtelierService atelierService)
 		{
 			_atelierGroupService = atelierGroupService;
+			_atelierService = atelierService;
 		}
 
 		[AllowAnonymous]
-		public IActionResult Atelier()
+		public IActionResult Atelier(string title, int cityId, int groupingId)
 		{
-            var data = HttpContext.Session.GetString("Data");
-            var list1 = JsonConvert.DeserializeObject<List<AtelierSearchResultViewModel>>(data);
-			return View(list1);
+			var userId = User.GetUserId();
+			return View(_atelierGroupService.SearchAtelier(new SearchViewModel() {UserId = userId,CityId = cityId, GroupingId = groupingId, Title = title }).ToList());
 		}
 
 		[HttpPost]
@@ -34,5 +37,12 @@ namespace AtelierSite.Controllers
 			var list = _atelierGroupService.FilterAtelier(groupingIds, cityIds);
 			return PartialView("AtelierPartial", list);
 		}
+
+		public IActionResult AtelierDetails(int atelierId)
+		{
+			var list = _atelierService.GetAtelierById(atelierId);
+			return View(list);
+		}
+
 	}
 }

@@ -1,0 +1,76 @@
+﻿@using Atelier.Domain.DTOs.BaseInfoDTOs.WorkSamplesDTOs
+@model Atelier.Domain.DTOs.BaseInfoDTOs.AtelierDTOs.AtelierShowViewModel;
+
+@{
+	ViewData["Title"] = "AtelierDetails";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	var workSample = Model.WorkSamples.GroupBy(c => c.GroupId).Select(w => new WorkSampleShowDetailes()
+			{
+				WorkSamplesPic = w.Select(r => r.WorkSamplePic).ToList(),
+				GroupTitle = w.FirstOrDefault()?.Grouping.Title
+			}).ToList();
+}
+
+
+<div style="overflow: hidden; width: 95%;  padding: 10px 50px 10px 50px;">
+
+	<div class="row d-flex" style="margin: 120px 30px 15px 0;">
+
+		<div class="col-md-3 col-12">
+			<div class="card" style="border-radius:15px; align-items: center;">
+				<img src="@Model.Logo" style="width:80px; height:80px; margin-top: 10px; border-radius: 50%;" />
+				<h5 style="text-align: center; padding: 20px;">
+					@Model.Title
+				</h5>
+				<div class="col-12 text-right" style="margin: 0 0 15px;">
+					<p><b>استان:</b> @Model.City</p>
+					<p><b>آدرس:</b> @Model.Address</p>
+					<p><b>گروه بندی:</b> @Model.GroupingTitle</p>
+					<p><b>تلفن:</b> @Model.Phone</p>
+					<p><b>اینستاگرام:</b> @Model.Instagram</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="" class="col-md-9 col-12" style="padding: 0 25px 0 25px;text-align: right;">
+			<div class="row">
+
+				<div class="col-12">
+					<h5 style="text-align: right; padding: 20px 0 0;;">
+						عکاس ها
+					</h5>
+					<p>
+						@Model.Photographer
+					</p>
+				</div>
+
+
+				<div class="col-12">
+					<h5 class="col-12" style="text-align: right; padding: 20px 0 0;">
+						نمونه کارها
+					</h5>
+					@foreach (var item in @workSample)
+					{
+						<div class="row">
+							<h5 class="col-12" style="text-align: right; padding: 20px;">
+								@item.GroupTitle
+							</h5>
+							@foreach (var pic in item.WorkSamplesPic)
+							{
+								<div class="col-4 mb-4" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; border-radius:15px; width:350px; padding: 10px;">
+									<img class="card-img-top" src="@pic" alt="" style="height:250px; border-radius:15px;">
+								</div>
+							}
+						</div>
+					}
+				</div>
+			</div>
+
+
+
+		</div>
+
+	</div>
+</div>
+

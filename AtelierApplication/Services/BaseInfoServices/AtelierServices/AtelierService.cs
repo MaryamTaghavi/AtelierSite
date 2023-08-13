@@ -19,10 +19,12 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 	public class AtelierService : IAtelierService
 	{
 		private readonly IAtelierRepository _atelierRepository;
+		private readonly IAtelierGroupRepository _atelierGroupRepository;
 
-		public AtelierService(IAtelierRepository atelierRepository)
+		public AtelierService(IAtelierRepository atelierRepository, IAtelierGroupRepository atelierGroupRepository)
 		{
 			_atelierRepository = atelierRepository;
+			_atelierGroupRepository = atelierGroupRepository;
 		}
 
 
@@ -35,6 +37,7 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 			{
 				Title = atelierViewModel.Title,
 				Address = atelierViewModel.Address,
+				Phone = atelierViewModel.Phone,
 				Logo = logoNameAddress,
 				Banner = bannerNameAddress,
 				Instagram = atelierViewModel.Instagram,
@@ -57,9 +60,13 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 			return new RequestResult(true, RequestResultStatusCode.Success, "آتلیه با موفقیت حذف شد.");
 		}
 
-		public List<AtelierShowViewModel> GetAllAteliers()
+		public List<AtelierShowViewModel> GetAllAteliers(int userId)
 		{
-			return _atelierRepository.GetAllAteliers();
+			return _atelierRepository.GetAllAteliers(userId);
+		}
+		public AtelierShowViewModel GetAtelierById(int id)
+		{
+			return _atelierRepository.GetAtelierById(id);
 		}
 
 		public Domain.Models.BaseInfo.Ateliers.Atelier GetById(int id)
@@ -81,15 +88,41 @@ namespace Atelier.Application.Services.BaseInfoServices.AtelierServices
 		public void UpdateDto(AtelierViewModel atelierViewModel)
 		{
 			var atelier = GetById(atelierViewModel.Id);
+			_atelierGroupRepository.DeleteAllAtelierGroup(atelierViewModel.Id);
 
 			if (atelierViewModel.Logo != null)
 			{
 				atelier.Logo.DeleteFile();
 				var logoNameAddress = atelierViewModel.Logo.SaveFile("images\\LogoImages\\");
 				atelier.Logo = logoNameAddress;
-
 			}
+
+			if (atelierViewModel.Banner != null)
+			{
+				atelier.Banner.DeleteFile();
+				var bannerNameAddress = atelierViewModel.Banner.SaveFile("images\\BannerImages\\");
+				atelier.Banner = bannerNameAddress;
+			}
+
 			atelier.Title = atelierViewModel.Title;
+			atelier.Address = atelierViewModel.Address;
+			atelier.Phone = atelierViewModel.Phone;
+			atelier.Instagram = atelierViewModel.Instagram;
+			atelier.CityId = atelierViewModel.CityId;
+			atelier.UserId = atelierViewModel.UserId;
+
+			if (atelierViewModel.GroupingIds != null)
+			{
+				var listGroupIds = atelierViewModel.GroupingIds.Select(r => new AtelierGroup()
+				{
+					GroupId = r,
+					AtelierId = atelierViewModel.Id
+
+				}).ToList();
+				_atelierGroupRepository.AddRangeOAtelierGroup(listGroupIds);
+			}
+			
+
 			Update(atelier);
 		}
 	}

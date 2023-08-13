@@ -1,0 +1,118 @@
+﻿@model List<Atelier.Domain.DTOs.BaseInfoDTOs.PhotographerDTOs.PhotographersShowViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+	int cnt = 1;
+}
+
+<div class="page-body">
+	<div class="page-header">
+		<div class="row">
+			<div class="col">
+				<div class="page-header-left">
+					<h3>عکاس ها</h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a><i data-feather="home"></i></a></li>
+						<li class="breadcrumb-item">عکاس ها</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="card">
+			<div class="m-20" style="text-align: end;">
+				<a asp-area="Admin" asp-controller="Photographer" asp-action="AddPhotographer" asp-route-id="@ViewBag.AtelierId" type="button" class="btn btn-primary">افزودن</a>
+			</div>
+			<div class="table-responsive">
+				<table class="table text-center">
+					<thead>
+						<tr>
+							<th>ردیف</th>
+							<th>نام</th>
+							<th>عملیات</th>
+						</tr>
+					</thead>
+					<tbody>
+					@foreach (var item in Model)
+						{
+							<tr id="Group_@item.Id">
+								<td class="index">@cnt</td>
+								<td>@item.FullName</td>
+								<td>
+									<a class="btn btn-warning" asp-area="Admin" asp-controller="Photographer" asp-action="EditPhotographer" asp-route-id="@item.Id">ویرایش</a>
+									<a class="btn btn-danger" onclick="DeletePhotographer(@item.Id)">حذف</a>
+								</td>
+							</tr>
+							cnt++;
+						}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section myScripts
+	{
+	<script src="/assets/vendors/js/extenstions/sweetalert2.all.min.js"></script>
+	<script>
+
+		function SetIndex() {
+			$("td.index").each(function (index) {
+				$(this).text(++index);
+
+			});
+		}
+		function DeletePhotographer(id) {
+			Swal.fire({
+				title: 'آیا از حذف عکاس مطمئنید؟',
+				text: "این عمل قابل بازگشت نخواهد بود!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonText: 'تایید',
+				confirmButtonClass: 'btn btn-primary',
+				cancelButtonClass: 'btn btn-danger ml-1',
+				cancelButtonText: 'انصراف',
+				buttonsStyling: false,
+			}).then(function (result) {
+				if (result.value) {
+					$.get("/Admin/Photographer/DeletePhotographer/" + id,
+						function (data) {
+
+							if (data.isSuccess) {
+								Swal.fire({
+									type: "success",
+									title: 'حذف شد!',
+									text: data.message,
+									confirmButtonClass: 'btn btn-success',
+									confirmButtonText: 'باشه',
+								});
+
+								$("#Group_" + id).remove();
+								SetIndex();
+
+							}
+							else {
+								Swal.fire({
+									title: "خطا!",
+									text: data.message,
+									type: "error",
+									confirmButtonClass: 'btn btn-primary',
+									confirmButtonText: 'باشه',
+									buttonsStyling: false,
+								});
+							}
+						}
+
+					);
+				}
+			});
+
+		}
+
+	</script>
+}
+
+

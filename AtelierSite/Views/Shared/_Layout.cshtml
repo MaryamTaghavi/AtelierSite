@@ -46,7 +46,7 @@
 								<a class="nav-link" asp-controller="Home" asp-action="Index">خانه</a>
 							</li>
 							<li class="nav-item pr-1 pl-1">
-								<a class="nav-link">آتلیه ها</a>
+								<a class="nav-link" href="/SearchAtelier/Atelier?title=&GroupingId=&CityId=">آتلیه ها</a>
 							</li>
 							<li class="nav-item pr-1 pl-1">
 								<a class="nav-link" href="#">درباره ما</a>
@@ -58,12 +58,12 @@
 
 						<ul class="navbar-nav mr-auto p-0">
 							<li class="nav-item pr-1 pl-1">
-								<a class="nav-link" href="#">
+								<a class="nav-link"  asp-controller="User" asp-action="FavoriteUser">
 									<img src="/assets/images/icons/heart2.svg" alt="" class="img-icon" />
 								</a>
 							</li>
 							<li class="nav-item dropdown pr-1 pl-1">
-								@if (User.Identity is {IsAuthenticated: true })
+								@if (User.Identity is { IsAuthenticated: true,AuthenticationType: "User_Schema" })
 								{
 									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" onclick="showDropdown()" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<span class="icon-account">
@@ -81,7 +81,6 @@
 
 								<div class="dropdown-menu" id="dropdownMenu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" asp-controller="User" asp-action="Index" >پنل کاربری</a>
-									@*<a class="dropdown-item" href="#">علاقه مندی ها</a>*@
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" asp-controller="Account" asp-action="LogOut">خروج</a>
 								</div>
@@ -135,8 +134,8 @@
 							<div class="social mb-4" style="text-align:right;">
 								<h5>دسترسی سریع</h5>
 								<ul class="d-flex mb-5" style="list-style:none; color:black; display: flex;">
-									<li class="nav-item"><a class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" href="#">صفحه اصلی</a></li>
-									<li class="nav-item"><a class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" href="#">آتلیه ها</a></li>
+									<li class="nav-item"><a asp-controller="Home" asp-action="Index" class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" >صفحه اصلی</a></li>
+									<li class="nav-item"><a href="/SearchAtelier/Atelier?title=&GroupingId=&CityId="  class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" href="#">آتلیه ها</a></li>
 									<li class="nav-item"><a class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" href="#">درباره ما</a></li>
 									<li class="nav-item"><a class="nav-link" style="color: rgba(0,0,0,.5); font-weight:bold;" href="#">تماس با ما</a></li>
 								</ul>
@@ -152,12 +151,7 @@
 									<li class="p-3"><a href="#"><img src="/assets/images/icons/telegram.png" class="img-icon"></img></a></li>
 								</ul>
 							</div>
-
-							@*<div class="copyright">
-								<p class="mb-0"><small>&copy; Colorlib. All Rights Reserved.</small></p>
-							</div>*@
-
-
+							
 						</div>
 					</div>
 				</div>
@@ -178,7 +172,7 @@
 			@*slider*@
 			<script>
 				$('#owl-carousel1').owlCarousel({
-					loop: true,
+					//loop: true,
 					margin: 10,
 					nav: true,
 					responsive: {
@@ -195,7 +189,7 @@
 				})
 
 				$('#owl-carousel2').owlCarousel({
-					loop: true,
+					
 					margin: 10,
 					nav: true,
 					responsive: {

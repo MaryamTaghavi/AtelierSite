@@ -36,7 +36,7 @@ namespace Atelier.Application.Services.BaseInfoServices.CitiesServices
 				new SelectListItem()
 				{
 					Value = null,
-					Text = "لطفا انتخاب کنید"
+					Text = "لطفا شهر را انتخاب کنید"
 				}
 			};
 

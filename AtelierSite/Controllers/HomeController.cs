@@ -1,5 +1,6 @@
 ﻿using Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices;
 using Atelier.Domain.DTOs.BaseInfoDTOs.SearchDtos;
+using Atelier.Domain.Models.BaseInfo.Cities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,18 +24,8 @@ namespace AtelierSite.Controllers
         public IActionResult Index()
         {
 	        return View(new SearchViewModel());
-        }
-
-		[HttpPost]
-		public IActionResult SearchAtelier(SearchViewModel viewModel)
-		{
-			var list = _atelierGroupService.SearchAtelier(viewModel).ToList();
-            var list2 = JsonConvert.SerializeObject(list) ;
-            HttpContext.Session.SetString("Data", list2);
-            return RedirectToAction("Atelier", "SearchAtelier");
 		}
-
-	}
+    }
 
 
 }

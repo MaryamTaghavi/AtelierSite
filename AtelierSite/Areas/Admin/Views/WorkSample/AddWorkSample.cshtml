@@ -1,0 +1,61 @@
+﻿@inject IAtelierGroupService AtelierGroupService;
+@using Atelier.Application.Interfaces.IBaseInfoServices.IAtelierServices
+@model Atelier.Domain.DTOs.BaseInfoDTOs.WorkSamplesDTOs.WorkSampleViewModel
+
+@{
+    ViewData["Title"] = "AddWorkSample";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+	var groupList = AtelierGroupService.GetAllAtelierGroupByAtelierId(Model.AtelierId);
+}
+
+<div class="page-body">
+	<div class="page-header">
+		<div class="row">
+			<div class="col">
+				<div class="page-header-left">
+					<h3>نمونه کارها</h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a><i data-feather="home"></i></a></li>
+						<li class="breadcrumb-item">نمونه کارها</li>
+						<li class="breadcrumb-item">افزودن </li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<h5>افزودن نمونه کار</h5>
+			</div>
+			<form class="form theme-form" enctype="multipart/form-data" method="post" asp-controller="WorkSample" asp-action="AddWorkSample">
+				<input type="hidden" asp-for="AtelierId"/>
+
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<div class="form-group">
+								<label asp-for="GroupId">گروه بندی</label>
+								<select asp-for="GroupId" asp-items="@(new SelectList(groupList, "Value", "Text"))" class="form-control js-example-basic-single">
+								</select>
+								<span class="text-danger" asp-validation-for="GroupId"></span>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label asp-for="WorkSamplePic">عکس</label>
+								<input asp-for="WorkSamplePic" class="form-control" type="file" data-original-title="" title="">
+								<span class="text-danger" asp-validation-for="WorkSamplePic"></span>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer w-100" style="text-align: end;">
+					<button class="btn btn-primary" type="submit" data-original-title="" title="">ثبت</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

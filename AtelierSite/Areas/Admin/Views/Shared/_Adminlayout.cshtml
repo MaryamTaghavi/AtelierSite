@@ -39,6 +39,10 @@
     <link id="color" rel="stylesheet" href="/AdminTemplate/assets/css/light-1.css" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="/AdminTemplate/assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="/AdminTemplate/assets/css/select2.css">
+
+    @await RenderSectionAsync("MyStyle", false)
+
 </head>
 <body main-theme-layout="rtl">
     <!-- Loader starts-->
@@ -63,7 +67,7 @@
                 </div>
                 <div class="nav-right col p-0">
                     <ul class="nav-menus">
-                        <li>
+                     <li>
                             <form class="form-inline search-form" action="#" method="get">
                                 <div class="form-group">
                                     <div class="Typeahead Typeahead--twitterUsers">
@@ -76,7 +80,6 @@
                                 </div>
                             </form>
                         </li>
-
                        
                         <li class="onhover-dropdown">
                             <div class="media align-items-center">
@@ -84,13 +87,13 @@
                             </div>
                             <ul class="profile-dropdown onhover-show-div p-20">
                                 <li><a href="#"><i data-feather="user"></i>ویرایش پروفایل</a></li>
-                                <li><a href="#"><i data-feather="log-out"></i>خروج</a></li>
+                                <li><a asp-controller="Account" asp-area="Admin" asp-action="LogOut"><i data-feather="log-out" ></i>خروج</a></li>
                             </ul>
                         </li>
                     </ul>
                     <div class="d-lg-none mobile-toggle pull-right"><i data-feather="more-horizontal"></i></div>
                 </div>
-                <script id="result-template" type="text/x-handlebars-template">
+              @*  <script id="result-template" type="text/x-handlebars-template">
                     <div class="ProfileCard u-cf">
                     <div class="ProfileCard-avatar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay m-0"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg></div>
                     <div class="ProfileCard-details">
@@ -101,24 +104,24 @@
                 <script id="empty-template" type="text/x-handlebars-template">
                     <div class="EmptyMessage">جستجوی شما 0 نتیجه را به دست آورد. این احتمالا به این معنی است که باطن پایین است، وای!</div>
 
-                </script>
+                </script>*@
             </div>
         </div>
-        <!-- Page Header Ends                              -->
+        <!-- Page Header Ends -->
+        
+
         <!-- Page Body Start-->
         <div class="page-body-wrapper">
-            <!-- Page Sidebar Start-->
             <div class="page-sidebar">
                 <div class="main-header-left d-none d-lg-block">
                     <div class="logo-wrapper  justify-content-center"><a href="index.html"><img style="width:100%; height:70px;" src="/AdminTemplate/assets/images/logo/logo.png" alt=""></a></div>
                 </div>
                 <div class="sidebar custom-scrollbar">
                     <ul class="sidebar-menu">
-                        <li><a class="sidebar-header" href="./Dashboard.html"><i data-feather="home"></i><span>داشبورد</span></a></li>
+                        <li><a class="sidebar-header" asp-controller="Home" asp-action="Index"><i data-feather="home"></i><span>داشبورد</span></a></li>
                         <li><a class="sidebar-header" asp-controller="Atelier" asp-action="Index"><i data-feather="home"></i><span>آتلیه ها</span></a></li>
                         <li><a class="sidebar-header" asp-controller="Grouping" asp-action="Index"><i data-feather="home"></i><span>گروه بندی</span></a></li>
                         <li><a class="sidebar-header" asp-controller="City" asp-action="Index"><i data-feather="home"></i><span>شهرها</span></a></li>
-                        <li><a class="sidebar-header" href="./Photographer/Photographers.html"><i data-feather="home"></i><span>عکاس</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -129,19 +132,7 @@
 
                 </div>
             </div>
-            <!-- footer start-->
-            @*<footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6 footer-copyright">
-                            <p class="mb-0">کپی رایت 2018 © اندلس همه حقوق محفوظ است.</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="pull-right mb-0">دست ساز و ساخته شده با<i class="fa fa-heart"></i></p>
-                        </div>
-                    </div>
-                </div>
-            </footer>*@
+         
         </div>
     </div>
     <!-- latest jquery-->
@@ -154,8 +145,10 @@
     <script src="/AdminTemplate/assets/js/icons/feather-icon/feather-icon.js"></script>
     <!-- Sidebar jquery-->
     <script src="/AdminTemplate/assets/js/sidebar-menu.js"></script>
-    <script src="/AdminTemplate/assets/js/config.js"></script>
-    <!-- Plugins JS start-->
+	<script src="/AdminTemplate/assets/js/config.js"></script>
+	<!-- Plugins JS start-->
+	<script src="/AdminTemplate/assets/js/select2/select2.full.min.js"></script>
+	<script src="/AdminTemplate/assets/js/select2/select2-custom.js"></script>
     <script src="/AdminTemplate/assets/js/chart/chartjs/chart.min.js"></script>
     <script src="/AdminTemplate/assets/js/chart/chartjs/chart.custom.js"></script>
     <script src="/AdminTemplate/assets/js/typeahead/handlebars.js"></script>
@@ -171,6 +164,7 @@
     <script src="/AdminTemplate/assets/js/theme-customizer/customizer.js"></script>
 <!-- Plugin used-->
     @await RenderSectionAsync("myScripts", false)
+
 </body>
 
 </html>
