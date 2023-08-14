@@ -1,0 +1,67 @@
+﻿@model Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs.UserViewModel
+@{
+    ViewData["Title"] = "EditUser";
+    Layout = "~/Areas/Admin/Views/Shared/_Adminlayout.cshtml";
+}
+
+<div class="page-body">
+	<div class="page-header">
+		<div class="row">
+			<div class="col">
+				<div class="page-header-left">
+					<h3>کاربران</h3>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a><i data-feather="home"></i></a></li>
+						<li class="breadcrumb-item">کاربران</li>
+						<li class="breadcrumb-item">ویرایش </li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div class="card">
+			<div class="card-header">
+				<h5>ویرایش کاربر</h5>
+			</div>
+			<form class="form theme-form" enctype="multipart/form-data" method="post" asp-controller="User" asp-action="EditUser">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<div class="form-group">
+								<label asp-for="FullName">نام و نام خانوادگی</label>
+								<input asp-for="FullName" class="form-control" type="text" data-original-title="" title="">
+								<span class="text-danger" asp-validation-for="FullName"></span>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label asp-for="UserName">نام کاربری</label>
+								<input asp-for="UserName" class="form-control" type="text" data-original-title="" title="">
+								<span class="text-danger" asp-validation-for="UserName"></span>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label asp-for="Password">رمز عبور</label>
+								<input asp-for="Password" class="form-control" type="text" data-original-title="" title="">
+								<span class="text-danger" asp-validation-for="Password"></span>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<label asp-for="PhoneNumber">شماره موبایل</label>
+								<input asp-for="PhoneNumber" class="form-control" type="text" data-original-title="" title="">
+								<span class="text-danger" asp-validation-for="PhoneNumber"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer w-100" style="text-align: end;">
+					<button class="btn btn-primary" type="submit" data-original-title="" title="">ویرایش</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

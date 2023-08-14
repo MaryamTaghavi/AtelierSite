@@ -69,7 +69,10 @@ namespace Atelier.Application.Services.BaseInfoServices
 
 		public RequestResult Delete(int id)
 		{
-			throw new NotImplementedException();
+			var user = GetById(id);
+			user.DeletedDate = DateTime.Now;
+			Update(user);
+			return new RequestResult(true, RequestResultStatusCode.Success, "کاربر با موفقیت حذف شد");
 		}
 
         public void UpdateDto(UserViewModel userViewModel)

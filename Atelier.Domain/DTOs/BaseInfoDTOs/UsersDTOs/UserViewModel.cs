@@ -33,4 +33,6 @@ namespace Atelier.Domain.DTOs.BaseInfoDTOs.UsersDTOs
 		[RegularExpression(@"^(\+98|0)?9\d{9}$", ErrorMessage = "شماره موبایل فرمت نامناسب دارد")]
 		public string PhoneNumber { get; set; }
 	}
+
+
 }

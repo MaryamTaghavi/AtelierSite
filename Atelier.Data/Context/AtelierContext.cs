@@ -36,8 +36,8 @@ namespace Atelier.Data.Context
 
 	        foreach (var fk in cascadeFKs)
 		        fk.DeleteBehavior = DeleteBehavior.Restrict;
-
-			modelBuilder.Entity<Grouping>().HasQueryFilter(u => u.DeletedDate == null);
+	        modelBuilder.Entity<User>().HasQueryFilter(u => u.DeletedDate == null);
+	        modelBuilder.Entity<Grouping>().HasQueryFilter(u => u.DeletedDate == null);
 			modelBuilder.Entity<City>().HasQueryFilter(u => u.DeletedDate == null);
 			modelBuilder.Entity<Domain.Models.BaseInfo.Ateliers.Atelier>().HasQueryFilter(u => u.DeletedDate == null);
 			modelBuilder.Entity<Photographer>().HasQueryFilter(u => u.DeletedDate == null);
